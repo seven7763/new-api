@@ -315,7 +315,9 @@ docker run --name new-api -d --restart always \
 
 | 変数名 | 説明 | デフォルト値 |
 |--------|------|--------|
-| `SESSION_SECRET` | セッションシークレット（マルチマシンデプロイに必須） | - |
+| `SESSION_SECRET` | 認証署名シークレット。すべてのノードで同じ値が必要 | - |
+| `SESSION_COOKIE_SECURE` | HttpOnly Refresh Cookie を HTTPS でのみ送信 | `false` |
+| `SESSION_COOKIE_TRUSTED_URL` | refresh/logout を許可する完全一致の HTTPS Origin。relay CORS 設定ではありません | - |
 | `CRYPTO_SECRET` | 暗号化シークレット（Redisに必須） | - |
 | `SQL_DSN** | データベース接続文字列 | - |
 | `REDIS_CONN_STRING` | Redis接続文字列 | - |
@@ -395,8 +397,10 @@ docker run --name new-api -d --restart always \
 ### ⚠️ マルチマシンデプロイの注意事項
 
 > [!WARNING]
-> - **必ず設定する必要があります** `SESSION_SECRET` - そうしないとマルチマシンデプロイ時にログイン状態が不一致になります
+> - すべてのノードに**同じ** `SESSION_SECRET` を設定してください。異なる場合、Access Token、Refresh セッション、一時認証フローを一貫して検証できません
 > - **共有Redisは必ず設定する必要があります** `CRYPTO_SECRET` - そうしないとデータを復号化できません
+
+Token、Origin 検証、PAT の契約については[ユーザー認証とログインセッション](./docs/authentication.md)を参照してください。
 
 ### 🔄 チャネルリトライとキャッシュ
 

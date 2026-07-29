@@ -34,6 +34,8 @@ import {
 } from '@/features/auth/constants'
 import { sanitizeAuthRedirect } from '@/features/auth/lib/auth-redirect'
 import {
+  clearPendingOAuthBindMarker,
+  isPendingOAuthBind,
   parseTelegramBindCallback,
   postTelegramBindResult,
   startOAuthBindResponseDeadline,
@@ -68,8 +70,16 @@ function OAuthCallback() {
     flow_token?: string
     error_code?: string
   }
+  // Read the intent the starting window recorded rather than inferring it from
+  // `window.opener`. A sign-in tab can have an opener (the site was opened from
+  // another tab), and treating that as a binding left the login callback posting
+  // to a window with no binding handler until it timed out.
   const mode: 'login' | 'bind' =
-    typeof window !== 'undefined' && window.opener ? 'bind' : 'login'
+    typeof window !== 'undefined' &&
+    window.opener &&
+    isPendingOAuthBind(provider, search.state ?? '')
+      ? 'bind'
+      : 'login'
 
   useEffect(() => {
     if (typeof window === 'undefined') return
@@ -127,6 +137,7 @@ function OAuthCallback() {
           return
         }
         cancelResultTimeout()
+        clearPendingOAuthBindMarker()
         if (result.success) {
           toast.success(i18next.t('Binding successful!'))
           window.close()
@@ -138,6 +149,7 @@ function OAuthCallback() {
 
       window.addEventListener('message', handleBindingResult)
       cancelResultTimeout = startOAuthBindResponseDeadline(() => {
+        clearPendingOAuthBindMarker()
         toast.error(i18next.t('OAuth binding timed out. Please try again.'))
         delayedClose = window.setTimeout(() => window.close(), 1500)
       })

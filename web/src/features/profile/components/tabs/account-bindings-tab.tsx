@@ -100,6 +100,7 @@ export function AccountBindingsTab({
       if (!pending || (expected && pending !== expected)) return
       pending.stopCloseWatcher()
       pendingOAuthBinding.current = null
+      clearPendingOAuthBindMarker()
     },
     []
   )
@@ -186,6 +187,7 @@ export function AccountBindingsTab({
         const target = buildUrl ? buildUrl(flowToken) : authorizationUrl
         if (!target) throw new Error('no authorization url')
         pending.state = flowToken
+        markPendingOAuthBind(provider, flowToken)
         popup.location.replace(target)
       } catch {
         const isCurrent = pendingOAuthBinding.current === pending

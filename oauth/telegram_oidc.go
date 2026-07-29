@@ -4,6 +4,7 @@ import (
 	"context"
 	"encoding/base64"
 	"fmt"
+	"io"
 	"net/http"
 	"net/url"
 	"strconv"
@@ -94,6 +95,17 @@ func (p *TelegramOIDCProvider) AuthorizationURL(state, codeChallenge string) str
 	return telegramOIDCAuthEndpoint + "?" + values.Encode()
 }
 
+// truncateForLog keeps provider error payloads readable in logs without letting
+// an unexpected response flood them.
+func truncateForLog(body []byte) string {
+	const limit = 512
+	s := strings.TrimSpace(string(body))
+	if len(s) > limit {
+		return s[:limit] + "…"
+	}
+	return s
+}
+
 func telegramOIDCRedirectURI() string {
 	base := strings.TrimRight(strings.TrimSpace(system_setting.ServerAddress), "/")
 	return base + "/oauth/" + TelegramOIDCProviderSlug
@@ -107,6 +119,65 @@ type telegramOIDCTokenResponse struct {
 	Scope       string `json:"scope"`
 }
 
+// telegramExchange posts the authorization code once, authenticating either via
+// the Basic header (client_secret_basic) or in the form body
+// (client_secret_post). It returns the decoded response plus the raw body and
+// status so the caller can report exactly what Telegram said.
+func telegramExchange(
+	ctx context.Context,
+	clientID, clientSecret, code, verifier string,
+	useBasicAuth bool,
+) (telegramOIDCTokenResponse, []byte, int, error) {
+	var empty telegramOIDCTokenResponse
+
+	values := url.Values{}
+	values.Set("grant_type", "authorization_code")
+	values.Set("code", code)
+	values.Set("redirect_uri", telegramOIDCRedirectURI())
+	values.Set("client_id", clientID)
+	if verifier != "" {
+		values.Set("code_verifier", verifier)
+	}
+	if !useBasicAuth {
+		values.Set("client_secret", clientSecret)
+	}
+
+	req, err := http.NewRequestWithContext(ctx, "POST", telegramOIDCTokenEndpoint, strings.NewReader(values.Encode()))
+	if err != nil {
+		return empty, nil, 0, err
+	}
+	req.Header.Set("Content-Type", "application/x-www-form-urlencoded")
+	req.Header.Set("Accept", "application/json")
+	if useBasicAuth {
+		basic := base64.StdEncoding.EncodeToString([]byte(clientID + ":" + clientSecret))
+		req.Header.Set("Authorization", "Basic "+basic)
+	}
+
+	client := http.Client{Timeout: 10 * time.Second}
+	res, err := client.Do(req)
+	if err != nil {
+		logger.LogError(ctx, fmt.Sprintf("[OAuth-TelegramOIDC] ExchangeToken error: %s", err.Error()))
+		return empty, nil, 0, NewOAuthErrorWithRaw(i18n.MsgOAuthConnectFailed, map[string]any{"Provider": "Telegram"}, err.Error())
+	}
+	defer res.Body.Close()
+
+	// Read the body first: Telegram answers 200 with an error object rather than
+	// an error status, and without the payload there is nothing to diagnose from.
+	body, err := io.ReadAll(io.LimitReader(res.Body, 64<<10))
+	if err != nil {
+		logger.LogError(ctx, fmt.Sprintf("[OAuth-TelegramOIDC] ExchangeToken read error: %s", err.Error()))
+		return empty, nil, res.StatusCode, err
+	}
+
+	var tokenRes telegramOIDCTokenResponse
+	if err := common.Unmarshal(body, &tokenRes); err != nil {
+		logger.LogError(ctx, fmt.Sprintf("[OAuth-TelegramOIDC] ExchangeToken decode error: %s (status=%d body=%s)",
+			err.Error(), res.StatusCode, truncateForLog(body)))
+		return empty, body, res.StatusCode, err
+	}
+	return tokenRes, body, res.StatusCode, nil
+}
+
 func (p *TelegramOIDCProvider) ExchangeToken(ctx context.Context, code string, c *gin.Context) (*OAuthToken, error) {
 	if code == "" {
 		return nil, NewOAuthError(i18n.MsgOAuthInvalidCode, nil)
@@ -118,42 +189,27 @@ func (p *TelegramOIDCProvider) ExchangeToken(ctx context.Context, code string, c
 		return nil, NewOAuthError(i18n.MsgOAuthTokenFailed, map[string]any{"Provider": "Telegram"})
 	}
 
-	values := url.Values{}
-	values.Set("grant_type", "authorization_code")
-	values.Set("code", code)
-	values.Set("redirect_uri", telegramOIDCRedirectURI())
-	values.Set("client_id", clientID)
-	// The verifier is stashed on the request context by the OAuth flow that
-	// issued the challenge; without PKCE Telegram still accepts the exchange.
-	if verifier := pkceCodeVerifier(c); verifier != "" {
-		values.Set("code_verifier", verifier)
-	}
+	verifier := pkceCodeVerifier(c)
 
-	req, err := http.NewRequestWithContext(ctx, "POST", telegramOIDCTokenEndpoint, strings.NewReader(values.Encode()))
+	// Telegram advertises both client_secret_basic and client_secret_post. Some
+	// deployments reject the Basic header with invalid_client, so fall back to
+	// sending the credentials in the form body before giving up.
+	tokenRes, body, status, err := telegramExchange(ctx, clientID, clientSecret, code, verifier, true)
 	if err != nil {
 		return nil, err
 	}
-	req.Header.Set("Content-Type", "application/x-www-form-urlencoded")
-	req.Header.Set("Accept", "application/json")
-	basic := base64.StdEncoding.EncodeToString([]byte(clientID + ":" + clientSecret))
-	req.Header.Set("Authorization", "Basic "+basic)
-
-	client := http.Client{Timeout: 10 * time.Second}
-	res, err := client.Do(req)
-	if err != nil {
-		logger.LogError(ctx, fmt.Sprintf("[OAuth-TelegramOIDC] ExchangeToken error: %s", err.Error()))
-		return nil, NewOAuthErrorWithRaw(i18n.MsgOAuthConnectFailed, map[string]any{"Provider": "Telegram"}, err.Error())
-	}
-	defer res.Body.Close()
-
-	var tokenRes telegramOIDCTokenResponse
-	if err := common.DecodeJson(res.Body, &tokenRes); err != nil {
-		logger.LogError(ctx, fmt.Sprintf("[OAuth-TelegramOIDC] ExchangeToken decode error: %s", err.Error()))
-		return nil, err
+	if tokenRes.IDToken == "" {
+		logger.LogDebug(ctx, "[OAuth-TelegramOIDC] basic auth exchange returned no id_token (status=%d body=%s), retrying with client_secret_post",
+			status, truncateForLog(body))
+		tokenRes, body, status, err = telegramExchange(ctx, clientID, clientSecret, code, verifier, false)
+		if err != nil {
+			return nil, err
+		}
 	}
 
 	if tokenRes.IDToken == "" {
-		logger.LogError(ctx, fmt.Sprintf("[OAuth-TelegramOIDC] ExchangeToken failed: no id_token (status=%d)", res.StatusCode))
+		logger.LogError(ctx, fmt.Sprintf("[OAuth-TelegramOIDC] ExchangeToken failed: no id_token (status=%d body=%s)",
+			status, truncateForLog(body)))
 		return nil, NewOAuthError(i18n.MsgOAuthTokenFailed, map[string]any{"Provider": "Telegram"})
 	}
 

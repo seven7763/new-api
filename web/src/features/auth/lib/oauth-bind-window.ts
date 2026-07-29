@@ -132,3 +132,74 @@ export function watchOAuthPopupClosed(
     runtime.cancel(handle)
   }
 }
+
+// The OAuth callback page used to infer its mode from `window.opener` being
+// present. That misfires whenever a sign-in tab happens to have an opener (for
+// example the site was opened from another tab): a login callback would post to
+// a window with no binding handler and sit there until it timed out. The window
+// that starts a binding now records the flow explicitly, so the callback reads
+// the intent instead of guessing it.
+const PENDING_BIND_KEY = 'new_api_pending_oauth_bind'
+const PENDING_BIND_TTL_MS = 10 * 60 * 1000
+
+type PendingBindMarker = {
+  provider: string
+  state: string
+  createdAt: number
+}
+
+export function markPendingOAuthBind(provider: string, state: string): void {
+  if (typeof localStorage === 'undefined' || !provider || !state) return
+  const marker: PendingBindMarker = {
+    provider,
+    state,
+    createdAt: Date.now(),
+  }
+  try {
+    localStorage.setItem(PENDING_BIND_KEY, JSON.stringify(marker))
+  } catch {
+    /* empty */
+  }
+}
+
+export function clearPendingOAuthBindMarker(): void {
+  if (typeof localStorage === 'undefined') return
+  try {
+    localStorage.removeItem(PENDING_BIND_KEY)
+  } catch {
+    /* empty */
+  }
+}
+
+/**
+ * Reports whether the given callback belongs to a binding this browser started.
+ * Stale markers are dropped so an abandoned binding cannot divert a later login.
+ */
+export function isPendingOAuthBind(provider: string, state: string): boolean {
+  if (typeof localStorage === 'undefined' || !provider || !state) return false
+  let raw: string | null = null
+  try {
+    raw = localStorage.getItem(PENDING_BIND_KEY)
+  } catch {
+    return false
+  }
+  if (!raw) return false
+  let marker: PendingBindMarker | null = null
+  try {
+    const parsed = JSON.parse(raw)
+    if (parsed && typeof parsed === 'object' && !Array.isArray(parsed)) {
+      marker = parsed as PendingBindMarker
+    }
+  } catch {
+    /* empty */
+  }
+  if (!marker) {
+    clearPendingOAuthBindMarker()
+    return false
+  }
+  if (Date.now() - Number(marker.createdAt ?? 0) > PENDING_BIND_TTL_MS) {
+    clearPendingOAuthBindMarker()
+    return false
+  }
+  return marker.provider === provider && marker.state === state
+}

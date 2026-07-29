@@ -34,7 +34,6 @@ let telegramCallbackSequence = 0
 
 export function TelegramLoginDialog(props: TelegramLoginDialogProps) {
   const { t } = useTranslation()
-  const widgetContainer = useRef<HTMLDivElement | null>(null)
   const authorizationHandler = useRef(props.onAuthorization)
   const [callbackName] = useState(
     () => `newApiTelegramLogin${++telegramCallbackSequence}`
@@ -47,8 +46,14 @@ export function TelegramLoginDialog(props: TelegramLoginDialogProps) {
     authorizationHandler.current = props.onAuthorization
   }, [props.onAuthorization])
 
+  // The dialog only mounts its children while open, so the widget container
+  // node appears and disappears with it. Injecting the script from a plain
+  // effect races that mount (the ref is still null on the render that opens the
+  // dialog), which left the widget silently uninitialized. Keying the injection
+  // off the node itself removes the race.
+  const [container, setContainer] = useState<HTMLDivElement | null>(null)
+
   useEffect(() => {
-    const container = widgetContainer.current
     const botName = props.botName.trim()
     if (!props.open || !container || !botName) return
 
@@ -77,8 +82,9 @@ export function TelegramLoginDialog(props: TelegramLoginDialogProps) {
       script.removeEventListener('error', handleError)
       container.replaceChildren()
       delete browserWindow[callbackName]
+      setWidgetState('idle')
     }
-  }, [callbackName, props.botName, props.open])
+  }, [callbackName, container, props.botName, props.open])
 
   return (
     <Dialog
@@ -91,17 +97,24 @@ export function TelegramLoginDialog(props: TelegramLoginDialogProps) {
       bodyClassName='space-y-4'
     >
       <div
-        className='flex min-h-12 items-center justify-center'
+        className='relative flex min-h-12 items-center justify-center'
         aria-busy={widgetState === 'loading' || props.pending}
       >
-        {(widgetState === 'loading' || props.pending) && <Spinner />}
+        {(widgetState === 'loading' || props.pending) && (
+          <Spinner className='absolute' />
+        )}
         {widgetState === 'failed' && (
           <p className='text-destructive text-sm'>{t('Login failed')}</p>
         )}
+        {/* The Telegram widget script needs a laid-out container to build its
+            iframe; hiding it with display:none makes the widget fail to
+            initialize. Keep it in flow and fade it in once ready. */}
         <div
-          ref={widgetContainer}
+          ref={setContainer}
           className={
-            widgetState === 'ready' && !props.pending ? 'block' : 'hidden'
+            widgetState === 'ready' && !props.pending
+              ? 'opacity-100 transition-opacity'
+              : 'pointer-events-none opacity-0'
           }
         />
       </div>

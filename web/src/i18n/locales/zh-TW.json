@@ -2475,7 +2475,7 @@
     "Legacy Format (JSON Object)": "舊格式（JSON 物件）",
     "Legacy format must be a JSON object": "舊格式必須是 JSON 物件",
     "Legacy Format Template": "舊格式模板",
-    "Legal": "法律",
+    "Legal": "法律條款",
     "Less": "更少",
     "Less than": "小於",
     "Less Than": "小於",
@@ -5306,7 +5306,9 @@
     "Image shown in social media link previews": "社群媒體分享時顯示的圖片",
     "Allow Search Engine Indexing": "允許搜尋引擎收錄",
     "When disabled, robots.txt will block all crawlers": "關閉後 robots.txt 將阻擋所有爬蟲",
-    "Legal": "法律條款",
-    "Anonymous": "匿名"
+    "Anonymous": "匿名",
+    "Login Widget Client Secret": "登入元件 Client Secret",
+    "From BotFather → Bot Settings → Web Login": "來自 BotFather → Bot Settings → Web Login",
+    "Required for Telegram login. This is not the bot token — open BotFather, pick your bot, then Bot Settings → Web Login. Register https://your-domain/oauth/telegram_oidc as a Redirect URI there.": "Telegram 登入必填。這不是 Bot Token —— 開啟 BotFather，選擇你的 bot，進入 Bot Settings → Web Login 取得，並在那裡將 https://你的網域/oauth/telegram_oidc 註冊為 Redirect URI。"
   }
 }

@@ -152,6 +152,7 @@ export type AuthSettings = {
   'oidc.user_info_endpoint': string
   TelegramOAuthEnabled: boolean
   TelegramBotToken: string
+  TelegramClientSecret: string
   TelegramBotName: string
   LinuxDOOAuthEnabled: boolean
   LinuxDOClientId: string

@@ -1,0 +1,17 @@
+<!-- DaoXE 全站页脚 / Footer — options 表 key = "Footer"（前端 /api/status 的 footer_html） -->
+<!-- 注意：footer_html 经 dangerouslySetInnerHTML 注入普通 DOM（非 Shadow DOM），可直接引用站点令牌 var(--foreground)/--muted-foreground/--destructive，亮暗自适应 -->
+<!-- 该页脚在 web/default 中仅渲染于首页/落地页；控制台、关于、协议页不含此页脚（联系方式另见各页正文与协议内） -->
+<div style="line-height:1.9;">
+  <div style="margin-bottom:4px;">
+    <strong style="color:var(--foreground);">客服 / Support</strong><span style="color:var(--muted-foreground);"> · 邮箱 </span><a href="mailto:support@daoxe.com" style="color:var(--foreground);text-decoration:underline;text-underline-offset:2px;">support@daoxe.com</a><span style="color:var(--muted-foreground);"> · Telegram </span><a href="https://t.me/daoxe_ai" target="_blank" rel="noopener noreferrer" style="color:var(--foreground);text-decoration:underline;text-underline-offset:2px;">@daoxe_ai</a>
+  </div>
+  <div style="margin-bottom:4px;">
+    <strong style="color:var(--foreground);">内容举报 / Abuse</strong><span style="color:var(--muted-foreground);"> · </span><a href="mailto:support@daoxe.com?subject=%5BAbuse%20Report%5D" style="color:var(--foreground);text-decoration:underline;text-underline-offset:2px;">support@daoxe.com</a><span style="color:var(--muted-foreground);">（主题请注明 </span><strong style="color:var(--foreground);">[Abuse Report]</strong><span style="color:var(--muted-foreground);">）· Telegram </span><a href="https://t.me/daoxe_ai" target="_blank" rel="noopener noreferrer" style="color:var(--foreground);text-decoration:underline;text-underline-offset:2px;">@daoxe_ai</a>
+  </div>
+  <div style="margin-bottom:4px;">
+    <a href="/user-agreement" style="color:var(--foreground);text-decoration:underline;text-underline-offset:2px;margin-right:12px;">用户协议 / Terms</a><a href="/privacy-policy" style="color:var(--foreground);text-decoration:underline;text-underline-offset:2px;margin-right:12px;">隐私政策 / Privacy</a><a href="/about" style="color:var(--foreground);text-decoration:underline;text-underline-offset:2px;">关于 / About</a>
+  </div>
+  <div style="color:var(--muted-foreground);">
+    © 2026 DaoXE API Gateway · <span style="color:var(--destructive);font-weight:600;">不向中国大陆提供服务 / Not available in mainland China</span>
+  </div>
+</div>

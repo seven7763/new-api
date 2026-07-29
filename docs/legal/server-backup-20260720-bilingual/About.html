@@ -1,0 +1,581 @@
+<!-- DaoXE · 道熹 — 关于页面（统一设计版 2026-07） -->
+<!-- 承载体：options 表 key = "About"，前端 /api/about 读取，检测为 HTML 后在隔离 Shadow DOM 中渲染 -->
+<!-- 自包含 HTML + <style>，兼容 light / dark，跳出 prose 干扰；showMainContainer=false，故本文件自带顶部留白与居中容器 -->
+
+<style>
+  .dx-doc,
+  .dx-doc * {
+    box-sizing: border-box;
+  }
+  .dx-doc {
+    --dx-fg: #0f172a;
+    --dx-muted: #64748b;
+    --dx-border: #e2e8f0;
+    --dx-card: #ffffff;
+    --dx-card-soft: #f8fafc;
+    --dx-accent: #4f46e5;
+    --dx-accent-2: #7c3aed;
+    --dx-accent-fg: #ffffff;
+    --dx-warn-bg: #fff7ed;
+    --dx-warn-border: #fed7aa;
+    --dx-warn-fg: #9a3412;
+    --dx-warn-accent: #ea580c;
+    --dx-radius: 14px;
+    --dx-shadow: 0 1px 0 rgba(15, 23, 42, 0.03), 0 8px 24px rgba(15, 23, 42, 0.05);
+
+    max-width: 72rem;
+    margin: 0 auto;
+    padding: 5rem clamp(1rem, 4vw, 1.5rem) 4rem;
+    color: var(--dx-fg);
+    font-family:
+      ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI',
+      Roboto, 'PingFang SC', 'Noto Sans SC', 'Hiragino Sans GB',
+      'Microsoft YaHei', 'Helvetica Neue', Arial, sans-serif;
+    line-height: 1.75;
+    letter-spacing: 0.01em;
+  }
+  :is(.dark, [data-theme='dark']) .dx-doc {
+    --dx-fg: #f1f5f9;
+    --dx-muted: #94a3b8;
+    --dx-border: #1e293b;
+    --dx-card: #0b1220;
+    --dx-card-soft: #111827;
+    --dx-accent: #818cf8;
+    --dx-accent-2: #a78bfa;
+    --dx-accent-fg: #0b1220;
+    --dx-warn-bg: rgba(234, 88, 12, 0.1);
+    --dx-warn-border: rgba(234, 88, 12, 0.28);
+    --dx-warn-fg: #fdba74;
+    --dx-warn-accent: #fb923c;
+    --dx-shadow: 0 1px 0 rgba(255, 255, 255, 0.03), 0 12px 32px rgba(0, 0, 0, 0.3);
+  }
+
+  .dx-doc a {
+    color: var(--dx-accent);
+    text-decoration: none;
+  }
+  .dx-doc a:hover {
+    color: var(--dx-accent-2);
+  }
+
+  /* —— HERO —— */
+  .dx-hero {
+    text-align: center;
+    padding: 3.25rem 1.25rem 2.75rem;
+    border: 1px solid var(--dx-border);
+    border-radius: 20px;
+    background:
+      radial-gradient(
+        90% 70% at 50% -10%,
+        color-mix(in srgb, var(--dx-accent) 14%, transparent) 0%,
+        transparent 58%
+      ),
+      linear-gradient(180deg, var(--dx-card) 0%, var(--dx-card-soft) 100%);
+    box-shadow: var(--dx-shadow);
+  }
+  .dx-brand {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--dx-muted);
+    border: 1px solid var(--dx-border);
+    border-radius: 999px;
+    padding: 0.35rem 0.85rem;
+    margin-bottom: 1.15rem;
+    background: color-mix(in srgb, var(--dx-card) 80%, transparent);
+  }
+  .dx-brand::before {
+    content: '';
+    width: 6px;
+    height: 6px;
+    border-radius: 999px;
+    background: var(--dx-accent);
+    box-shadow: 0 0 0 4px color-mix(in srgb, var(--dx-accent) 18%, transparent);
+  }
+  .dx-hero h1 {
+    margin: 0 0 0.7rem;
+    font-size: clamp(2.1rem, 4.8vw, 3.1rem);
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    line-height: 1.12;
+    color: var(--dx-fg);
+  }
+  .dx-lede {
+    margin: 0 auto;
+    max-width: 40rem;
+    font-size: 1.05rem;
+    color: var(--dx-muted);
+  }
+  .dx-lede strong {
+    color: var(--dx-fg);
+  }
+
+  /* —— section —— */
+  .dx-section {
+    margin-top: 2.5rem;
+  }
+  .dx-section > h2 {
+    margin: 0 0 1.15rem;
+    font-size: 1.35rem;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    color: var(--dx-fg);
+  }
+  .dx-section > p {
+    margin: 0 0 1rem;
+    color: var(--dx-muted);
+  }
+  .dx-section > p strong {
+    color: var(--dx-fg);
+  }
+
+  /* —— grids —— */
+  .dx-grid-2,
+  .dx-grid-3,
+  .dx-grid-4 {
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: 1fr;
+  }
+  @media (min-width: 640px) {
+    .dx-grid-3,
+    .dx-grid-4 {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+  @media (min-width: 768px) {
+    .dx-grid-2 {
+      grid-template-columns: 1fr 1fr;
+    }
+    .dx-grid-3 {
+      grid-template-columns: repeat(3, 1fr);
+    }
+    .dx-grid-4 {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+
+  .dx-card {
+    background: var(--dx-card);
+    border: 1px solid var(--dx-border);
+    border-radius: var(--dx-radius);
+    padding: 1.35rem 1.3rem;
+    box-shadow: var(--dx-shadow);
+  }
+  .dx-card .dx-glyph {
+    width: 2.5rem;
+    height: 2.5rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+    font-size: 1.3rem;
+    font-weight: 800;
+    line-height: 1;
+    color: var(--dx-accent);
+    background: color-mix(in srgb, var(--dx-accent) 10%, transparent);
+    border: 1px solid color-mix(in srgb, var(--dx-accent) 20%, transparent);
+    margin-bottom: 0.85rem;
+  }
+  .dx-card .dx-icon {
+    width: 2.25rem;
+    height: 2.25rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 9px;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    color: var(--dx-accent);
+    background: color-mix(in srgb, var(--dx-accent) 10%, transparent);
+    border: 1px solid color-mix(in srgb, var(--dx-accent) 20%, transparent);
+    margin-bottom: 0.85rem;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  }
+  .dx-card h3 {
+    margin: 0 0 0.4rem;
+    font-size: 1rem;
+    font-weight: 650;
+    color: var(--dx-fg);
+  }
+  .dx-card p {
+    margin: 0;
+    color: var(--dx-muted);
+    font-size: 0.92rem;
+    line-height: 1.65;
+  }
+
+  /* —— quote —— */
+  .dx-quote {
+    margin: 1.5rem 0 0;
+    padding: 1rem 1.25rem;
+    border-left: 3px solid var(--dx-accent);
+    background: var(--dx-card-soft);
+    border-radius: 0 var(--dx-radius) var(--dx-radius) 0;
+    color: var(--dx-muted);
+  }
+  .dx-quote strong {
+    color: var(--dx-fg);
+  }
+
+  /* —— capability band —— */
+  .dx-stat {
+    background: var(--dx-card-soft);
+    border: 1px solid var(--dx-border);
+    border-radius: var(--dx-radius);
+    padding: 1.25rem 1rem;
+    text-align: center;
+  }
+  .dx-stat .dx-num {
+    font-size: 1.15rem;
+    font-weight: 750;
+    letter-spacing: -0.01em;
+    color: var(--dx-fg);
+    margin-bottom: 0.3rem;
+  }
+  .dx-stat .dx-lbl {
+    font-size: 0.82rem;
+    color: var(--dx-muted);
+  }
+
+  /* —— tag list —— */
+  .dx-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 0.35rem;
+  }
+  .dx-chip {
+    padding: 0.4rem 0.8rem;
+    border-radius: 999px;
+    font-size: 0.85rem;
+    color: var(--dx-fg);
+    background: var(--dx-card-soft);
+    border: 1px solid var(--dx-border);
+  }
+
+  /* —— compliance banner —— */
+  .dx-banner {
+    margin-top: 2.5rem;
+    padding: 1.1rem 1.25rem;
+    background: var(--dx-warn-bg);
+    border: 1px solid var(--dx-warn-border);
+    border-left: 3px solid var(--dx-warn-accent);
+    border-radius: var(--dx-radius);
+    color: var(--dx-warn-fg);
+  }
+  .dx-banner-title {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.95rem;
+    font-weight: 700;
+    margin: 0 0 0.4rem;
+  }
+  .dx-banner-title::before {
+    content: '';
+    width: 7px;
+    height: 7px;
+    border-radius: 99px;
+    background: var(--dx-warn-accent);
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--dx-warn-accent) 18%, transparent);
+  }
+  .dx-banner p {
+    margin: 0;
+    font-size: 0.92rem;
+    line-height: 1.7;
+  }
+  .dx-banner strong {
+    color: var(--dx-warn-accent);
+  }
+
+  /* —— contact / CTA —— */
+  .dx-cta {
+    margin-top: 1rem;
+    padding: 1.6rem 1.35rem;
+    border: 1px solid var(--dx-border);
+    border-radius: calc(var(--dx-radius) + 4px);
+    background:
+      radial-gradient(
+        80% 100% at 100% 0%,
+        color-mix(in srgb, var(--dx-accent) 12%, transparent),
+        transparent 55%
+      ),
+      var(--dx-card);
+    box-shadow: var(--dx-shadow);
+  }
+  .dx-contact {
+    display: grid;
+    gap: 0.55rem;
+    margin: 0 0 1.15rem;
+  }
+  .dx-contact-row {
+    display: grid;
+    grid-template-columns: 8.5rem 1fr;
+    gap: 0.75rem;
+    align-items: baseline;
+    padding: 0.7rem 0.9rem;
+    border: 1px solid var(--dx-border);
+    border-radius: 10px;
+    background: var(--dx-card-soft);
+    font-size: 0.94rem;
+  }
+  .dx-contact-row .dx-label {
+    color: var(--dx-muted);
+    font-weight: 600;
+    font-size: 0.85rem;
+  }
+  .dx-btns {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+  }
+  .dx-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.4rem;
+    border-radius: 10px;
+    padding: 0.7rem 1.1rem;
+    font-size: 0.92rem;
+    font-weight: 600;
+    text-decoration: none;
+    border: 1px solid transparent;
+    transition: transform 0.15s ease;
+  }
+  .dx-btn:hover {
+    transform: translateY(-1px);
+  }
+  .dx-btn-primary {
+    background: linear-gradient(135deg, var(--dx-accent), var(--dx-accent-2));
+    color: #fff;
+    box-shadow: 0 8px 20px color-mix(in srgb, var(--dx-accent) 28%, transparent);
+  }
+  .dx-btn-ghost {
+    background: transparent;
+    color: var(--dx-fg);
+    border-color: var(--dx-border);
+  }
+
+  /* —— footer —— */
+  .dx-foot {
+    margin-top: 2.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--dx-border);
+    text-align: center;
+    font-size: 0.84rem;
+    color: var(--dx-muted);
+  }
+  .dx-foot strong {
+    color: var(--dx-fg);
+  }
+
+  @media (max-width: 640px) {
+    .dx-doc {
+      padding: 4.5rem 0.9rem 3rem;
+    }
+    .dx-contact-row {
+      grid-template-columns: 1fr;
+      gap: 0.2rem;
+    }
+  }
+</style>
+
+<div class="dx-doc dx-about not-prose">
+  <!-- HERO -->
+  <section class="dx-hero">
+    <span class="dx-brand">DaoXE · 道熹 · 全球可用</span>
+    <h1>通向 AI 的道</h1>
+    <p class="dx-lede">
+      <strong>道熹（DaoXE）</strong> 是一个聚合多家上游服务商的 AI API 网关 ——
+      以统一接口连接全球主流大模型，提供多线路、按量计费与完善的用量管理，
+      让前沿智能触手可及。
+    </p>
+  </section>
+
+  <!-- 品牌叙事 -->
+  <section class="dx-section">
+    <h2>关于道熹</h2>
+    <div class="dx-grid-2">
+      <div class="dx-card">
+        <div class="dx-glyph">道</div>
+        <h3>承千年智慧之源</h3>
+        <p>
+          「道」是规律，是路径，是万物运行的本然。我们以「道」为骨，
+          构建稳定、高效、可控的 AI 推理通路。
+        </p>
+      </div>
+      <div class="dx-card">
+        <div class="dx-glyph">熹</div>
+        <h3>破晓之光，温暖蓄势</h3>
+        <p>
+          「熹」寓示新时代的开启。我们以「熹」为光，
+          让每一次调用都成为照亮智能未来的微芒。
+        </p>
+      </div>
+    </div>
+    <blockquote class="dx-quote">
+      从 OpenAI 到 Anthropic，从 Claude 到 Gemini，从 GPT 到国产大模型 ——
+      <strong>统一接口、按量计费、多线路聚合</strong>，一处接入，随取随用。
+    </blockquote>
+  </section>
+
+  <!-- 我们提供什么 -->
+  <section class="dx-section">
+    <h2>我们提供什么</h2>
+    <div class="dx-grid-3">
+      <div class="dx-card">
+        <div class="dx-icon">API</div>
+        <h3>统一接口</h3>
+        <p>
+          兼容 OpenAI 接口规范，并支持 Claude Messages 等多协议格式，
+          迁移几乎零改动。
+        </p>
+      </div>
+      <div class="dx-card">
+        <div class="dx-icon">HUB</div>
+        <h3>多模型聚合</h3>
+        <p>
+          汇聚 OpenAI、Anthropic、Google、Mistral、xAI 及主流国产大模型，
+          一处密钥，多模型可用。
+        </p>
+      </div>
+      <div class="dx-card">
+        <div class="dx-icon">HA</div>
+        <h3>多线路与故障转移</h3>
+        <p>
+          同一模型可配置多条上游线路，异常自动切换，尽力保障调用连续性。
+        </p>
+      </div>
+      <div class="dx-card">
+        <div class="dx-icon">PAY</div>
+        <h3>按量计费与配额</h3>
+        <p>
+          以 Token 等用量计量、按量结算，无套餐绑定；支持分组配额与令牌额度管理。
+        </p>
+      </div>
+      <div class="dx-card">
+        <div class="dx-icon">LOG</div>
+        <h3>用量日志与看板</h3>
+        <p>
+          提供调用日志、用量统计与数据看板，消费与用量清晰可查、便于对账。
+        </p>
+      </div>
+      <div class="dx-card">
+        <div class="dx-icon">SEC</div>
+        <h3>密钥与安全</h3>
+        <p>
+          传输层 TLS 加密、令牌隔离、最小化数据留存；不主动存储对话正文。
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 能力概览 -->
+  <section class="dx-section">
+    <h2>能力概览</h2>
+    <div class="dx-grid-4">
+      <div class="dx-stat">
+        <div class="dx-num">OpenAI 兼容</div>
+        <div class="dx-lbl">统一 API 规范</div>
+      </div>
+      <div class="dx-stat">
+        <div class="dx-num">多模型</div>
+        <div class="dx-lbl">多家上游聚合</div>
+      </div>
+      <div class="dx-stat">
+        <div class="dx-num">多线路</div>
+        <div class="dx-lbl">冗余与故障转移</div>
+      </div>
+      <div class="dx-stat">
+        <div class="dx-num">按量计费</div>
+        <div class="dx-lbl">无套餐绑定</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 支持的协议与客户端 -->
+  <section class="dx-section">
+    <h2>支持的协议与客户端</h2>
+    <p>
+      基于 OpenAI 兼容规范，DaoXE 可对接绝大多数支持自定义 Base URL 的第三方客户端、
+      SDK 与命令行工具，包括但不限于：
+    </p>
+    <div class="dx-tags">
+      <span class="dx-chip">OpenAI 兼容 API</span>
+      <span class="dx-chip">Claude Messages</span>
+      <span class="dx-chip">Cherry Studio</span>
+      <span class="dx-chip">ChatBox</span>
+      <span class="dx-chip">Lobe Chat</span>
+      <span class="dx-chip">NextChat</span>
+      <span class="dx-chip">Open WebUI</span>
+      <span class="dx-chip">Cline / 编程助手</span>
+      <span class="dx-chip">沉浸式翻译</span>
+      <span class="dx-chip">各语言 SDK</span>
+    </div>
+    <p style="margin-top: 1rem">
+      详细接入方式与推荐模型请参阅
+      <a href="https://daoxe.com" target="_blank" rel="noopener noreferrer">官网</a>
+      与文档中心。
+    </p>
+  </section>
+
+  <!-- 合规声明 -->
+  <div class="dx-banner">
+    <div class="dx-banner-title">服务范围声明</div>
+    <p>
+      DaoXE 是面向<strong>全球开发者</strong>的境外 AI 服务接入平台，
+      <strong>不向中华人民共和国大陆地区</strong>（不含香港、澳门、台湾）用户提供服务。
+      使用本服务须遵守
+      <a href="/user-agreement">《用户服务协议》</a>
+      与
+      <a href="/privacy-policy">《隐私政策》</a>，
+      并自行确保所在地区法律允许使用相关服务。
+    </p>
+  </div>
+
+  <!-- 联系我们 -->
+  <section class="dx-section">
+    <h2>联系我们</h2>
+    <div class="dx-cta">
+      <div class="dx-contact">
+        <div class="dx-contact-row">
+          <span class="dx-label">客服邮箱</span>
+          <span><a href="mailto:support@daoxe.com">support@daoxe.com</a></span>
+        </div>
+        <div class="dx-contact-row">
+          <span class="dx-label">内容举报</span>
+          <span>
+            <a href="mailto:support@daoxe.com">support@daoxe.com</a>
+            （主题请注明 <strong>[Abuse Report]</strong>）
+          </span>
+        </div>
+        <div class="dx-contact-row">
+          <span class="dx-label">Telegram</span>
+          <span>
+            <a href="https://t.me/daoxe_ai" target="_blank" rel="noopener noreferrer">@daoxe_ai</a>
+          </span>
+        </div>
+      </div>
+      <div class="dx-btns">
+        <a class="dx-btn dx-btn-primary" href="https://daoxe.com" target="_blank" rel="noopener noreferrer">
+          访问官网 →
+        </a>
+        <a class="dx-btn dx-btn-ghost" href="https://t.me/daoxe_ai" target="_blank" rel="noopener noreferrer">
+          Telegram 交流群
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- 页脚 -->
+  <footer class="dx-foot">
+    © 2026 <strong>DaoXE · 道熹</strong> · 通向 AI 的道 ·
+    <a href="https://daoxe.com" target="_blank" rel="noopener noreferrer">daoxe.com</a>
+  </footer>
+</div>

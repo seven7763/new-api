@@ -2475,7 +2475,7 @@
     "Legacy Format (JSON Object)": "Старый формат (JSON-объект)",
     "Legacy format must be a JSON object": "Старый формат должен быть JSON-объектом",
     "Legacy Format Template": "Шаблон старого формата",
-    "Legal": "Юриспруденция",
+    "Legal": "Юридическая информация",
     "Less": "Меньше",
     "Less than": "Меньше",
     "Less Than": "Меньше",
@@ -5291,6 +5291,8 @@
     "Leave empty to use System Name + suffix": "Оставьте пустым, чтобы использовать Имя системы + суффикс",
     "e.g. AI大模型API网关|OpenAI兼容|统一分发平台": "напр. Шлюз AI API|Совместимость с OpenAI|Единая платформа",
     "Appended after system name when full title is empty: {Name} - {Suffix}": "Добавляется после имени системы, когда полный заголовок пуст: {Name} - {Suffix}",
-    "Legal": "Юридическая информация"
+    "Login Widget Client Secret": "Client Secret виджета входа",
+    "From BotFather → Bot Settings → Web Login": "Из BotFather → Bot Settings → Web Login",
+    "Required for Telegram login. This is not the bot token — open BotFather, pick your bot, then Bot Settings → Web Login. Register https://your-domain/oauth/telegram_oidc as a Redirect URI there.": "Требуется для входа через Telegram. Это не токен бота — откройте BotFather, выберите бота, затем Bot Settings → Web Login. Зарегистрируйте там https://ваш-домен/oauth/telegram_oidc как Redirect URI."
   }
 }

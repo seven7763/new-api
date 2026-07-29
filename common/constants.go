@@ -121,6 +121,12 @@ var TurnstileSecretKey = ""
 var TelegramBotToken = ""
 var TelegramBotName = ""
 
+// TelegramClientSecret is the Login Widget client secret shown in BotFather's
+// Bot Settings > Web Login panel. It is distinct from the bot token and is
+// required for Telegram's OIDC flow, which replaced the retired Login Widget
+// domain allow-list.
+var TelegramClientSecret = ""
+
 var QuotaForNewUser = 0
 var QuotaForInviter = 0
 var QuotaForInvitee = 0

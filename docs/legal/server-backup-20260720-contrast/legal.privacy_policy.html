@@ -1,0 +1,398 @@
+<!-- DaoXE · 道熹 — 隐私政策 / Privacy Policy（中英双语，统一设计版 2026-07） -->
+<!-- 承载体：options 表 key = "legal.privacy_policy"，前端 /api/privacy-policy 读取，HTML 模式在隔离 Shadow DOM 渲染 -->
+<!-- 双语切换为纯 CSS（radio + :checked 兄弟选择器），无 JS，已按前端同款 DOMPurify(3.4.11) 配置实测存活；默认中文 -->
+<!-- 安全描述按平台实际实现表述（密码单向哈希；令牌服务端受控存储），勿改回“端到端/静态加密”等无法证实的措辞 -->
+<!-- 法律提示：本文为专业模板 / professional template，须经法务结合真实主体、辖区（如 GDPR/CCPA 适用性）审阅后再作为正式文本 -->
+
+<style>
+  .dx-doc,
+  .dx-doc * { box-sizing: border-box; }
+  .dx-doc {
+    max-width: 880px;
+    margin: 0 auto;
+    padding: 5rem clamp(1rem, 4vw, 1.5rem) 4rem;
+    color: var(--foreground);
+    font-family: var(--font-body, var(--font-sans, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif));
+    line-height: 1.7;
+    font-size: 15px;
+  }
+  .dx-doc a { color: var(--primary); text-decoration: none; }
+  .dx-doc a:hover { text-decoration: underline; }
+  .dx-doc strong { color: var(--foreground); font-weight: 600; }
+
+  /* 语言切换（纯 CSS，主色选中态，默认中文） */
+  .dx-langradio { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
+  .dx-langbar { display: inline-flex; gap: .25rem; margin: 0 0 1.75rem; padding: .25rem; border: 1px solid var(--border); border-radius: 9999px; background: var(--muted); }
+  .dx-langbtn { cursor: pointer; user-select: none; padding: .4rem 1rem; border-radius: 9999px; font-size: .85rem; font-weight: 600; color: var(--muted-foreground); line-height: 1; transition: background .15s ease, color .15s ease; }
+  .dx-langbtn:hover { color: var(--foreground); }
+  #dxl-pp-zh:checked ~ .dx-langbar label[for="dxl-pp-zh"],
+  #dxl-pp-en:checked ~ .dx-langbar label[for="dxl-pp-en"] { background: var(--primary); color: var(--primary-foreground); }
+  #dxl-pp-zh:focus-visible ~ .dx-langbar label[for="dxl-pp-zh"],
+  #dxl-pp-en:focus-visible ~ .dx-langbar label[for="dxl-pp-en"] { outline: 2px solid var(--ring, var(--primary)); outline-offset: 2px; }
+  .dx-body.dx-en { display: none; }
+  #dxl-pp-en:checked ~ .dx-body.dx-en { display: block; }
+  #dxl-pp-en:checked ~ .dx-body.dx-zh { display: none; }
+
+  /* 提示条 banner（红=服务范围；绿=承诺） */
+  .dx-banner { margin: 0 0 1.25rem; padding: 1.1rem 1.25rem; border: 1px solid color-mix(in oklch, var(--destructive) 22%, transparent); border-left: 3px solid var(--destructive); border-radius: var(--radius); background: color-mix(in oklch, var(--destructive) 7%, var(--card)); color: var(--foreground); }
+  .dx-banner-title { display: flex; align-items: center; gap: .5rem; font-size: .95rem; font-weight: 700; margin: 0 0 .4rem; color: var(--destructive); }
+  .dx-banner-title::before { content: ""; width: 7px; height: 7px; border-radius: 9999px; background: currentColor; flex: 0 0 auto; }
+  .dx-banner p { margin: 0; font-size: .92rem; line-height: 1.7; color: var(--foreground); }
+  .dx-banner strong { color: var(--destructive); }
+  .dx-banner-ok { border-color: color-mix(in oklch, var(--success) 22%, transparent); border-left-color: var(--success); background: color-mix(in oklch, var(--success) 8%, var(--card)); }
+  .dx-banner-ok .dx-banner-title, .dx-banner-ok strong { color: var(--success); }
+
+  /* 联系方式 */
+  .dx-contact { display: grid; gap: .55rem; margin: .65rem 0 0; }
+  .dx-contact-row { display: grid; grid-template-columns: 9.5rem 1fr; gap: .75rem; align-items: start; padding: .7rem .85rem; border: 1px solid var(--border); border-radius: calc(var(--radius) * .7); background: var(--muted); }
+  .dx-label { font-size: .78rem; font-weight: 600; color: var(--muted-foreground); letter-spacing: .02em; }
+
+  .dx-foot { margin-top: 2rem; padding-top: 1.5rem; border-top: 1px solid var(--border); text-align: center; color: var(--muted-foreground); font-size: .84rem; }
+  .dx-foot strong { color: var(--foreground); }
+
+  @media (max-width: 640px) {
+    .dx-doc { padding: 4.5rem .9rem 3rem; }
+    .dx-sec { padding: 1.1rem; }
+    .dx-contact-row { grid-template-columns: 1fr; gap: .25rem; }
+  }
+
+  /* 标题 / 元信息 / 章节（对齐站点卡片：var(--card)/var(--border)/var(--radius)） */
+  .dx-title { margin: 0 0 .35rem; font-size: clamp(1.6rem, 3.2vw, 2rem); font-weight: 700; letter-spacing: -.02em; color: var(--foreground); }
+  .dx-subtitle { margin: 0 0 1.5rem; color: var(--muted-foreground); font-size: .95rem; }
+  .dx-meta { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: .65rem 1rem; margin: 0 0 1.5rem; padding: 1rem 1.15rem; background: var(--muted); border: 1px solid var(--border); border-radius: var(--radius); font-size: .85rem; color: var(--muted-foreground); }
+  .dx-meta-item { display: flex; flex-direction: column; gap: .15rem; }
+  .dx-meta-item strong { font-size: .76rem; color: var(--muted-foreground); font-weight: 600; }
+  .dx-meta-item span { color: var(--foreground); font-weight: 600; }
+  .dx-sec { margin: 0 0 1.25rem; padding: 1.35rem; background: var(--card); color: var(--card-foreground); border: 1px solid var(--border); border-radius: var(--radius); }
+  .dx-sec-head { display: flex; align-items: center; gap: .75rem; margin: 0 0 1rem; padding-bottom: .85rem; border-bottom: 1px solid var(--border); }
+  .dx-sec-num { width: 1.9rem; height: 1.9rem; min-width: 1.9rem; border-radius: calc(var(--radius) * .55); display: inline-flex; align-items: center; justify-content: center; font-size: .78rem; font-weight: 600; color: var(--primary); background: color-mix(in oklch, var(--primary) 12%, transparent); border: 1px solid color-mix(in oklch, var(--primary) 22%, transparent); flex: 0 0 auto; }
+  .dx-sec-head h2 { margin: 0; font-size: 1.05rem; font-weight: 600; letter-spacing: -.01em; color: var(--foreground); }
+  .dx-sec h3 { margin: 1.15rem 0 .5rem; font-size: .96rem; font-weight: 600; color: var(--foreground); }
+  .dx-sec p { margin: 0 0 .7rem; color: var(--foreground); font-size: .93rem; }
+  .dx-sec p:last-child { margin-bottom: 0; }
+  .dx-sec ul { list-style: disc; margin: .35rem 0 .85rem; padding-left: 1.35rem; }
+  .dx-sec ol { list-style: decimal; margin: .35rem 0 .85rem; padding-left: 1.35rem; }
+  .dx-sec li { margin: .35rem 0; color: var(--foreground); font-size: .92rem; line-height: 1.6; }
+  .dx-sec li::marker { color: var(--muted-foreground); }
+  .dx-callout { margin: 1rem 0 0; padding: .9rem 1.05rem; border-radius: calc(var(--radius) * .8); border: 1px solid var(--border); border-left: 3px solid var(--primary); background: color-mix(in oklch, var(--primary) 6%, var(--card)); color: var(--foreground); font-size: .9rem; }
+  .dx-callout strong { color: var(--foreground); }
+  .dx-callout-ok { border-left-color: var(--success); background: color-mix(in oklch, var(--success) 8%, var(--card)); }
+  .dx-callout-warn { border-left-color: var(--warning); background: color-mix(in oklch, var(--warning) 10%, var(--card)); }
+
+  /* 信息收集表 / 标签 / 保留期 */
+  .dx-table-wrap { margin-top: .75rem; overflow-x: auto; border: 1px solid var(--border); border-radius: var(--radius); }
+  .dx-table { width: 100%; border-collapse: collapse; font-size: .9rem; }
+  .dx-table thead { background: var(--muted); }
+  .dx-table th { text-align: left; padding: .8rem 1rem; font-weight: 600; color: var(--foreground); border-bottom: 1px solid var(--border); white-space: nowrap; }
+  .dx-table td { padding: .8rem 1rem; border-bottom: 1px solid var(--border); color: var(--foreground); vertical-align: top; }
+  .dx-table tr:last-child td { border-bottom: none; }
+  .dx-table td strong { color: var(--foreground); }
+  .dx-tag { display: inline-block; padding: .15rem .55rem; border-radius: 9999px; font-size: .76rem; font-weight: 500; line-height: 1.4; white-space: nowrap; }
+  .dx-tag-required { background: color-mix(in oklch, var(--primary) 12%, transparent); color: var(--primary); border: 1px solid color-mix(in oklch, var(--primary) 25%, transparent); }
+  .dx-tag-optional { background: color-mix(in oklch, var(--warning) 15%, transparent); color: var(--warning); border: 1px solid color-mix(in oklch, var(--warning) 30%, transparent); }
+  .dx-tag-none { background: var(--muted); color: var(--muted-foreground); border: 1px solid var(--border); }
+  .dx-retain { margin-top: .85rem; display: grid; gap: .6rem; grid-template-columns: 1fr; }
+  @media (min-width: 640px) { .dx-retain { grid-template-columns: 1fr 1fr; } }
+  .dx-retain-item { display: flex; align-items: baseline; justify-content: space-between; gap: .75rem; padding: .65rem .85rem; background: var(--muted); border: 1px solid var(--border); border-radius: calc(var(--radius) * .7); font-size: .9rem; }
+  .dx-retain-item .dx-retain-key { color: var(--muted-foreground); }
+  .dx-retain-item .dx-retain-val { color: var(--foreground); font-weight: 600; text-align: right; }
+</style>
+
+<div class="dx-doc dx-privacy not-prose">
+  <input type="radio" name="dxlang-pp" id="dxl-pp-zh" class="dx-langradio" checked />
+  <input type="radio" name="dxlang-pp" id="dxl-pp-en" class="dx-langradio" />
+  <div class="dx-langbar" role="group" aria-label="Language">
+    <label class="dx-langbtn" for="dxl-pp-zh">中文</label>
+    <label class="dx-langbtn" for="dxl-pp-en">English</label>
+  </div>
+
+  <!-- ================= 中文 ================= -->
+  <div class="dx-body dx-zh">
+    <h1 class="dx-title">隐私政策</h1>
+    <p class="dx-subtitle">DaoXE · 道熹 —— 说明我们如何收集、使用、存储与共享您的信息。</p>
+
+    <div class="dx-meta">
+      <div class="dx-meta-item"><strong>生效日期</strong><span>2026-05-25</span></div>
+      <div class="dx-meta-item"><strong>最近更新</strong><span>2026-07-20</span></div>
+      <div class="dx-meta-item"><strong>域名</strong><span>daoxe.com</span></div>
+      <div class="dx-meta-item"><strong>主体</strong><span>DaoXE · 道熹</span></div>
+    </div>
+
+    <div class="dx-banner dx-banner-warn">
+      <div class="dx-banner-title">服务范围声明</div>
+      <p><strong>DaoXE</strong> 是一个面向全球开发者的<strong>境外 AI 服务接入平台</strong>，<strong>不向中华人民共和国大陆地区</strong>（不含香港、澳门、台湾）用户提供任何形式的服务。本《隐私政策》仅适用于已合法访问本服务的境外用户，不构成对中国大陆地区任何主体的服务承诺或法律承诺。</p>
+    </div>
+
+    <div class="dx-banner dx-banner-ok">
+      <div class="dx-banner-title">核心隐私承诺</div>
+      <p>本服务<strong>不主动存储您的对话正文</strong>。AI 请求与响应在转发完成后即被丢弃，仅保留必要的元数据（请求时间、Token 用量等）用于计费与排障。我们遵循<strong>最小必要原则</strong>收集与处理您的信息。</p>
+    </div>
+
+    <section class="dx-sec">
+      <div class="dx-sec-head"><div class="dx-sec-num">01</div><h2>适用范围</h2></div>
+      <p>本《隐私政策》适用于 <strong>DaoXE</strong>（<strong>daoxe.com</strong>，以下简称「本服务」或「我们」）提供的所有产品与服务，说明我们如何收集、使用、存储、共享您的信息，以及您所拥有的权利。</p>
+      <p>当您使用本服务时，即表示您已阅读并理解本政策。本服务为<strong>境外 AI 服务接入平台</strong>，不向中国大陆地区用户提供服务，详见 <a href="/user-agreement">《用户服务协议》</a>。</p>
+    </section>
+
+    <section class="dx-sec">
+      <div class="dx-sec-head"><div class="dx-sec-num">02</div><h2>我们收集的信息</h2></div>
+      <p>我们仅收集为提供和改进服务所必需的最少信息，具体包括：</p>
+      <div class="dx-table-wrap">
+        <table class="dx-table">
+          <thead><tr><th>信息类型</th><th>具体内容</th><th>必要性</th></tr></thead>
+          <tbody>
+            <tr><td><strong>账户信息</strong></td><td>邮箱地址、用户名、密码（单向哈希存储）</td><td><span class="dx-tag dx-tag-required">必须</span></td></tr>
+            <tr><td><strong>API 凭证</strong></td><td>系统为您生成的 API Key（服务端受控存储）</td><td><span class="dx-tag dx-tag-required">必须</span></td></tr>
+            <tr><td><strong>使用元数据</strong></td><td>请求时间、模型名称、Token 数量、状态码、响应时长</td><td><span class="dx-tag dx-tag-required">必须</span></td></tr>
+            <tr><td><strong>设备 / 网络</strong></td><td>IP 地址、浏览器 User-Agent、操作系统</td><td><span class="dx-tag dx-tag-optional">风控</span></td></tr>
+            <tr><td><strong>支付信息</strong></td><td>充值记录（金额、时间、订单号）；<strong>不存储</strong>完整卡号</td><td><span class="dx-tag dx-tag-required">必须</span></td></tr>
+            <tr><td>对话内容</td><td><strong>不主动存储</strong>（转发即丢弃）</td><td><span class="dx-tag dx-tag-none">—</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="dx-sec">
+      <div class="dx-sec-head"><div class="dx-sec-num">03</div><h2>信息使用目的</h2></div>
+      <p>我们使用收集的信息用于：</p>
+      <ul>
+        <li><strong>提供服务：</strong>验证身份、路由请求至上游模型、扣费结算</li>
+        <li><strong>账户管理：</strong>登录、密码重置、安全通知</li>
+        <li><strong>服务改进：</strong>基于聚合数据统计模型使用分布、优化性能</li>
+        <li><strong>风险控制：</strong>检测异常调用、滥用、欺诈，保护账户安全</li>
+        <li><strong>客户支持：</strong>响应您的咨询、工单、投诉</li>
+        <li><strong>合规要求：</strong>履行适用法律法规规定的义务</li>
+      </ul>
+    </section>
+
+    <section class="dx-sec">
+      <div class="dx-sec-head"><div class="dx-sec-num">04</div><h2>第三方共享与上游数据流向</h2></div>
+      <p>我们不出售您的个人信息。仅在以下情形向第三方传输必要信息：</p>
+      <ul>
+        <li><strong>AI 模型服务商：</strong>为完成您的请求，我们会将<strong>请求内容（对话 / Prompt）</strong>转发给 OpenAI、Anthropic、Google、Mistral 等上游服务商。这些服务商按其自身隐私政策处理数据，本服务无法控制其留存与使用方式。</li>
+        <li><strong>支付处理方：</strong>充值时，支付信息由独立的支付服务商处理（如 Stripe、加密货币网关等），我们通常仅接收支付结果与订单号。</li>
+        <li><strong>云基础设施：</strong>服务部署于境外云服务商，数据传输与存储受其安全机制保护。</li>
+        <li><strong>法律要求：</strong>在收到合法、有效的司法或行政机关请求时，我们可能依法披露必要信息。</li>
+      </ul>
+      <div class="dx-callout dx-callout-warn"><strong>重要提醒：</strong>您输入的内容会被上游模型服务商接收并按其政策处理（部分服务商可能用于安全审核或模型改进）。请避免向 AI 输入敏感、隐私或机密信息。</div>
+    </section>
+
+    <section class="dx-sec">
+      <div class="dx-sec-head"><div class="dx-sec-num">05</div><h2>数据存储与安全</h2></div>
+      <ul>
+        <li><strong>存储位置：</strong>所有数据存储于境外服务器，不在中国大陆境内</li>
+        <li><strong>传输加密：</strong>用户与本服务之间采用 HTTPS / TLS 加密传输</li>
+        <li><strong>凭证保护：</strong>登录密码采用业界标准的单向哈希算法（如 bcrypt）存储，无法逆向还原；API Key、访问令牌等在服务端受控存储并施加访问控制</li>
+        <li><strong>访问控制：</strong>遵循最小权限原则，关键操作保留必要的操作与审计记录</li>
+      </ul>
+      <p style="margin-top: 1rem"><strong>数据保留期限（示意，最终以实际运营配置为准）：</strong></p>
+      <div class="dx-retain">
+        <div class="dx-retain-item"><span class="dx-retain-key">对话正文</span><span class="dx-retain-val">不主动存储</span></div>
+        <div class="dx-retain-item"><span class="dx-retain-key">使用元数据</span><span class="dx-retain-val">按运营需要保留</span></div>
+        <div class="dx-retain-item"><span class="dx-retain-key">账户信息</span><span class="dx-retain-val">注销后合理期限内删除</span></div>
+        <div class="dx-retain-item"><span class="dx-retain-key">计费记录</span><span class="dx-retain-val">依据财务与法律要求</span></div>
+      </div>
+    </section>
+
+    <section class="dx-sec">
+      <div class="dx-sec-head"><div class="dx-sec-num">06</div><h2>Cookie 与本地存储</h2></div>
+      <p>本服务使用必要的 Cookie 与浏览器本地存储（localStorage / sessionStorage）以维持登录状态与用户偏好，具体包括：</p>
+      <ul>
+        <li><strong>认证信息：</strong>维持登录会话（登出或过期后失效）</li>
+        <li><strong>偏好设置：</strong>主题、语言、侧栏折叠等界面偏好</li>
+        <li><strong>不使用</strong>第三方广告追踪 Cookie</li>
+      </ul>
+      <p>您可通过浏览器设置清除 Cookie 与本地存储，但可能影响部分服务功能。</p>
+    </section>
+
+    <section class="dx-sec">
+      <div class="dx-sec-head"><div class="dx-sec-num">07</div><h2>您的权利</h2></div>
+      <p>就您的个人信息，您享有以下权利（具体以适用法律为准）：</p>
+      <ul>
+        <li><strong>访问与查询：</strong>登录账户查看您的注册信息与使用记录</li>
+        <li><strong>更正：</strong>随时修改您的账户资料</li>
+        <li><strong>删除账户：</strong>可通过工单或邮件申请永久注销账户与相关数据</li>
+        <li><strong>撤回同意：</strong>停止使用服务即视为撤回对相应数据处理的同意</li>
+        <li><strong>数据可移植：</strong>可申请导出您的使用记录（导出格式：JSON）</li>
+      </ul>
+      <div class="dx-callout">权利行使请通过站内工单或 <a href="mailto:support@daoxe.com">support@daoxe.com</a> 提出（主题可标注 <strong>[Data Request]</strong>），我们将在合理期限内响应。</div>
+    </section>
+
+    <section class="dx-sec">
+      <div class="dx-sec-head"><div class="dx-sec-num">08</div><h2>未成年人保护</h2></div>
+      <p>本服务<strong>仅向 18 周岁以上成年人开放</strong>，我们不会有意收集未成年人信息。若发现未成年人注册，我们将在核实后删除相关账户与数据。</p>
+    </section>
+
+    <section class="dx-sec">
+      <div class="dx-sec-head"><div class="dx-sec-num">09</div><h2>跨境数据传输</h2></div>
+      <p>由于本服务为境外平台且对接的 AI 模型服务商分布于全球，您的数据将会被<strong>跨境传输</strong>（包括但不限于美国、欧盟、新加坡等地区）。通过使用本服务，您<strong>明确同意</strong>该等数据跨境传输。</p>
+    </section>
+
+    <section class="dx-sec">
+      <div class="dx-sec-head"><div class="dx-sec-num">10</div><h2>政策更新</h2></div>
+      <p>我们可能不时更新本《隐私政策》。重大变更将在本页面公布，并在生效前通过邮件或站内通知告知您。继续使用本服务即视为接受更新后的政策。</p>
+    </section>
+
+    <section class="dx-sec">
+      <div class="dx-sec-head"><div class="dx-sec-num">11</div><h2>联系我们</h2></div>
+      <p>如对本《隐私政策》或您的个人信息处理有任何疑问、投诉或请求，请通过以下方式联系我们：</p>
+      <div class="dx-contact">
+        <div class="dx-contact-row"><span class="dx-label">隐私 / 数据请求</span><span><a href="mailto:support@daoxe.com">support@daoxe.com</a>（主题可标注 <strong>[Data Request]</strong>）</span></div>
+        <div class="dx-contact-row"><span class="dx-label">Telegram</span><span><a href="https://t.me/daoxe_ai" target="_blank" rel="noopener noreferrer">@daoxe_ai</a></span></div>
+        <div class="dx-contact-row"><span class="dx-label">网站</span><span><a href="https://daoxe.com" target="_blank" rel="noopener noreferrer">https://daoxe.com</a></span></div>
+      </div>
+      <p style="margin-top: 0.85rem">我们将在合理期限内回复您的请求。</p>
+    </section>
+
+    <footer class="dx-foot">
+      本政策最终解释权归 <strong>DaoXE · 道熹</strong> 所有 · © 2026 ·
+      <a href="https://daoxe.com" target="_blank" rel="noopener noreferrer">daoxe.com</a> ·
+      客服 <a href="mailto:support@daoxe.com">support@daoxe.com</a>
+    </footer>
+  </div>
+
+  <!-- ================= English ================= -->
+  <div class="dx-body dx-en">
+    <h1 class="dx-title">Privacy Policy</h1>
+    <p class="dx-subtitle">DaoXE — how we collect, use, store and share your information.</p>
+
+    <div class="dx-meta">
+      <div class="dx-meta-item"><strong>Effective date</strong><span>2026-05-25</span></div>
+      <div class="dx-meta-item"><strong>Last updated</strong><span>2026-07-20</span></div>
+      <div class="dx-meta-item"><strong>Domain</strong><span>daoxe.com</span></div>
+      <div class="dx-meta-item"><strong>Operator</strong><span>DaoXE</span></div>
+    </div>
+
+    <div class="dx-banner dx-banner-warn">
+      <div class="dx-banner-title">Service Availability Notice</div>
+      <p><strong>DaoXE</strong> is an overseas <strong>AI access platform</strong> for developers worldwide and <strong>does not provide any service to users in mainland China</strong> (excluding Hong Kong, Macau and Taiwan). This Privacy Policy applies only to overseas users who lawfully access the Service and does not constitute any service or legal commitment to any entity in mainland China.</p>
+    </div>
+
+    <div class="dx-banner dx-banner-ok">
+      <div class="dx-banner-title">Core Privacy Commitment</div>
+      <p>The Service <strong>does not actively store the body of your conversations</strong>. AI requests and responses are discarded once forwarding completes; we retain only the necessary metadata (request time, token usage, etc.) for billing and troubleshooting. We collect and process your information under the <strong>data-minimization principle</strong>.</p>
+    </div>
+
+    <section class="dx-sec">
+      <div class="dx-sec-head"><div class="dx-sec-num">01</div><h2>Scope</h2></div>
+      <p>This Privacy Policy applies to all products and services provided by <strong>DaoXE</strong> (<strong>daoxe.com</strong>, the "Service" or "we"), and explains how we collect, use, store and share your information, and the rights you have.</p>
+      <p>By using the Service, you acknowledge that you have read and understood this Policy. The Service is an <strong>overseas AI access platform</strong> and is not provided to users in mainland China; see the <a href="/user-agreement">Terms of Service</a>.</p>
+    </section>
+
+    <section class="dx-sec">
+      <div class="dx-sec-head"><div class="dx-sec-num">02</div><h2>Information We Collect</h2></div>
+      <p>We collect only the minimum information necessary to provide and improve the Service, namely:</p>
+      <div class="dx-table-wrap">
+        <table class="dx-table">
+          <thead><tr><th>Type</th><th>Details</th><th>Necessity</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Account</strong></td><td>Email address, username, password (stored as a one-way hash)</td><td><span class="dx-tag dx-tag-required">Required</span></td></tr>
+            <tr><td><strong>API credentials</strong></td><td>The API Key generated for you (stored server-side with access controls)</td><td><span class="dx-tag dx-tag-required">Required</span></td></tr>
+            <tr><td><strong>Usage metadata</strong></td><td>Request time, model name, token count, status code, response duration</td><td><span class="dx-tag dx-tag-required">Required</span></td></tr>
+            <tr><td><strong>Device / network</strong></td><td>IP address, browser User-Agent, operating system</td><td><span class="dx-tag dx-tag-optional">Risk control</span></td></tr>
+            <tr><td><strong>Payment</strong></td><td>Top-up records (amount, time, order number); full card numbers are <strong>not stored</strong></td><td><span class="dx-tag dx-tag-required">Required</span></td></tr>
+            <tr><td>Conversation content</td><td><strong>Not actively stored</strong> (discarded after forwarding)</td><td><span class="dx-tag dx-tag-none">—</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="dx-sec">
+      <div class="dx-sec-head"><div class="dx-sec-num">03</div><h2>How We Use Information</h2></div>
+      <p>We use the information we collect to:</p>
+      <ul>
+        <li><strong>Provide the Service:</strong> authenticate identity, route requests to upstream models, and settle charges</li>
+        <li><strong>Manage accounts:</strong> login, password reset, security notifications</li>
+        <li><strong>Improve the Service:</strong> analyze model usage distribution and optimize performance based on aggregated data</li>
+        <li><strong>Control risk:</strong> detect abnormal calls, abuse and fraud, and protect account security</li>
+        <li><strong>Support customers:</strong> respond to your enquiries, tickets and complaints</li>
+        <li><strong>Meet compliance obligations:</strong> fulfil duties required by applicable laws and regulations</li>
+      </ul>
+    </section>
+
+    <section class="dx-sec">
+      <div class="dx-sec-head"><div class="dx-sec-num">04</div><h2>Third-Party Sharing &amp; Upstream Data Flows</h2></div>
+      <p>We do not sell your personal information. We transfer only the necessary information to third parties in the following cases:</p>
+      <ul>
+        <li><strong>AI model providers:</strong> to fulfil your request, we forward the <strong>request content (conversation / prompt)</strong> to upstream providers such as OpenAI, Anthropic, Google and Mistral. These providers process data under their own privacy policies, over which the Service has no control.</li>
+        <li><strong>Payment processors:</strong> during top-up, payment information is handled by independent payment providers (such as Stripe or crypto gateways); we typically receive only the payment result and order number.</li>
+        <li><strong>Cloud infrastructure:</strong> the Service is deployed on overseas cloud providers, and data transmission and storage are protected by their security mechanisms.</li>
+        <li><strong>Legal requirements:</strong> upon a lawful, valid request from a judicial or administrative authority, we may disclose necessary information as required by law.</li>
+      </ul>
+      <div class="dx-callout dx-callout-warn"><strong>Important:</strong> your input is received and processed by upstream model providers under their policies (some providers may use it for safety review or model improvement). Please avoid submitting sensitive, private or confidential information to the AI.</div>
+    </section>
+
+    <section class="dx-sec">
+      <div class="dx-sec-head"><div class="dx-sec-num">05</div><h2>Data Storage &amp; Security</h2></div>
+      <ul>
+        <li><strong>Storage location:</strong> all data is stored on overseas servers, not within mainland China</li>
+        <li><strong>Encryption in transit:</strong> traffic between you and the Service uses HTTPS / TLS</li>
+        <li><strong>Credential protection:</strong> login passwords are stored using an industry-standard one-way hashing algorithm (such as bcrypt) and cannot be reversed; API Keys and access tokens are stored server-side with access controls</li>
+        <li><strong>Access control:</strong> we follow the principle of least privilege and retain necessary operation and audit records for key actions</li>
+      </ul>
+      <p style="margin-top: 1rem"><strong>Data retention (indicative; the actual operational configuration prevails):</strong></p>
+      <div class="dx-retain">
+        <div class="dx-retain-item"><span class="dx-retain-key">Conversation body</span><span class="dx-retain-val">Not actively stored</span></div>
+        <div class="dx-retain-item"><span class="dx-retain-key">Usage metadata</span><span class="dx-retain-val">Retained as operationally needed</span></div>
+        <div class="dx-retain-item"><span class="dx-retain-key">Account information</span><span class="dx-retain-val">Deleted within a reasonable period after closure</span></div>
+        <div class="dx-retain-item"><span class="dx-retain-key">Billing records</span><span class="dx-retain-val">Per financial &amp; legal requirements</span></div>
+      </div>
+    </section>
+
+    <section class="dx-sec">
+      <div class="dx-sec-head"><div class="dx-sec-num">06</div><h2>Cookies &amp; Local Storage</h2></div>
+      <p>The Service uses necessary cookies and browser local storage (localStorage / sessionStorage) to maintain your login state and preferences, including:</p>
+      <ul>
+        <li><strong>Authentication:</strong> maintains the login session (invalidated on logout or expiry)</li>
+        <li><strong>Preferences:</strong> UI preferences such as theme, language and sidebar collapse</li>
+        <li><strong>No</strong> third-party advertising / tracking cookies are used</li>
+      </ul>
+      <p>You can clear cookies and local storage via your browser settings, though this may affect some functionality.</p>
+    </section>
+
+    <section class="dx-sec">
+      <div class="dx-sec-head"><div class="dx-sec-num">07</div><h2>Your Rights</h2></div>
+      <p>With respect to your personal information, you have the following rights (subject to applicable law):</p>
+      <ul>
+        <li><strong>Access:</strong> log in to view your registration details and usage records</li>
+        <li><strong>Rectification:</strong> update your account details at any time</li>
+        <li><strong>Deletion:</strong> request permanent closure of your account and related data via ticket or email</li>
+        <li><strong>Withdraw consent:</strong> ceasing to use the Service is treated as withdrawing consent to the corresponding processing</li>
+        <li><strong>Data portability:</strong> request an export of your usage records (export format: JSON)</li>
+      </ul>
+      <div class="dx-callout">To exercise your rights, contact us via an in-site ticket or <a href="mailto:support@daoxe.com">support@daoxe.com</a> (you may tag the subject <strong>[Data Request]</strong>); we will respond within a reasonable period.</div>
+    </section>
+
+    <section class="dx-sec">
+      <div class="dx-sec-head"><div class="dx-sec-num">08</div><h2>Protection of Minors</h2></div>
+      <p>The Service is <strong>open only to adults aged 18 or over</strong>, and we do not knowingly collect information from minors. If we discover a minor has registered, we will delete the relevant account and data after verification.</p>
+    </section>
+
+    <section class="dx-sec">
+      <div class="dx-sec-head"><div class="dx-sec-num">09</div><h2>Cross-Border Data Transfer</h2></div>
+      <p>Because the Service is an overseas platform and the AI model providers it connects to are distributed globally, your data will be <strong>transferred across borders</strong> (including but not limited to the United States, the European Union and Singapore). By using the Service, you <strong>expressly consent</strong> to such cross-border transfers.</p>
+    </section>
+
+    <section class="dx-sec">
+      <div class="dx-sec-head"><div class="dx-sec-num">10</div><h2>Policy Updates</h2></div>
+      <p>We may update this Privacy Policy from time to time. Material changes will be published on this page and, before taking effect, notified to you by email or in-site notice. Continued use of the Service constitutes acceptance of the updated Policy.</p>
+    </section>
+
+    <section class="dx-sec">
+      <div class="dx-sec-head"><div class="dx-sec-num">11</div><h2>Contact Us</h2></div>
+      <p>If you have any question, complaint or request regarding this Privacy Policy or the processing of your personal information, please contact us:</p>
+      <div class="dx-contact">
+        <div class="dx-contact-row"><span class="dx-label">Privacy / data requests</span><span><a href="mailto:support@daoxe.com">support@daoxe.com</a> (subject <strong>[Data Request]</strong>)</span></div>
+        <div class="dx-contact-row"><span class="dx-label">Telegram</span><span><a href="https://t.me/daoxe_ai" target="_blank" rel="noopener noreferrer">@daoxe_ai</a></span></div>
+        <div class="dx-contact-row"><span class="dx-label">Website</span><span><a href="https://daoxe.com" target="_blank" rel="noopener noreferrer">https://daoxe.com</a></span></div>
+      </div>
+      <p style="margin-top: 0.85rem">We will respond to your request within a reasonable period.</p>
+    </section>
+
+    <footer class="dx-foot">
+      Final right of interpretation of this Policy rests with <strong>DaoXE</strong> · © 2026 ·
+      <a href="https://daoxe.com" target="_blank" rel="noopener noreferrer">daoxe.com</a> ·
+      Support <a href="mailto:support@daoxe.com">support@daoxe.com</a>
+    </footer>
+  </div>
+</div>

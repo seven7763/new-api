@@ -1,0 +1,696 @@
+<!-- DaoXE · 道熹 — 隐私政策（统一设计版 2026-07） -->
+<!-- 承载体：options 表 key = "legal.privacy_policy"，前端 /api/privacy-policy 读取，检测为 HTML 后在隔离 Shadow DOM 中渲染 -->
+<!-- 自包含 HTML + <style>，兼容 light / dark；HTML 模式下前端不再渲染标题，故本文件自带 h1 标题与顶部留白 -->
+<!-- 安全描述已按平台实际实现表述（密码单向哈希；令牌服务端受控存储），请勿改回“端到端/静态加密”等无法证实的措辞 -->
+<!-- 法律提示：本文为专业模板，须经法务结合真实主体、辖区（如 GDPR/CCPA 适用性）审阅后再作为正式文本 -->
+
+<style>
+  .dx-doc,
+  .dx-doc * {
+    box-sizing: border-box;
+  }
+  .dx-doc {
+    --dx-fg: #0f172a;
+    --dx-muted: #64748b;
+    --dx-border: #e2e8f0;
+    --dx-card: #ffffff;
+    --dx-card-soft: #f8fafc;
+    --dx-accent: #4f46e5;
+    --dx-accent-2: #7c3aed;
+    --dx-warn-bg: #fff7ed;
+    --dx-warn-border: #fed7aa;
+    --dx-warn-fg: #9a3412;
+    --dx-warn-accent: #ea580c;
+    --dx-info-bg: #eef2ff;
+    --dx-info-border: #c7d2fe;
+    --dx-info-fg: #3730a3;
+    --dx-ok-bg: #ecfdf5;
+    --dx-ok-border: #a7f3d0;
+    --dx-ok-fg: #065f46;
+    --dx-ok-accent: #10b981;
+    --dx-radius: 14px;
+    --dx-shadow: 0 1px 0 rgba(15, 23, 42, 0.03), 0 8px 24px rgba(15, 23, 42, 0.05);
+
+    max-width: 880px;
+    margin: 0 auto;
+    padding: 5rem clamp(1rem, 4vw, 1.5rem) 4rem;
+    color: var(--dx-fg);
+    font-family:
+      ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI',
+      Roboto, 'PingFang SC', 'Noto Sans SC', 'Hiragino Sans GB',
+      'Microsoft YaHei', 'Helvetica Neue', Arial, sans-serif;
+    line-height: 1.75;
+    font-size: 15px;
+    letter-spacing: 0.01em;
+  }
+  :is(.dark, [data-theme='dark']) .dx-doc {
+    --dx-fg: #f1f5f9;
+    --dx-muted: #94a3b8;
+    --dx-border: #1e293b;
+    --dx-card: #0b1220;
+    --dx-card-soft: #111827;
+    --dx-accent: #818cf8;
+    --dx-accent-2: #a78bfa;
+    --dx-warn-bg: rgba(234, 88, 12, 0.1);
+    --dx-warn-border: rgba(234, 88, 12, 0.28);
+    --dx-warn-fg: #fdba74;
+    --dx-warn-accent: #fb923c;
+    --dx-info-bg: rgba(79, 70, 229, 0.12);
+    --dx-info-border: rgba(129, 140, 248, 0.28);
+    --dx-info-fg: #c7d2fe;
+    --dx-ok-bg: rgba(16, 185, 129, 0.1);
+    --dx-ok-border: rgba(16, 185, 129, 0.28);
+    --dx-ok-fg: #6ee7b7;
+    --dx-ok-accent: #34d399;
+    --dx-shadow: 0 1px 0 rgba(255, 255, 255, 0.03), 0 12px 32px rgba(0, 0, 0, 0.28);
+  }
+
+  .dx-doc a {
+    color: var(--dx-accent);
+    text-decoration: none;
+    border-bottom: 1px solid color-mix(in srgb, var(--dx-accent) 28%, transparent);
+  }
+  .dx-doc a:hover {
+    color: var(--dx-accent-2);
+    border-bottom-color: color-mix(in srgb, var(--dx-accent-2) 45%, transparent);
+  }
+  .dx-doc strong {
+    font-weight: 650;
+    color: var(--dx-fg);
+  }
+
+  /* —— 标题区 —— */
+  .dx-title {
+    margin: 0 0 0.35rem;
+    font-size: clamp(1.7rem, 3.5vw, 2.1rem);
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    color: var(--dx-fg);
+  }
+  .dx-subtitle {
+    margin: 0 0 1.5rem;
+    color: var(--dx-muted);
+    font-size: 0.98rem;
+  }
+
+  /* —— 元信息 —— */
+  .dx-meta {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+    gap: 0.65rem 1rem;
+    margin: 0 0 1.75rem;
+    padding: 1rem 1.15rem;
+    background: linear-gradient(180deg, var(--dx-card) 0%, var(--dx-card-soft) 100%);
+    border: 1px solid var(--dx-border);
+    border-radius: var(--dx-radius);
+    box-shadow: var(--dx-shadow);
+    font-size: 0.85rem;
+    color: var(--dx-muted);
+  }
+  .dx-meta-item {
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+  }
+  .dx-meta-item strong {
+    font-size: 0.78rem;
+    color: var(--dx-muted);
+    font-weight: 600;
+  }
+  .dx-meta-item span {
+    color: var(--dx-fg);
+    font-weight: 600;
+  }
+
+  /* —— banner —— */
+  .dx-banner {
+    margin: 0 0 1rem;
+    padding: 1.1rem 1.25rem;
+    border-radius: var(--dx-radius);
+    border: 1px solid var(--dx-border);
+    border-left: 3px solid var(--dx-accent);
+  }
+  .dx-banner-title {
+    display: flex;
+    align-items: center;
+    gap: 0.55rem;
+    font-size: 0.95rem;
+    font-weight: 700;
+    margin: 0 0 0.45rem;
+  }
+  .dx-banner-title::before {
+    content: '';
+    width: 7px;
+    height: 7px;
+    border-radius: 99px;
+    background: currentColor;
+    flex: 0 0 auto;
+  }
+  .dx-banner p {
+    margin: 0;
+    font-size: 0.92rem;
+    line-height: 1.7;
+  }
+  .dx-banner-warn {
+    background: var(--dx-warn-bg);
+    border-color: var(--dx-warn-border);
+    border-left-color: var(--dx-warn-accent);
+    color: var(--dx-warn-fg);
+    margin-bottom: 2rem;
+  }
+  .dx-banner-warn .dx-banner-title,
+  .dx-banner-warn strong {
+    color: var(--dx-warn-accent);
+  }
+  .dx-banner-ok {
+    background: var(--dx-ok-bg);
+    border-color: var(--dx-ok-border);
+    border-left-color: var(--dx-ok-accent);
+    color: var(--dx-ok-fg);
+    margin-bottom: 2rem;
+  }
+  .dx-banner-ok .dx-banner-title,
+  .dx-banner-ok strong {
+    color: var(--dx-ok-accent);
+  }
+
+  /* —— 章节 —— */
+  .dx-sec {
+    margin: 0 0 1.75rem;
+    padding: 1.35rem 1.35rem 1.25rem;
+    background: var(--dx-card);
+    border: 1px solid var(--dx-border);
+    border-radius: calc(var(--dx-radius) + 2px);
+    box-shadow: var(--dx-shadow);
+  }
+  .dx-sec-head {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin: 0 0 1rem;
+    padding-bottom: 0.85rem;
+    border-bottom: 1px solid var(--dx-border);
+  }
+  .dx-sec-num {
+    width: 2rem;
+    height: 2rem;
+    min-width: 2rem;
+    border-radius: 8px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.78rem;
+    font-weight: 650;
+    letter-spacing: 0.04em;
+    color: var(--dx-accent);
+    background: color-mix(in srgb, var(--dx-accent) 10%, transparent);
+    border: 1px solid color-mix(in srgb, var(--dx-accent) 22%, transparent);
+    flex: 0 0 auto;
+  }
+  .dx-sec-head h2 {
+    margin: 0;
+    font-size: 1.08rem;
+    font-weight: 650;
+    letter-spacing: -0.01em;
+    color: var(--dx-fg);
+  }
+  .dx-sec p {
+    margin: 0 0 0.75rem;
+    color: color-mix(in srgb, var(--dx-fg) 88%, var(--dx-muted));
+    font-size: 0.94rem;
+  }
+  .dx-sec p:last-child {
+    margin-bottom: 0;
+  }
+  .dx-sec ul {
+    margin: 0.35rem 0 0.85rem;
+    padding-left: 1.15rem;
+  }
+  .dx-sec li {
+    margin: 0.35rem 0;
+    color: color-mix(in srgb, var(--dx-fg) 90%, var(--dx-muted));
+    font-size: 0.93rem;
+    line-height: 1.65;
+  }
+  .dx-sec li::marker {
+    color: var(--dx-accent);
+  }
+
+  /* —— 表格 —— */
+  .dx-table-wrap {
+    margin-top: 0.75rem;
+    overflow-x: auto;
+    border: 1px solid var(--dx-border);
+    border-radius: var(--dx-radius);
+  }
+  .dx-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.9rem;
+  }
+  .dx-table thead {
+    background: var(--dx-card-soft);
+  }
+  .dx-table th {
+    text-align: left;
+    padding: 0.8rem 1rem;
+    font-weight: 650;
+    color: var(--dx-fg);
+    border-bottom: 1px solid var(--dx-border);
+    white-space: nowrap;
+  }
+  .dx-table td {
+    padding: 0.8rem 1rem;
+    border-bottom: 1px solid var(--dx-border);
+    color: color-mix(in srgb, var(--dx-fg) 90%, var(--dx-muted));
+    vertical-align: top;
+  }
+  .dx-table tr:last-child td {
+    border-bottom: none;
+  }
+  .dx-table td strong {
+    color: var(--dx-fg);
+  }
+  .dx-tag {
+    display: inline-block;
+    padding: 0.15rem 0.55rem;
+    border-radius: 999px;
+    font-size: 0.76rem;
+    font-weight: 500;
+    line-height: 1.4;
+    white-space: nowrap;
+  }
+  .dx-tag-required {
+    background: color-mix(in srgb, var(--dx-accent) 10%, transparent);
+    color: var(--dx-accent);
+    border: 1px solid color-mix(in srgb, var(--dx-accent) 25%, transparent);
+  }
+  .dx-tag-optional {
+    background: var(--dx-warn-bg);
+    color: var(--dx-warn-accent);
+    border: 1px solid var(--dx-warn-border);
+  }
+  .dx-tag-none {
+    background: var(--dx-card-soft);
+    color: var(--dx-muted);
+    border: 1px solid var(--dx-border);
+  }
+
+  /* —— 提示框 —— */
+  .dx-callout {
+    margin: 1rem 0 0;
+    padding: 0.95rem 1.1rem;
+    border-radius: var(--dx-radius);
+    border: 1px solid var(--dx-border);
+    border-left: 3px solid var(--dx-accent);
+    background: var(--dx-info-bg);
+    color: var(--dx-info-fg);
+    font-size: 0.92rem;
+  }
+  .dx-callout strong {
+    color: var(--dx-info-fg);
+  }
+  .dx-callout-warn {
+    background: var(--dx-warn-bg);
+    border-left-color: var(--dx-warn-accent);
+    color: var(--dx-warn-fg);
+  }
+  .dx-callout-warn strong {
+    color: var(--dx-warn-accent);
+  }
+
+  /* —— 数据保留网格 —— */
+  .dx-retain {
+    margin-top: 0.85rem;
+    display: grid;
+    gap: 0.6rem;
+    grid-template-columns: 1fr;
+  }
+  @media (min-width: 640px) {
+    .dx-retain {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+  .dx-retain-item {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 0.75rem;
+    padding: 0.65rem 0.85rem;
+    background: var(--dx-card-soft);
+    border: 1px solid var(--dx-border);
+    border-radius: 8px;
+    font-size: 0.9rem;
+  }
+  .dx-retain-item .dx-retain-key {
+    color: var(--dx-muted);
+  }
+  .dx-retain-item .dx-retain-val {
+    color: var(--dx-fg);
+    font-weight: 600;
+    text-align: right;
+  }
+
+  /* —— 联系方式 —— */
+  .dx-contact {
+    display: grid;
+    gap: 0.55rem;
+    margin: 0.65rem 0 0;
+  }
+  .dx-contact-row {
+    display: grid;
+    grid-template-columns: 9rem 1fr;
+    gap: 0.75rem;
+    align-items: start;
+    padding: 0.7rem 0.85rem;
+    border: 1px solid var(--dx-border);
+    border-radius: 12px;
+    background: var(--dx-card-soft);
+  }
+  .dx-label {
+    font-size: 0.78rem;
+    font-weight: 650;
+    color: var(--dx-muted);
+    letter-spacing: 0.02em;
+  }
+
+  /* —— 页脚 —— */
+  .dx-foot {
+    margin-top: 2rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--dx-border);
+    text-align: center;
+    color: var(--dx-muted);
+    font-size: 0.85rem;
+  }
+  .dx-foot strong {
+    color: var(--dx-fg);
+  }
+
+  @media (max-width: 640px) {
+    .dx-doc {
+      padding: 4.5rem 0.9rem 3rem;
+    }
+    .dx-sec {
+      padding: 1.1rem;
+    }
+    .dx-contact-row {
+      grid-template-columns: 1fr;
+      gap: 0.25rem;
+    }
+  }
+</style>
+
+<div class="dx-doc dx-privacy not-prose">
+  <!-- 标题 -->
+  <h1 class="dx-title">隐私政策</h1>
+  <p class="dx-subtitle">DaoXE · 道熹 —— 说明我们如何收集、使用、存储与共享您的信息。</p>
+
+  <!-- 元信息 -->
+  <div class="dx-meta">
+    <div class="dx-meta-item"><strong>生效日期</strong><span>2026-05-25</span></div>
+    <div class="dx-meta-item"><strong>最近更新</strong><span>2026-07-20</span></div>
+    <div class="dx-meta-item"><strong>域名</strong><span>daoxe.com</span></div>
+    <div class="dx-meta-item"><strong>主体</strong><span>DaoXE · 道熹</span></div>
+  </div>
+
+  <!-- 区域限制声明 -->
+  <div class="dx-banner dx-banner-warn">
+    <div class="dx-banner-title">服务范围声明</div>
+    <p>
+      <strong>DaoXE</strong> 是一个面向全球开发者的<strong>境外 AI 服务接入平台</strong>，
+      <strong>不向中华人民共和国大陆地区</strong>（不含香港、澳门、台湾）用户提供任何形式的服务。
+      本《隐私政策》仅适用于已合法访问本服务的境外用户，
+      不构成对中国大陆地区任何主体的服务承诺或法律承诺。
+    </p>
+  </div>
+
+  <!-- 隐私承诺 -->
+  <div class="dx-banner dx-banner-ok">
+    <div class="dx-banner-title">核心隐私承诺</div>
+    <p>
+      本服务<strong>不主动存储您的对话正文</strong>。AI 请求与响应在转发完成后即被丢弃，
+      仅保留必要的元数据（请求时间、Token 用量等）用于计费与排障。我们遵循<strong>最小必要原则</strong>
+      收集与处理您的信息。
+    </p>
+  </div>
+
+  <!-- 01 适用范围 -->
+  <section class="dx-sec">
+    <div class="dx-sec-head">
+      <div class="dx-sec-num">01</div>
+      <h2>适用范围</h2>
+    </div>
+    <p>
+      本《隐私政策》适用于 <strong>DaoXE</strong>（<strong>daoxe.com</strong>，以下简称「本服务」或「我们」）
+      提供的所有产品与服务，说明我们如何收集、使用、存储、共享您的信息，以及您所拥有的权利。
+    </p>
+    <p>
+      当您使用本服务时，即表示您已阅读并理解本政策。本服务为<strong>境外 AI 服务接入平台</strong>，
+      不向中国大陆地区用户提供服务，详见 <a href="/user-agreement">《用户服务协议》</a>。
+    </p>
+  </section>
+
+  <!-- 02 我们收集的信息 -->
+  <section class="dx-sec">
+    <div class="dx-sec-head">
+      <div class="dx-sec-num">02</div>
+      <h2>我们收集的信息</h2>
+    </div>
+    <p>我们仅收集为提供和改进服务所必需的最少信息，具体包括：</p>
+    <div class="dx-table-wrap">
+      <table class="dx-table">
+        <thead>
+          <tr>
+            <th>信息类型</th>
+            <th>具体内容</th>
+            <th>必要性</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>账户信息</strong></td>
+            <td>邮箱地址、用户名、密码（单向哈希存储）</td>
+            <td><span class="dx-tag dx-tag-required">必须</span></td>
+          </tr>
+          <tr>
+            <td><strong>API 凭证</strong></td>
+            <td>系统为您生成的 API Key（服务端受控存储）</td>
+            <td><span class="dx-tag dx-tag-required">必须</span></td>
+          </tr>
+          <tr>
+            <td><strong>使用元数据</strong></td>
+            <td>请求时间、模型名称、Token 数量、状态码、响应时长</td>
+            <td><span class="dx-tag dx-tag-required">必须</span></td>
+          </tr>
+          <tr>
+            <td><strong>设备 / 网络</strong></td>
+            <td>IP 地址、浏览器 User-Agent、操作系统</td>
+            <td><span class="dx-tag dx-tag-optional">风控</span></td>
+          </tr>
+          <tr>
+            <td><strong>支付信息</strong></td>
+            <td>充值记录（金额、时间、订单号）；<strong>不存储</strong>完整卡号</td>
+            <td><span class="dx-tag dx-tag-required">必须</span></td>
+          </tr>
+          <tr>
+            <td>对话内容</td>
+            <td><strong>不主动存储</strong>（转发即丢弃）</td>
+            <td><span class="dx-tag dx-tag-none">—</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- 03 信息使用目的 -->
+  <section class="dx-sec">
+    <div class="dx-sec-head">
+      <div class="dx-sec-num">03</div>
+      <h2>信息使用目的</h2>
+    </div>
+    <p>我们使用收集的信息用于：</p>
+    <ul>
+      <li><strong>提供服务：</strong>验证身份、路由请求至上游模型、扣费结算</li>
+      <li><strong>账户管理：</strong>登录、密码重置、安全通知</li>
+      <li><strong>服务改进：</strong>基于聚合数据统计模型使用分布、优化性能</li>
+      <li><strong>风险控制：</strong>检测异常调用、滥用、欺诈，保护账户安全</li>
+      <li><strong>客户支持：</strong>响应您的咨询、工单、投诉</li>
+      <li><strong>合规要求：</strong>履行适用法律法规规定的义务</li>
+    </ul>
+  </section>
+
+  <!-- 04 第三方共享 -->
+  <section class="dx-sec">
+    <div class="dx-sec-head">
+      <div class="dx-sec-num">04</div>
+      <h2>第三方共享与上游数据流向</h2>
+    </div>
+    <p>我们不出售您的个人信息。仅在以下情形向第三方传输必要信息：</p>
+    <ul>
+      <li>
+        <strong>AI 模型服务商：</strong>为完成您的请求，我们会将
+        <strong>请求内容（对话 / Prompt）</strong>转发给 OpenAI、Anthropic、Google、
+        Mistral 等上游服务商。这些服务商按其自身隐私政策处理数据，本服务无法控制其留存与使用方式。
+      </li>
+      <li>
+        <strong>支付处理方：</strong>充值时，支付信息由独立的支付服务商处理（如 Stripe、加密货币网关等），
+        我们通常仅接收支付结果与订单号。
+      </li>
+      <li>
+        <strong>云基础设施：</strong>服务部署于境外云服务商，数据传输与存储受其安全机制保护。
+      </li>
+      <li>
+        <strong>法律要求：</strong>在收到合法、有效的司法或行政机关请求时，我们可能依法披露必要信息。
+      </li>
+    </ul>
+    <div class="dx-callout dx-callout-warn">
+      <strong>重要提醒：</strong>
+      您输入的内容会被上游模型服务商接收并按其政策处理（部分服务商可能用于安全审核或模型改进）。
+      请避免向 AI 输入敏感、隐私或机密信息。
+    </div>
+  </section>
+
+  <!-- 05 数据存储与安全 -->
+  <section class="dx-sec">
+    <div class="dx-sec-head">
+      <div class="dx-sec-num">05</div>
+      <h2>数据存储与安全</h2>
+    </div>
+    <ul>
+      <li><strong>存储位置：</strong>所有数据存储于境外服务器，不在中国大陆境内</li>
+      <li><strong>传输加密：</strong>用户与本服务之间采用 HTTPS / TLS 加密传输</li>
+      <li><strong>凭证保护：</strong>登录密码采用业界标准的单向哈希算法（如 bcrypt）存储，无法逆向还原；API Key、访问令牌等在服务端受控存储并施加访问控制</li>
+      <li><strong>访问控制：</strong>遵循最小权限原则，关键操作保留必要的操作与审计记录</li>
+    </ul>
+    <p style="margin-top: 1rem"><strong>数据保留期限（示意，最终以实际运营配置为准）：</strong></p>
+    <div class="dx-retain">
+      <div class="dx-retain-item">
+        <span class="dx-retain-key">对话正文</span>
+        <span class="dx-retain-val">不主动存储</span>
+      </div>
+      <div class="dx-retain-item">
+        <span class="dx-retain-key">使用元数据</span>
+        <span class="dx-retain-val">按运营需要保留</span>
+      </div>
+      <div class="dx-retain-item">
+        <span class="dx-retain-key">账户信息</span>
+        <span class="dx-retain-val">注销后合理期限内删除</span>
+      </div>
+      <div class="dx-retain-item">
+        <span class="dx-retain-key">计费记录</span>
+        <span class="dx-retain-val">依据财务与法律要求</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- 06 Cookie 与本地存储 -->
+  <section class="dx-sec">
+    <div class="dx-sec-head">
+      <div class="dx-sec-num">06</div>
+      <h2>Cookie 与本地存储</h2>
+    </div>
+    <p>本服务使用必要的 Cookie 与浏览器本地存储（localStorage / sessionStorage）以维持登录状态与用户偏好，具体包括：</p>
+    <ul>
+      <li><strong>认证信息：</strong>维持登录会话（登出或过期后失效）</li>
+      <li><strong>偏好设置：</strong>主题、语言、侧栏折叠等界面偏好</li>
+      <li><strong>不使用</strong>第三方广告追踪 Cookie</li>
+    </ul>
+    <p>您可通过浏览器设置清除 Cookie 与本地存储，但可能影响部分服务功能。</p>
+  </section>
+
+  <!-- 07 您的权利 -->
+  <section class="dx-sec">
+    <div class="dx-sec-head">
+      <div class="dx-sec-num">07</div>
+      <h2>您的权利</h2>
+    </div>
+    <p>就您的个人信息，您享有以下权利（具体以适用法律为准）：</p>
+    <ul>
+      <li><strong>访问与查询：</strong>登录账户查看您的注册信息与使用记录</li>
+      <li><strong>更正：</strong>随时修改您的账户资料</li>
+      <li><strong>删除账户：</strong>可通过工单或邮件申请永久注销账户与相关数据</li>
+      <li><strong>撤回同意：</strong>停止使用服务即视为撤回对相应数据处理的同意</li>
+      <li><strong>数据可移植：</strong>可申请导出您的使用记录（导出格式：JSON）</li>
+    </ul>
+    <div class="dx-callout">
+      权利行使请通过站内工单或
+      <a href="mailto:support@daoxe.com">support@daoxe.com</a>
+      提出（主题可标注 <strong>[Data Request]</strong>），我们将在合理期限内响应。
+    </div>
+  </section>
+
+  <!-- 08 未成年人保护 -->
+  <section class="dx-sec">
+    <div class="dx-sec-head">
+      <div class="dx-sec-num">08</div>
+      <h2>未成年人保护</h2>
+    </div>
+    <p>
+      本服务<strong>仅向 18 周岁以上成年人开放</strong>，我们不会有意收集未成年人信息。
+      若发现未成年人注册，我们将在核实后删除相关账户与数据。
+    </p>
+  </section>
+
+  <!-- 09 跨境数据传输 -->
+  <section class="dx-sec">
+    <div class="dx-sec-head">
+      <div class="dx-sec-num">09</div>
+      <h2>跨境数据传输</h2>
+    </div>
+    <p>
+      由于本服务为境外平台且对接的 AI 模型服务商分布于全球，您的数据将会被
+      <strong>跨境传输</strong>（包括但不限于美国、欧盟、新加坡等地区）。
+      通过使用本服务，您<strong>明确同意</strong>该等数据跨境传输。
+    </p>
+  </section>
+
+  <!-- 10 政策更新 -->
+  <section class="dx-sec">
+    <div class="dx-sec-head">
+      <div class="dx-sec-num">10</div>
+      <h2>政策更新</h2>
+    </div>
+    <p>
+      我们可能不时更新本《隐私政策》。重大变更将在本页面公布，并在生效前通过
+      邮件或站内通知告知您。继续使用本服务即视为接受更新后的政策。
+    </p>
+  </section>
+
+  <!-- 11 联系我们 -->
+  <section class="dx-sec">
+    <div class="dx-sec-head">
+      <div class="dx-sec-num">11</div>
+      <h2>联系我们</h2>
+    </div>
+    <p>
+      如对本《隐私政策》或您的个人信息处理有任何疑问、投诉或请求，
+      请通过以下方式联系我们：
+    </p>
+    <div class="dx-contact">
+      <div class="dx-contact-row">
+        <span class="dx-label">隐私 / 数据请求</span>
+        <span>
+          <a href="mailto:support@daoxe.com">support@daoxe.com</a>
+          （主题可标注 <strong>[Data Request]</strong>）
+        </span>
+      </div>
+      <div class="dx-contact-row">
+        <span class="dx-label">Telegram</span>
+        <span><a href="https://t.me/daoxe_ai" target="_blank" rel="noopener noreferrer">@daoxe_ai</a></span>
+      </div>
+      <div class="dx-contact-row">
+        <span class="dx-label">网站</span>
+        <span><a href="https://daoxe.com" target="_blank" rel="noopener noreferrer">https://daoxe.com</a></span>
+      </div>
+    </div>
+    <p style="margin-top: 0.85rem">我们将在合理期限内回复您的请求。</p>
+  </section>
+
+  <!-- 页脚 -->
+  <footer class="dx-foot">
+    本政策最终解释权归 <strong>DaoXE · 道熹</strong> 所有 · © 2026 ·
+    <a href="https://daoxe.com" target="_blank" rel="noopener noreferrer">daoxe.com</a>
+    · 客服 <a href="mailto:support@daoxe.com">support@daoxe.com</a>
+  </footer>
+</div>

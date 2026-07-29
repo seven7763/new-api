@@ -27,6 +27,10 @@ type oauthStateRequest struct {
 
 type oauthFlowPayload struct {
 	AffiliateCode string `json:"affiliate_code,omitempty"`
+	// CodeVerifier holds the PKCE verifier for providers that require it
+	// (Telegram's OIDC flow). It is generated when the flow starts and read back
+	// on the callback, so it never leaves the server.
+	CodeVerifier string `json:"code_verifier,omitempty"`
 }
 
 // providerParams returns map with Provider key for i18n templates
@@ -62,7 +66,20 @@ func GenerateOAuthCode(c *gin.Context) {
 		userID = identity.UserID
 		sessionID = identity.SessionID
 	}
-	payload, err := common.Marshal(oauthFlowPayload{AffiliateCode: request.Aff})
+	flowPayload := oauthFlowPayload{AffiliateCode: request.Aff}
+	// Providers that mandate PKCE get a verifier now; only the derived challenge
+	// travels to the provider, and the verifier stays in the server-side flow.
+	codeChallenge := ""
+	if pkce, ok := oauth.GetProvider(request.Provider).(oauth.PKCEProvider); ok && pkce.RequiresPKCE() {
+		verifier, challenge, err := oauth.NewPKCEPair()
+		if err != nil {
+			common.ApiError(c, err)
+			return
+		}
+		flowPayload.CodeVerifier = verifier
+		codeChallenge = challenge
+	}
+	payload, err := common.Marshal(flowPayload)
 	if err != nil {
 		common.ApiError(c, err)
 		return
@@ -81,13 +98,19 @@ func GenerateOAuthCode(c *gin.Context) {
 		common.ApiError(c, err)
 		return
 	}
+	data := gin.H{
+		"flow_token": state,
+		"expires_at": expiresAt.Unix(),
+	}
+	// Providers that build their own authorize URL hand it back here so the
+	// frontend does not have to know each provider's endpoint and parameters.
+	if builder, ok := oauth.GetProvider(request.Provider).(oauth.AuthorizationURLBuilder); ok {
+		data["authorization_url"] = builder.AuthorizationURL(state, codeChallenge)
+	}
 	c.JSON(http.StatusOK, gin.H{
 		"success": true,
 		"message": "",
-		"data": gin.H{
-			"flow_token": state,
-			"expires_at": expiresAt.Unix(),
-		},
+		"data":    data,
 	})
 }
 
@@ -167,7 +190,9 @@ func HandleOAuth(c *gin.Context) {
 		return
 	}
 
-	// 5. Exchange code for token
+	// 5. Exchange code for token. PKCE providers need the verifier that was
+	// generated when this flow started; it lives in the pending flow's payload.
+	applyPendingFlowCodeVerifier(c, pendingFlow)
 	code := c.Query("code")
 	token, err := provider.ExchangeToken(c.Request.Context(), code, c)
 	if err != nil {
@@ -223,8 +248,24 @@ func HandleOAuth(c *gin.Context) {
 }
 
 // handleOAuthBind handles binding OAuth account to existing user
+// applyPendingFlowCodeVerifier hands the PKCE verifier stored with the flow to
+// the provider for this request. Flows without a verifier are left untouched.
+func applyPendingFlowCodeVerifier(c *gin.Context, pendingFlow *model.AuthFlow) {
+	if pendingFlow == nil || pendingFlow.Payload == "" {
+		return
+	}
+	var payload oauthFlowPayload
+	if err := common.UnmarshalJsonStr(pendingFlow.Payload, &payload); err != nil {
+		return
+	}
+	if payload.CodeVerifier != "" {
+		oauth.SetPKCECodeVerifier(c, payload.CodeVerifier)
+	}
+}
+
 func handleOAuthBind(c *gin.Context, provider oauth.Provider, pendingFlow *model.AuthFlow, flowToken string) {
 	// Exchange code for token
+	applyPendingFlowCodeVerifier(c, pendingFlow)
 	code := c.Query("code")
 	token, err := provider.ExchangeToken(c.Request.Context(), code, c)
 	if err != nil {

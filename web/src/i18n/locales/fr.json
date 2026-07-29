@@ -2475,7 +2475,7 @@
     "Legacy Format (JSON Object)": "Ancien format (objet JSON)",
     "Legacy format must be a JSON object": "L'ancien format doit être un objet JSON",
     "Legacy Format Template": "Modèle ancien format",
-    "Legal": "Juridique",
+    "Legal": "Mentions légales",
     "Less": "Moins",
     "Less than": "Inférieur à",
     "Less Than": "Inférieur à",
@@ -5291,6 +5291,8 @@
     "Leave empty to use System Name + suffix": "Laissez vide pour utiliser Nom du système + suffixe",
     "e.g. AI大模型API网关|OpenAI兼容|统一分发平台": "ex. Passerelle API IA|Compatible OpenAI|Plateforme unifiée",
     "Appended after system name when full title is empty: {Name} - {Suffix}": "Ajouté après le nom du système quand le titre complet est vide : {Name} - {Suffix}",
-    "Legal": "Mentions légales"
+    "Login Widget Client Secret": "Client Secret du widget de connexion",
+    "From BotFather → Bot Settings → Web Login": "Depuis BotFather → Bot Settings → Web Login",
+    "Required for Telegram login. This is not the bot token — open BotFather, pick your bot, then Bot Settings → Web Login. Register https://your-domain/oauth/telegram_oidc as a Redirect URI there.": "Requis pour la connexion Telegram. Ce n'est pas le token du bot — ouvrez BotFather, choisissez votre bot, puis Bot Settings → Web Login. Enregistrez-y https://votre-domaine/oauth/telegram_oidc comme Redirect URI."
   }
 }

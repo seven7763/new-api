@@ -1,0 +1,666 @@
+<!-- DaoXE · 道熹 — About 页面 (基于 new-api UI 重设计版) -->
+<!-- 自包含 HTML + <style>
+，兼容 light / dark，跳出 prose 样式干扰 -->
+
+<style>
+  .dx-about,
+  .dx-about * {
+    box-sizing: border-box;
+  }
+  .dx-about {
+    --dx-fg: #0a0a0a;
+    --dx-muted: #6b7280;
+    --dx-border: #e5e7eb;
+    --dx-card: #ffffff;
+    --dx-card-soft: #f9fafb;
+    --dx-accent: #0a0a0a;
+    --dx-accent-fg: #ffffff;
+    --dx-radius: 12px;
+
+    max-width: 72rem;
+    margin: 0 auto;
+    padding: 2rem 1rem;
+    color: var(--dx-fg);
+    font-family:
+      ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI',
+      Roboto, 'Helvetica Neue', Arial, sans-serif, 'Apple Color Emoji';
+    line-height: 1.65;
+  }
+  :is(.dark, [data-theme='dark']) .dx-about {
+    --dx-fg: #fafafa;
+    --dx-muted: #a1a1aa;
+    --dx-border: #27272a;
+    --dx-card: #0a0a0a;
+    --dx-card-soft: #18181b;
+    --dx-accent: #fafafa;
+    --dx-accent-fg: #0a0a0a;
+  }
+
+  /* —— hero —— */
+  .dx-hero {
+    text-align: center;
+    padding: 3rem 1rem 2.5rem;
+    border: 1px solid var(--dx-border);
+    border-radius: 20px;
+    background:
+      radial-gradient(
+        80% 60% at 50% 0%,
+        color-mix(in srgb, var(--dx-fg) 6%, transparent) 0%,
+        transparent 70%
+      ),
+      var(--dx-card);
+  }
+  .dx-hero .dx-brand {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.8rem;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--dx-muted);
+    border: 1px solid var(--dx-border);
+    border-radius: 999px;
+    padding: 0.35rem 0.85rem;
+    margin-bottom: 1.25rem;
+  }
+  .dx-hero .dx-brand::before {
+    content: '';
+    width: 6px;
+    height: 6px;
+    border-radius: 999px;
+    background: #10b981;
+    box-shadow: 0 0 0 4px color-mix(in srgb, #10b981 22%, transparent);
+  }
+  .dx-hero h1 {
+    margin: 0 0 0.75rem;
+    font-size: clamp(2.25rem, 5vw, 3.5rem);
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    line-height: 1.1;
+  }
+  .dx-hero .dx-tagline {
+    margin: 0 auto;
+    max-width: 36rem;
+    font-size: 1.125rem;
+    color: var(--dx-muted);
+  }
+  .dx-hero .dx-tagline strong {
+    color: var(--dx-fg);
+  }
+
+  /* —— 通用 section —— */
+  .dx-section {
+    margin-top: 2.5rem;
+  }
+  .dx-section h2 {
+    margin: 0 0 1.25rem;
+    font-size: 1.5rem;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+  }
+  .dx-section p {
+    margin: 0 0 1rem;
+    color: var(--dx-muted);
+  }
+  .dx-section p strong {
+    color: var(--dx-fg);
+  }
+
+  /* —— 道熹品牌双列 —— */
+  .dx-grid-2 {
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: 1fr;
+  }
+  @media (min-width: 768px) {
+    .dx-grid-2 {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+  .dx-philo-card {
+    background: var(--dx-card-soft);
+    border: 1px solid var(--dx-border);
+    border-radius: var(--dx-radius);
+    padding: 1.5rem;
+  }
+  .dx-philo-card .dx-glyph {
+    font-size: 2.5rem;
+    font-weight: 800;
+    line-height: 1;
+    margin-bottom: 0.5rem;
+    color: var(--dx-fg);
+  }
+  .dx-philo-card .dx-philo-title {
+    font-weight: 600;
+    margin-bottom: 0.4rem;
+    color: var(--dx-fg);
+  }
+  .dx-philo-card .dx-philo-desc {
+    font-size: 0.95rem;
+    color: var(--dx-muted);
+    margin: 0;
+  }
+
+  /* —— 引文 —— */
+  .dx-quote {
+    margin: 1.5rem 0;
+    padding: 1.25rem 1.5rem;
+    border-left: 3px solid var(--dx-fg);
+    background: var(--dx-card-soft);
+    border-radius: 0 var(--dx-radius) var(--dx-radius) 0;
+    font-style: italic;
+    color: var(--dx-muted);
+  }
+  .dx-quote strong {
+    color: var(--dx-fg);
+    font-style: normal;
+  }
+
+  /* —— 特性卡片网格 —— */
+  .dx-grid-3 {
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: 1fr;
+  }
+  @media (min-width: 640px) {
+    .dx-grid-3 {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+  @media (min-width: 1024px) {
+    .dx-grid-3 {
+      grid-template-columns: 1fr 1fr 1fr;
+    }
+  }
+  .dx-feat {
+    background: var(--dx-card);
+    border: 1px solid var(--dx-border);
+    border-radius: var(--dx-radius);
+    padding: 1.5rem;
+    transition:
+      border-color 0.15s ease,
+      transform 0.15s ease;
+  }
+  .dx-feat:hover {
+    border-color: color-mix(in srgb, var(--dx-fg) 35%, var(--dx-border));
+    transform: translateY(-2px);
+  }
+  .dx-feat .dx-icon {
+    width: 2.25rem;
+    height: 2.25rem;
+    border-radius: 8px;
+    background: var(--dx-card-soft);
+    border: 1px solid var(--dx-border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.1rem;
+    margin-bottom: 0.85rem;
+  }
+  .dx-feat h3 {
+    margin: 0 0 0.4rem;
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--dx-fg);
+  }
+  .dx-feat p {
+    margin: 0;
+    font-size: 0.9rem;
+    color: var(--dx-muted);
+    line-height: 1.55;
+  }
+
+  /* —— 运行数据 —— */
+  .dx-grid-4 {
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: repeat(2, 1fr);
+  }
+  @media (min-width: 768px) {
+    .dx-grid-4 {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+  .dx-stat {
+    background: var(--dx-card-soft);
+    border: 1px solid var(--dx-border);
+    border-radius: var(--dx-radius);
+    padding: 1.5rem 1rem;
+    text-align: center;
+  }
+  .dx-stat .dx-num {
+    font-size: clamp(1.75rem, 3vw, 2.25rem);
+    font-weight: 800;
+    letter-spacing: -0.01em;
+    color: var(--dx-fg);
+    line-height: 1.1;
+    margin-bottom: 0.35rem;
+  }
+  .dx-stat .dx-lbl {
+    font-size: 0.8rem;
+    color: var(--dx-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+
+  /* —— 联系按钮 —— */
+  .dx-cta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-top: 0.5rem;
+  }
+  .dx-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    padding: 0.65rem 1.1rem;
+    border-radius: 10px;
+    font-weight: 500;
+    font-size: 0.95rem;
+    text-decoration: none;
+    transition:
+      background 0.15s ease,
+      border-color 0.15s ease;
+    border: 1px solid var(--dx-border);
+  }
+  .dx-btn-primary {
+    background: var(--dx-accent);
+    color: var(--dx-accent-fg);
+    border-color: var(--dx-accent);
+  }
+  .dx-btn-primary:hover {
+    background: color-mix(in srgb, var(--dx-accent) 88%, transparent);
+  }
+  .dx-btn-ghost {
+    background: transparent;
+    color: var(--dx-fg);
+  }
+  .dx-btn-ghost:hover {
+    background: var(--dx-card-soft);
+  }
+
+  /* —— 页脚 —— */
+  .dx-foot {
+    margin-top: 3rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--dx-border);
+    text-align: center;
+    font-size: 0.85rem;
+    color: var(--dx-muted);
+  }
+
+
+  /* —— DaoXE about UI refresh (professional) —— */
+  .dx-about {
+    --dx-fg: #0f172a;
+    --dx-muted: #64748b;
+    --dx-border: #e2e8f0;
+    --dx-card: #ffffff;
+    --dx-card-soft: #f8fafc;
+    --dx-accent: #4f46e5;
+    --dx-accent-2: #7c3aed;
+    --dx-accent-fg: #ffffff;
+    --dx-radius: 14px;
+    --dx-shadow: 0 1px 0 rgba(15,23,42,.03), 0 10px 28px rgba(15,23,42,.05);
+    max-width: 72rem;
+    margin: 0 auto;
+    padding: 2.25rem 1.1rem 3.5rem;
+    color: var(--dx-fg);
+    font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "PingFang SC", "Noto Sans SC", "Helvetica Neue", Arial, sans-serif;
+    line-height: 1.7;
+    letter-spacing: 0.01em;
+  }
+  :is(.dark, [data-theme="dark"]) .dx-about {
+    --dx-fg: #f1f5f9;
+    --dx-muted: #94a3b8;
+    --dx-border: #1e293b;
+    --dx-card: #0b1220;
+    --dx-card-soft: #111827;
+    --dx-accent: #818cf8;
+    --dx-accent-2: #a78bfa;
+    --dx-accent-fg: #0b1220;
+    --dx-shadow: 0 1px 0 rgba(255,255,255,.03), 0 14px 36px rgba(0,0,0,.3);
+  }
+
+  .dx-about .dx-hero {
+    text-align: center;
+    padding: 3.25rem 1.25rem 2.75rem !important;
+    border: 1px solid var(--dx-border) !important;
+    border-radius: 20px !important;
+    background:
+      radial-gradient(90% 70% at 50% -10%, color-mix(in srgb, var(--dx-accent) 14%, transparent) 0%, transparent 58%),
+      linear-gradient(180deg, var(--dx-card) 0%, var(--dx-card-soft) 100%) !important;
+    box-shadow: var(--dx-shadow);
+  }
+  .dx-about .dx-hero .dx-brand {
+    display: inline-flex !important;
+    align-items: center;
+    gap: .5rem;
+    font-size: .75rem !important;
+    font-weight: 600 !important;
+    letter-spacing: .08em !important;
+    text-transform: uppercase;
+    color: var(--dx-muted) !important;
+    border: 1px solid var(--dx-border) !important;
+    border-radius: 999px !important;
+    padding: .35rem .85rem !important;
+    margin-bottom: 1.15rem !important;
+    background: color-mix(in srgb, var(--dx-card) 80%, transparent);
+  }
+  .dx-about .dx-hero .dx-brand::before {
+    content: "" !important;
+    width: 6px !important;
+    height: 6px !important;
+    border-radius: 999px !important;
+    background: var(--dx-accent) !important;
+    box-shadow: 0 0 0 4px color-mix(in srgb, var(--dx-accent) 18%, transparent) !important;
+  }
+  .dx-about .dx-hero h1 {
+    margin: 0 0 .7rem !important;
+    font-size: clamp(2.1rem, 4.8vw, 3.1rem) !important;
+    font-weight: 750 !important;
+    letter-spacing: -.02em !important;
+    line-height: 1.12 !important;
+    color: var(--dx-fg) !important;
+  }
+  .dx-about .dx-hero .dx-tagline {
+    margin: 0 auto !important;
+    max-width: 38rem !important;
+    font-size: 1.05rem !important;
+    color: var(--dx-muted) !important;
+    font-weight: 450;
+  }
+  .dx-about .dx-hero .dx-tagline strong { color: var(--dx-fg) !important; }
+
+  .dx-about .dx-section {
+    margin-top: 2.25rem !important;
+  }
+  .dx-about .dx-section h2 {
+    margin: 0 0 1.1rem !important;
+    font-size: 1.25rem !important;
+    font-weight: 650 !important;
+    letter-spacing: -.01em !important;
+    color: var(--dx-fg) !important;
+  }
+  .dx-about .dx-section p {
+    margin: 0 0 .9rem !important;
+    color: var(--dx-muted) !important;
+    font-size: .96rem;
+  }
+  .dx-about .dx-section p strong { color: var(--dx-fg) !important; }
+
+  .dx-about .dx-grid-2,
+  .dx-about .dx-grid-3,
+  .dx-about .dx-grid-4 {
+    display: grid !important;
+    gap: 1rem !important;
+  }
+  @media (min-width: 768px) {
+    .dx-about .dx-grid-2 { grid-template-columns: 1fr 1fr !important; }
+    .dx-about .dx-grid-3 { grid-template-columns: repeat(3, 1fr) !important; }
+    .dx-about .dx-grid-4 { grid-template-columns: repeat(4, 1fr) !important; }
+  }
+  @media (max-width: 767px) {
+    .dx-about .dx-grid-2,
+    .dx-about .dx-grid-3,
+    .dx-about .dx-grid-4 { grid-template-columns: 1fr !important; }
+  }
+
+  .dx-about .dx-philo-card,
+  .dx-about .dx-feat,
+  .dx-about .dx-stat {
+    background: var(--dx-card) !important;
+    border: 1px solid var(--dx-border) !important;
+    border-radius: var(--dx-radius) !important;
+    padding: 1.25rem 1.2rem !important;
+    box-shadow: var(--dx-shadow) !important;
+  }
+  .dx-about .dx-philo-card .dx-glyph {
+    width: 2.4rem !important;
+    height: 2.4rem !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    border-radius: 10px !important;
+    font-size: 1.05rem !important;
+    font-weight: 700 !important;
+    color: var(--dx-accent) !important;
+    background: color-mix(in srgb, var(--dx-accent) 10%, transparent) !important;
+    border: 1px solid color-mix(in srgb, var(--dx-accent) 20%, transparent) !important;
+    margin-bottom: .85rem !important;
+    line-height: 1 !important;
+  }
+  .dx-about .dx-philo-title,
+  .dx-about .dx-feat h3 {
+    margin: 0 0 .4rem !important;
+    font-size: 1rem !important;
+    font-weight: 650 !important;
+    color: var(--dx-fg) !important;
+  }
+  .dx-about .dx-philo-desc,
+  .dx-about .dx-feat p {
+    margin: 0 !important;
+    color: var(--dx-muted) !important;
+    font-size: .92rem !important;
+    line-height: 1.65 !important;
+  }
+
+  /* replace emoji icons with monochrome code badges */
+  .dx-about .dx-feat .dx-icon {
+    width: 2.25rem !important;
+    height: 2.25rem !important;
+    border-radius: 9px !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    font-size: .72rem !important;
+    font-weight: 700 !important;
+    letter-spacing: .04em !important;
+    color: var(--dx-accent) !important;
+    background: color-mix(in srgb, var(--dx-accent) 10%, transparent) !important;
+    border: 1px solid color-mix(in srgb, var(--dx-accent) 20%, transparent) !important;
+    margin-bottom: .85rem !important;
+    line-height: 1 !important;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace !important;
+  }
+
+  .dx-about .dx-stat .dx-num {
+    font-size: 1.55rem !important;
+    font-weight: 700 !important;
+    letter-spacing: -.02em !important;
+    color: var(--dx-fg) !important;
+    margin: 0 0 .25rem !important;
+  }
+  .dx-about .dx-stat .dx-lbl {
+    color: var(--dx-muted) !important;
+    font-size: .84rem !important;
+  }
+
+  .dx-about .dx-quote {
+    border-left: 3px solid var(--dx-accent) !important;
+    background: var(--dx-card-soft) !important;
+    border-radius: 0 var(--dx-radius) var(--dx-radius) 0 !important;
+    padding: 1rem 1.15rem !important;
+    color: var(--dx-muted) !important;
+  }
+
+  .dx-about .dx-cta {
+    margin-top: 2.25rem !important;
+    padding: 1.6rem 1.35rem !important;
+    border: 1px solid var(--dx-border) !important;
+    border-radius: calc(var(--dx-radius) + 4px) !important;
+    background:
+      radial-gradient(80% 100% at 100% 0%, color-mix(in srgb, var(--dx-accent) 12%, transparent), transparent 55%),
+      var(--dx-card) !important;
+    box-shadow: var(--dx-shadow) !important;
+    text-align: center;
+  }
+  .dx-about .dx-btn {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: .4rem !important;
+    border-radius: 10px !important;
+    padding: .7rem 1.05rem !important;
+    font-size: .9rem !important;
+    font-weight: 600 !important;
+    text-decoration: none !important;
+    border: 1px solid transparent !important;
+    transition: transform .15s ease, background .15s ease, border-color .15s ease;
+  }
+  .dx-about .dx-btn-primary {
+    background: linear-gradient(135deg, var(--dx-accent), var(--dx-accent-2)) !important;
+    color: #fff !important;
+    border-color: transparent !important;
+    box-shadow: 0 8px 20px color-mix(in srgb, var(--dx-accent) 28%, transparent);
+  }
+  .dx-about .dx-btn-ghost {
+    background: transparent !important;
+    color: var(--dx-fg) !important;
+    border-color: var(--dx-border) !important;
+  }
+  .dx-about .dx-btn:hover { transform: translateY(-1px); }
+  .dx-about .dx-foot {
+    margin-top: 2rem !important;
+    color: var(--dx-muted) !important;
+    font-size: .84rem !important;
+    text-align: center;
+  }
+  .dx-about a {
+    color: var(--dx-accent) !important;
+    text-decoration: none !important;
+  }
+  .dx-about a:hover { color: var(--dx-accent-2) !important; }
+
+</style>
+
+<div class="dx-about not-prose">
+  <!-- HERO -->
+  <section class="dx-hero">
+    <span class="dx-brand">DaoXE · 道熹 · 全球可用</span>
+    <h1>通向 AI 的道</h1>
+    <p class="dx-tagline">
+      <strong>道熹</strong> 是连接你与全球顶级 AI 模型的智能中转站 ——
+      统一 API、毫秒级响应、企业级稳定。
+    </p>
+  </section>
+
+  <!-- 品牌叙事 -->
+  <section class="dx-section">
+    <h2>关于 道熹</h2>
+    <div class="dx-grid-2">
+      <div class="dx-philo-card">
+        <div class="dx-glyph">道</div>
+        <div class="dx-philo-title">承千年智慧之源</div>
+        <p class="dx-philo-desc">
+          是规律,是路径,是万物运行的本然。我们以「道」为骨,
+          构建稳定、高效、安全的 AI 推理通路。
+        </p>
+      </div>
+      <div class="dx-philo-card">
+        <div class="dx-glyph">熹</div>
+        <div class="dx-philo-title">破晓之光,温暖蓄势</div>
+        <p class="dx-philo-desc">
+          寓示新时代的开启。我们以「熹」为光,
+          让每一次调用都成为照亮智能未来的微芒。
+        </p>
+      </div>
+    </div>
+
+    <blockquote class="dx-quote">
+      从 OpenAI 到 Anthropic,从 Claude 到 Gemini,从 GPT 到 Kimi —— <br />
+      <strong>统一接口、按量计费、源站直连</strong>,让前沿智能触手可及。
+    </blockquote>
+  </section>
+
+  <!-- 核心特性 -->
+  <section class="dx-section">
+    <h2>核心特性</h2>
+    <div class="dx-grid-3">
+      <div class="dx-feat">
+        <div class="dx-icon">RT</div>
+        <h3>极速响应</h3>
+        <p>全球节点优化,平均延迟 &lt; 200ms,TTFT 行业领先。</p>
+      </div>
+      <div class="dx-feat">
+        <div class="dx-icon">API</div>
+        <h3>全模型聚合</h3>
+        <p>OpenAI / Anthropic / Google / Mistral 等主流模型一键接入。</p>
+      </div>
+      <div class="dx-feat">
+        <div class="dx-icon">SEC</div>
+        <h3>企业级安全</h3>
+        <p>端到端加密,密钥隔离,严格遵循数据最小化原则。</p>
+      </div>
+      <div class="dx-feat">
+        <div class="dx-icon">COST</div>
+        <h3>极致性价比</h3>
+        <p>按量计费,无套餐绑定,价格直追源站。</p>
+      </div>
+      <div class="dx-feat">
+        <div class="dx-icon">HA</div>
+        <h3>高可用保障</h3>
+        <p>多源故障转移,SLA 99.95%,7×24 实时监控。</p>
+      </div>
+      <div class="dx-feat">
+        <div class="dx-icon">DX</div>
+        <h3>开发者友好</h3>
+        <p>OpenAI 兼容协议,零改动迁移,SDK 全语言支持。</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 运行数据 -->
+  <section class="dx-section">
+    <h2>运行数据</h2>
+    <div class="dx-grid-4">
+      <div class="dx-stat">
+        <div class="dx-num">99.95%</div>
+        <div class="dx-lbl">SLA 服务可用性</div>
+      </div>
+      <div class="dx-stat">
+        <div class="dx-num">&lt; 200ms</div>
+        <div class="dx-lbl">平均响应延迟</div>
+      </div>
+      <div class="dx-stat">
+        <div class="dx-num">50+</div>
+        <div class="dx-lbl">已支持模型</div>
+      </div>
+      <div class="dx-stat">
+        <div class="dx-num">24 / 7</div>
+        <div class="dx-lbl">全天候运行</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 联系 -->
+  <section class="dx-section">
+    <h2>联系我们</h2>
+    <p>欢迎访问官网了解更多,或查阅技术文档快速接入。</p>
+    <div class="dx-cta">
+      <a
+        class="dx-btn dx-btn-primary"
+        href="https://daoxe.com"
+        target="_blank"
+        rel="noopener"
+      >
+        访问官网 →
+      </a>
+      <a
+        class="dx-btn dx-btn-ghost"
+        href="https://daoxe.com/docs"
+        target="_blank"
+        rel="noopener"
+      >
+        技术文档
+      </a>
+    </div>
+  </section>
+
+  <!-- 页脚 -->
+  <footer class="dx-foot">
+    © 2026 <strong>DaoXE · 道熹</strong> · 通向 AI 的道
+  </footer>
+</div>

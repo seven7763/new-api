@@ -2475,7 +2475,7 @@
     "Legacy Format (JSON Object)": "旧形式（JSONオブジェクト）",
     "Legacy format must be a JSON object": "旧形式はJSONオブジェクトである必要があります",
     "Legacy Format Template": "旧フォーマットテンプレート",
-    "Legal": "法務",
+    "Legal": "法的事項",
     "Less": "少ない",
     "Less than": "より小さい",
     "Less Than": "より小さい",
@@ -5291,6 +5291,8 @@
     "Leave empty to use System Name + suffix": "空欄でシステム名＋接尾辞を使用",
     "e.g. AI大模型API网关|OpenAI兼容|统一分发平台": "例: AI大規模モデルAPIゲートウェイ|OpenAI互換|統合配信プラットフォーム",
     "Appended after system name when full title is empty: {Name} - {Suffix}": "完全タイトルが空の場合、システム名の後に追加：{Name} - {Suffix}",
-    "Legal": "法的事項"
+    "Login Widget Client Secret": "ログインウィジェット Client Secret",
+    "From BotFather → Bot Settings → Web Login": "BotFather → Bot Settings → Web Login から取得",
+    "Required for Telegram login. This is not the bot token — open BotFather, pick your bot, then Bot Settings → Web Login. Register https://your-domain/oauth/telegram_oidc as a Redirect URI there.": "Telegram ログインに必須です。Bot Token とは別物です — BotFather でボットを選び、Bot Settings → Web Login から取得し、https://your-domain/oauth/telegram_oidc を Redirect URI として登録してください。"
   }
 }

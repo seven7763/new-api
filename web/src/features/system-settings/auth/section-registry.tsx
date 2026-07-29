@@ -66,6 +66,7 @@ const AUTH_SECTIONS = [
           'oidc.user_info_endpoint': settings['oidc.user_info_endpoint'],
           TelegramOAuthEnabled: settings.TelegramOAuthEnabled,
           TelegramBotToken: settings.TelegramBotToken,
+          TelegramClientSecret: settings.TelegramClientSecret,
           TelegramBotName: settings.TelegramBotName,
           LinuxDOOAuthEnabled: settings.LinuxDOOAuthEnabled,
           LinuxDOClientId: settings.LinuxDOClientId,

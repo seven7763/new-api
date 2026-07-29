@@ -1,0 +1,502 @@
+<!-- DaoXE · 道熹 — 用户服务协议 / Terms of Service（中英双语，统一设计版 2026-07） -->
+<!-- 承载体：options 表 key = "legal.user_agreement"，前端 /api/user-agreement 读取，HTML 模式在隔离 Shadow DOM 渲染 -->
+<!-- 双语切换为纯 CSS（radio + :checked 兄弟选择器），无 JS，已按前端同款 DOMPurify(3.4.11) 配置实测存活；默认中文 -->
+<!-- 联系方式统一为 support@daoxe.com 与 Telegram @daoxe_ai；上线前请确认邮箱可正常收信 -->
+<!-- 法律提示：本文为专业模板 / professional template，须经法务结合真实主体、辖区与业务审阅后再作为正式文本 -->
+
+<style>
+  .dx-doc,
+  .dx-doc * { box-sizing: border-box; }
+  .dx-doc {
+    max-width: 880px;
+    margin: 0 auto;
+    padding: 5rem clamp(1rem, 4vw, 1.5rem) 4rem;
+    color: var(--foreground);
+    font-family: var(--font-body, var(--font-sans, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif));
+    line-height: 1.7;
+    font-size: 15px;
+  }
+  .dx-doc a { color: var(--primary); text-decoration: none; }
+  .dx-doc a:hover { text-decoration: underline; }
+  .dx-doc strong { color: var(--foreground); font-weight: 600; }
+
+  /* 语言切换（纯 CSS，主色选中态，默认中文） */
+  .dx-langradio { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
+  .dx-langbar { display: inline-flex; gap: .25rem; margin: 0 0 1.75rem; padding: .25rem; border: 1px solid var(--border); border-radius: 9999px; background: var(--muted); }
+  .dx-langbtn { cursor: pointer; user-select: none; padding: .4rem 1rem; border-radius: 9999px; font-size: .85rem; font-weight: 600; color: var(--muted-foreground); line-height: 1; transition: background .15s ease, color .15s ease; }
+  .dx-langbtn:hover { color: var(--foreground); }
+  #dxl-ua-zh:checked ~ .dx-langbar label[for="dxl-ua-zh"],
+  #dxl-ua-en:checked ~ .dx-langbar label[for="dxl-ua-en"] { background: var(--primary); color: var(--primary-foreground); }
+  #dxl-ua-zh:focus-visible ~ .dx-langbar label[for="dxl-ua-zh"],
+  #dxl-ua-en:focus-visible ~ .dx-langbar label[for="dxl-ua-en"] { outline: 2px solid var(--ring, var(--primary)); outline-offset: 2px; }
+  .dx-body.dx-en { display: none; }
+  #dxl-ua-en:checked ~ .dx-body.dx-en { display: block; }
+  #dxl-ua-en:checked ~ .dx-body.dx-zh { display: none; }
+
+  /* 提示条 banner（红=服务范围；绿=承诺） */
+  .dx-banner { margin: 0 0 1.25rem; padding: 1.1rem 1.25rem; border: 1px solid color-mix(in oklch, var(--destructive) 22%, transparent); border-left: 3px solid var(--destructive); border-radius: var(--radius); background: color-mix(in oklch, var(--destructive) 7%, var(--card)); color: var(--foreground); }
+  .dx-banner-title { display: flex; align-items: center; gap: .5rem; font-size: .95rem; font-weight: 700; margin: 0 0 .4rem; color: var(--destructive); }
+  .dx-banner-title::before { content: ""; width: 7px; height: 7px; border-radius: 9999px; background: currentColor; flex: 0 0 auto; }
+  .dx-banner p { margin: 0; font-size: .92rem; line-height: 1.7; color: var(--foreground); }
+  .dx-banner strong { color: var(--destructive); }
+  .dx-banner-ok { border-color: color-mix(in oklch, var(--success) 22%, transparent); border-left-color: var(--success); background: color-mix(in oklch, var(--success) 8%, var(--card)); }
+  .dx-banner-ok .dx-banner-title, .dx-banner-ok strong { color: var(--success); }
+
+  /* 联系方式 */
+  .dx-contact { display: grid; gap: .55rem; margin: .65rem 0 0; }
+  .dx-contact-row { display: grid; grid-template-columns: 9.5rem 1fr; gap: .75rem; align-items: start; padding: .7rem .85rem; border: 1px solid var(--border); border-radius: calc(var(--radius) * .7); background: var(--muted); }
+  .dx-label { font-size: .78rem; font-weight: 600; color: var(--muted-foreground); letter-spacing: .02em; }
+
+  .dx-foot { margin-top: 2rem; padding-top: 1.5rem; border-top: 1px solid var(--border); text-align: center; color: var(--muted-foreground); font-size: .84rem; }
+  .dx-foot strong { color: var(--foreground); }
+
+  @media (max-width: 640px) {
+    .dx-doc { padding: 4.5rem .9rem 3rem; }
+    .dx-sec { padding: 1.1rem; }
+    .dx-contact-row { grid-template-columns: 1fr; gap: .25rem; }
+  }
+
+  /* 标题 / 元信息 / 章节（对齐站点卡片：var(--card)/var(--border)/var(--radius)） */
+  .dx-title { margin: 0 0 .35rem; font-size: clamp(1.6rem, 3.2vw, 2rem); font-weight: 700; letter-spacing: -.02em; color: var(--foreground); }
+  .dx-subtitle { margin: 0 0 1.5rem; color: var(--muted-foreground); font-size: .95rem; }
+  .dx-meta { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: .65rem 1rem; margin: 0 0 1.5rem; padding: 1rem 1.15rem; background: var(--muted); border: 1px solid var(--border); border-radius: var(--radius); font-size: .85rem; color: var(--muted-foreground); }
+  .dx-meta-item { display: flex; flex-direction: column; gap: .15rem; }
+  .dx-meta-item strong { font-size: .76rem; color: var(--muted-foreground); font-weight: 600; }
+  .dx-meta-item span { color: var(--foreground); font-weight: 600; }
+  .dx-sec { margin: 0 0 1.25rem; padding: 1.35rem; background: var(--card); color: var(--card-foreground); border: 1px solid var(--border); border-radius: var(--radius); }
+  .dx-sec-head { display: flex; align-items: center; gap: .75rem; margin: 0 0 1rem; padding-bottom: .85rem; border-bottom: 1px solid var(--border); }
+  .dx-sec-num { width: 1.9rem; height: 1.9rem; min-width: 1.9rem; border-radius: calc(var(--radius) * .55); display: inline-flex; align-items: center; justify-content: center; font-size: .78rem; font-weight: 600; color: var(--primary); background: color-mix(in oklch, var(--primary) 12%, transparent); border: 1px solid color-mix(in oklch, var(--primary) 22%, transparent); flex: 0 0 auto; }
+  .dx-sec-head h2 { margin: 0; font-size: 1.05rem; font-weight: 600; letter-spacing: -.01em; color: var(--foreground); }
+  .dx-sec h3 { margin: 1.15rem 0 .5rem; font-size: .96rem; font-weight: 600; color: var(--foreground); }
+  .dx-sec p { margin: 0 0 .7rem; color: var(--foreground); font-size: .93rem; }
+  .dx-sec p:last-child { margin-bottom: 0; }
+  .dx-sec ul { list-style: disc; margin: .35rem 0 .85rem; padding-left: 1.35rem; }
+  .dx-sec ol { list-style: decimal; margin: .35rem 0 .85rem; padding-left: 1.35rem; }
+  .dx-sec li { margin: .35rem 0; color: var(--foreground); font-size: .92rem; line-height: 1.6; }
+  .dx-sec li::marker { color: var(--muted-foreground); }
+  .dx-callout { margin: 1rem 0 0; padding: .9rem 1.05rem; border-radius: calc(var(--radius) * .8); border: 1px solid var(--border); border-left: 3px solid var(--primary); background: color-mix(in oklch, var(--primary) 6%, var(--card)); color: var(--foreground); font-size: .9rem; }
+  .dx-callout strong { color: var(--foreground); }
+  .dx-callout-ok { border-left-color: var(--success); background: color-mix(in oklch, var(--success) 8%, var(--card)); }
+  .dx-callout-warn { border-left-color: var(--warning); background: color-mix(in oklch, var(--warning) 10%, var(--card)); }
+
+  /* AUP 禁令项（destructive 令牌） */
+  .dx-deny { background: color-mix(in oklch, var(--destructive) 6%, var(--card)); border: 1px solid color-mix(in oklch, var(--destructive) 20%, transparent); border-radius: calc(var(--radius) * .8); padding: .85rem 1rem; margin: .5rem 0 1rem; }
+  .dx-deny ul { list-style: none; padding-left: 0; margin: 0; }
+  .dx-deny li { position: relative; padding: .4rem 0 .4rem 1.65rem; color: var(--foreground); line-height: 1.6; font-size: .92rem; border-bottom: 1px dashed color-mix(in oklch, var(--destructive) 20%, transparent); }
+  .dx-deny li:last-child { border-bottom: none; }
+  .dx-deny li::before { content: "✕"; position: absolute; left: 0; top: .5rem; width: 1.05rem; height: 1.05rem; border-radius: 9999px; background: var(--destructive); color: var(--destructive-foreground); font-size: .66rem; font-weight: 700; display: inline-flex; align-items: center; justify-content: center; line-height: 1; }
+  .dx-deny li strong { color: var(--destructive); }
+  .dx-deny-after { margin-top: .75rem; padding: .75rem .9rem; border-radius: calc(var(--radius) * .7); background: color-mix(in oklch, var(--destructive) 12%, var(--card)); border: 1px solid color-mix(in oklch, var(--destructive) 22%, transparent); color: var(--foreground); font-size: .9rem; }
+  .dx-deny-after strong { color: var(--destructive); }
+</style>
+
+<div class="dx-doc dx-terms not-prose">
+  <input type="radio" name="dxlang-ua" id="dxl-ua-zh" class="dx-langradio" checked />
+  <input type="radio" name="dxlang-ua" id="dxl-ua-en" class="dx-langradio" />
+  <div class="dx-langbar" role="group" aria-label="Language">
+    <label class="dx-langbtn" for="dxl-ua-zh">中文</label>
+    <label class="dx-langbtn" for="dxl-ua-en">English</label>
+  </div>
+
+  <!-- ================= 中文 ================= -->
+  <div class="dx-body dx-zh">
+    <h1 class="dx-title">用户服务协议</h1>
+    <p class="dx-subtitle">DaoXE · 道熹 —— 请在注册或使用本服务前完整阅读本协议。</p>
+
+    <div class="dx-meta">
+      <div class="dx-meta-item"><strong>生效日期</strong><span>2026-05-25</span></div>
+      <div class="dx-meta-item"><strong>最近更新</strong><span>2026-07-20</span></div>
+      <div class="dx-meta-item"><strong>域名</strong><span>daoxe.com</span></div>
+      <div class="dx-meta-item"><strong>主体</strong><span>DaoXE · 道熹</span></div>
+    </div>
+
+    <div class="dx-banner">
+      <div class="dx-banner-title">服务范围声明</div>
+      <p>
+        <strong>DaoXE（daoxe.com）</strong> 是一个面向全球开发者的境外 AI 服务接入平台，
+        <strong>不向中华人民共和国大陆地区</strong>（不含香港、澳门、台湾）的用户提供任何形式的服务。
+        若您身处中国大陆地区，请立即停止注册和使用本服务。
+        用户须自行确保所在地区允许使用本服务及加密通信工具，因违反所在地法律法规导致的一切后果由用户自行承担。
+      </p>
+    </div>
+
+    <section class="dx-sec">
+      <div class="dx-sec-head"><div class="dx-sec-num">01</div><h2>协议接受</h2></div>
+      <p>本协议是您与 <strong>DaoXE</strong>（以下简称「本服务」或「我们」）之间就使用 <strong>daoxe.com</strong> 及其相关服务所订立的法律协议。当您注册、登录或以任何方式使用本服务时，即视为您已充分阅读、理解并接受本协议的全部内容（含本协议中的 <strong>AI 内容可接受使用政策 / AUP</strong>）。</p>
+      <p>如您不同意本协议任一条款，请勿注册或使用本服务。</p>
+    </section>
+
+    <section class="dx-sec">
+      <div class="dx-sec-head"><div class="dx-sec-num">02</div><h2>服务说明</h2></div>
+      <p>本服务是一个 <strong>AI 模型 API 中转聚合平台</strong>，通过统一接口为用户提供来自 OpenAI、Anthropic、Google、Mistral 等第三方 AI 服务商的模型调用能力（含文本、图像、视频等生成类能力，以实际开放模型为准）。</p>
+      <p>本服务主要作为中转通道，模型本身的能力、输出内容、可用性由原服务商决定，我们不对其作任何保证。用户对其提示词、用途及输出内容的合法合规性承担首要责任。</p>
+    </section>
+
+    <section class="dx-sec">
+      <div class="dx-sec-head"><div class="dx-sec-num">03</div><h2>用户资格</h2></div>
+      <p>使用本服务，您须同时满足以下全部条件：</p>
+      <ul>
+        <li>年满 <strong>18 周岁</strong>，或在所在司法管辖区已达到法定成年年龄</li>
+        <li><strong>非中国大陆地区（PRC Mainland）</strong>用户</li>
+        <li>所在地区的法律法规允许您使用 AI 服务及加密通信工具</li>
+        <li>具备完全民事行为能力</li>
+      </ul>
+    </section>
+
+    <section class="dx-sec">
+      <div class="dx-sec-head"><div class="dx-sec-num">04</div><h2>账户与安全</h2></div>
+      <ul>
+        <li>您应妥善保管账户密码与 API Key，因泄露导致的损失由您自行承担</li>
+        <li>禁止将账户、API Key 转让、出借、出售给他人</li>
+        <li>建议启用二次验证（2FA），并定期更换密码与 API Key</li>
+        <li>发现账户异常，请立即通过本协议「联系我们」渠道联系我们处理</li>
+      </ul>
+    </section>
+
+    <section class="dx-sec">
+      <div class="dx-sec-head"><div class="dx-sec-num">05</div><h2>使用规范与 AI 内容可接受使用政策（AUP）</h2></div>
+      <p>您承诺遵守适用法律、本协议及上游模型服务商（如 OpenAI、Anthropic、Google 等）的使用政策。鉴于本服务可能提供 AI 生图、生成视频及其他生成式 AI 能力，您<strong>不得</strong>利用本服务生成、请求生成、传播、存储或以任何方式协助产生下列违禁内容（下列类别<strong>逐项禁止</strong>，不得以「仅供测试」「虚构创作」等理由规避，法律明确允许且不违反本协议与上游政策的情形除外）：</p>
+
+      <h3>5.1 禁止生成与传播的内容类别</h3>
+      <div class="dx-deny">
+        <ul>
+          <li><strong>色情 / NSFW：</strong>露骨性内容、色情描写、性剥削相关内容，或其他明显不适宜的色情材料</li>
+          <li><strong>暴力 / 血腥：</strong>极端暴力、虐杀、血腥细节的美化、教唆或过度渲染</li>
+          <li><strong>仇恨言论：</strong>基于种族、民族、宗教、国籍、性别、性取向、残疾、种姓等受保护特征的仇恨、歧视煽动或暴力鼓动</li>
+          <li><strong>儿童不安全内容：</strong>任何涉及未成年人的性化、剥削、虐待、色情或不当内容（<strong>零容忍</strong>）</li>
+          <li><strong>深度伪造 / 冒充他人（Deepfake &amp; Impersonation）：</strong>未经权利人或当事人授权，制作、请求生成、编辑、合成或传播足以使一般人误认为真实的虚假内容，包括但不限于：（1）虚假人脸 / 人声 / 视频 / 图像（含「换脸」「声纹克隆」「口型同步」等）；（2）冒充真实个人、公众人物、企业品牌、政府或公共机构、新闻媒体或其他主体；（3）伪造他人身份、证件、签名、通话或会议场景；（4）用于欺诈、诽谤、勒索、骚扰、政治操纵、选举干预、金融诈骗、商业诋毁或其他违法 / 侵权用途。创作性虚构角色，或明确标注为虚构且不指向真实可识别个人的内容，在不违反其他条款与法律的前提下可另行评估；但<strong>不得以「艺术 / 测试」为由规避本条</strong>。</li>
+          <li><strong>侵犯版权 / 商标：</strong>故意生成或传播明显侵犯第三方著作权、商标权、肖像权、商业秘密或其他知识产权的内容</li>
+          <li><strong>其他违法或有害内容：</strong>违反任何适用法律法规的内容，以及第三方服务商政策明确禁止的内容</li>
+        </ul>
+      </div>
+
+      <h3>5.2 其他禁止的滥用行为</h3>
+      <div class="dx-deny">
+        <ul>
+          <li>进行任何形式的 <strong>网络攻击</strong>（DDoS、爆破、扫描、注入等）</li>
+          <li>用于 <strong>恶意爬虫、自动化垃圾内容生成、虚假信息规模化传播</strong></li>
+          <li>未经授权 <strong>转售、二次分发</strong> 本服务的 API、Key 或服务能力</li>
+          <li>滥用、压力测试、绕过频率限制、安全机制或上游内容过滤</li>
+          <li>从事任何侵犯他人隐私权或其他合法权益的行为</li>
+        </ul>
+      </div>
+
+      <h3>5.3 违规处置机制</h3>
+      <p>一经发现或经合理怀疑存在上述违规，我们有权视情节单独或合并采取下列措施，且可不事先通知：</p>
+      <ul>
+        <li>限制、暂停或<strong>永久封禁</strong>账号</li>
+        <li>吊销 API Key，限制模型、接口或功能访问</li>
+        <li><strong>清零或扣减</strong>账户额度 / 余额；违规相关费用<strong>不予退款</strong></li>
+        <li>拒绝继续处理相关请求，并在法律允许范围内保留必要审计记录</li>
+        <li>依法向有权机关报告或配合调查</li>
+        <li>保留进一步追究法律责任的权利</li>
+      </ul>
+      <div class="dx-deny-after">涉及儿童安全、欺诈、深度伪造用于犯罪或情节严重的，我们可 <strong>立即永久封禁且不予退款</strong>，并视情况配合执法机关。</div>
+
+      <h3>5.4 用户举报渠道</h3>
+      <p>若您发现本平台用户、API 调用方或通过本服务生成 / 传播的内容涉嫌违反本 AUP / 本协议，请通过以下渠道举报（举报入口亦在<strong>全站页脚</strong>与<strong>客服入口</strong>公示，不仅限于本条款正文）：</p>
+      <div class="dx-contact">
+        <div class="dx-contact-row">
+          <span class="dx-label">邮件举报（推荐）</span>
+          <span><a href="mailto:support@daoxe.com">support@daoxe.com</a>（主题请注明 <strong>[Abuse Report]</strong> + 简要说明；亦可标注 [AUP] / [内容举报]）</span>
+        </div>
+        <div class="dx-contact-row">
+          <span class="dx-label">Telegram</span>
+          <span><a href="https://t.me/daoxe_ai" target="_blank" rel="noopener noreferrer">@daoxe_ai</a>（请在首条消息注明 <strong>Abuse Report</strong>）</span>
+        </div>
+      </div>
+      <p style="margin-top: 0.85rem"><strong>建议随附材料（便于核查）：</strong>账号 / 用户名（如知）、大致发生时间（含时区）、模型名称、Base URL / 线路、请求 ID 或客户端日志截图、违规内容描述、相关链接或样本哈希。我们在收到<strong>可核查的完整材料</strong>后，通常于 <strong>3–7 个工作日</strong>内完成初步核查并反馈处理进展；复杂案件可能延长并将尽量告知进展。</p>
+      <p><strong>举报处理流程：</strong>受理登记 → 初步分流（儿童安全 / 欺诈 / 普通违规等）→ 调取可用元数据与用户提交证据核查 → 按本条「违规处置机制」采取限制 / 封禁 / 清零额度等措施 → 在法律与隐私政策允许范围内向举报人反馈结果类别。恶意虚假举报可能被限制提交；善意举报不因结果不成立而承担责任。</p>
+
+      <h3>5.5 平台内容审核机制</h3>
+      <p>DaoXE 作为 API 网关 / 转发平台，请求会发往上游模型服务商。针对 AI 文本、生图、生成视频等 AIGC 能力，内容管理采取「用户责任 + 平台治理 + 上游策略」的多层机制，形成事前—事中—事后闭环：</p>
+      <ol>
+        <li><strong>事前规则（政策与告知）：</strong>本 AUP 与服务条款逐项列明禁止类别（含色情 / NSFW、暴力 / 血腥、仇恨言论、儿童不安全内容、深度伪造 / 冒充他人、侵犯版权 / 商标等）；注册、登录或使用即视为同意。关键能力（含生图 / 视频）的使用须同时遵守上游服务商政策与适用法律。</li>
+        <li><strong>事中接入与风控检测：</strong>对异常高频、批量自动化、明显滥用特征或命中风控规则的流量，可进行速率限制、人机验证、临时拦截或拒绝；结合渠道可用性与安全策略进行路由控制。平台不保证对全部生成内容做实时人工审阅。</li>
+        <li><strong>上游安全过滤：</strong>上游（如 OpenAI / Anthropic / Google 等）可能自带安全过滤、拒绝策略或安全分类器；被上游拒绝不构成平台故障，亦不改变按规则不可退部分的计费结果。</li>
+        <li><strong>事后审查与抽样：</strong>基于用户举报、合作方通报、公开线索、异常用量信号或内部巡检，对涉事账号及日志元数据（时间、模型、Token、状态、渠道等）进行核查。本服务<strong>不主动长期存储完整对话 / 生成正文</strong>（详见隐私政策），审查以元数据、用户提交证据、上游回执及可复现信息为主；对高风险类别（尤其儿童安全、欺诈、深度伪造用于违法）优先加急处理。</li>
+        <li><strong>处置闭环：</strong>确认违规后按本条「违规处置机制」执行（含账号封禁、额度清零、吊销密钥、配合执法等），并视情况保留审计记录以备合规与执法协助；对误报可在用户补充材料后复核。</li>
+        <li><strong>持续改进：</strong>可根据法规、上游政策与风险态势更新禁止清单、风控阈值与审核流程，更新后以网站公示版本为准。</li>
+      </ol>
+      <div class="dx-callout dx-callout-ok">用户应对自身提示词、用途及输出的合法合规性负<strong>首要责任</strong>；不得利用本服务规避上游或当地法律的内容限制，不得生成或传播本 AUP 列明的违禁内容。</div>
+    </section>
+
+    <section class="dx-sec">
+      <div class="dx-sec-head"><div class="dx-sec-num">06</div><h2>计费与充值</h2></div>
+      <ul>
+        <li>本服务采用 <strong>按量计费</strong> 模式，以 Token 用量等计量单位为计费依据（以实际模型与账单展示为准）</li>
+        <li>充值金额仅可用于本服务消费，<strong>不可提现、不可转让、不可退款</strong>（法律另有强制规定或我们书面同意的除外）</li>
+        <li>账户余额自最后一次充值或调用之日起 <strong>12 个月</strong>无活动，我们有权清零处理</li>
+        <li>因不可抗力、第三方源站故障导致的服务中断，我们将根据实际情况进行合理补偿或处理</li>
+      </ul>
+    </section>
+
+    <section class="dx-sec">
+      <div class="dx-sec-head"><div class="dx-sec-num">07</div><h2>数据与隐私</h2></div>
+      <ul>
+        <li>本服务 <strong>不主动存储</strong> 您的 API 请求 / 响应正文，对话数据在转发完成后即被丢弃</li>
+        <li>为保障服务质量与排障，我们会记录请求的元数据（时间、模型、Token 数等），不含对话原文</li>
+        <li>您输入的内容 <strong>仍会被上游模型服务商</strong>（如 OpenAI、Anthropic）按其自身政策接收与处理</li>
+        <li>请勿向本服务输入您不愿被第三方处理的敏感信息</li>
+        <li>更多细节见 <a href="/privacy-policy">《隐私政策》</a></li>
+      </ul>
+    </section>
+
+    <section class="dx-sec">
+      <div class="dx-sec-head"><div class="dx-sec-num">08</div><h2>知识产权</h2></div>
+      <p>模型输出内容的知识产权归属遵循 <strong>各模型源站的政策</strong>（如 OpenAI ToS）。本服务的网站设计、品牌标识等归 <strong>DaoXE</strong> 所有；本服务基于开源项目构建，相关开源组件的权利与许可归其各自权利人所有。</p>
+    </section>
+
+    <section class="dx-sec">
+      <div class="dx-sec-head"><div class="dx-sec-num">09</div><h2>服务可用性与免责</h2></div>
+      <p>本服务按「<strong>现状（as-is）</strong>」与「<strong>可获得（as-available）</strong>」提供，我们不对服务的不间断性、准确性、完整性作任何明示或默示保证。以下情形造成的服务中断或损失，我们 <strong>不承担责任</strong>（法律强制规定的除外）：</p>
+      <ul>
+        <li>不可抗力（自然灾害、战争、政府行为等）</li>
+        <li>第三方模型服务商（OpenAI、Anthropic 等）政策变更、限流或封禁</li>
+        <li>网络运营商故障、跨境链路波动</li>
+        <li>您所在地区的网络管制或法律限制</li>
+        <li>您自身设备、网络、操作不当导致的问题</li>
+      </ul>
+      <div class="dx-callout"><strong>责任上限：</strong>在法律允许的最大范围内，我们对您的累计赔偿责任不超过您在最近 <strong>30 天</strong>内向本服务实际支付且已消费的金额。</div>
+    </section>
+
+    <section class="dx-sec">
+      <div class="dx-sec-head"><div class="dx-sec-num">10</div><h2>服务变更与终止</h2></div>
+      <ul>
+        <li>我们有权根据业务需要随时 <strong>变更、暂停或终止</strong> 全部或部分服务</li>
+        <li>您违反本协议时，我们有权 <strong>立即封禁账户</strong>，无需事先通知</li>
+        <li>您可随时停止使用本服务，但已消费金额不予退还（法律另有强制规定的除外）</li>
+      </ul>
+    </section>
+
+    <section class="dx-sec">
+      <div class="dx-sec-head"><div class="dx-sec-num">11</div><h2>协议修改</h2></div>
+      <p>我们保留随时修改本协议的权利。修改后的协议将在本页面公布，并自公布之日起生效。继续使用本服务即视为接受修改后的协议。重大变更时，我们可能通过站内公告或邮件等方式提示。</p>
+    </section>
+
+    <section class="dx-sec">
+      <div class="dx-sec-head"><div class="dx-sec-num">12</div><h2>法律适用与争议解决</h2></div>
+      <p>本协议的解释、效力、履行及争议解决均适用 <strong>服务运营主体所在地法律</strong>（不含冲突法规则）。因本协议引起的任何争议，双方应首先友好协商；协商不成的，提交服务运营主体所在地有管辖权的法院诉讼解决。</p>
+      <p style="color: var(--muted-foreground); font-size: 0.88rem">注：本条中的适用法律与管辖地需与真实运营主体、注册地保持一致，正式发布前请经法务确认。</p>
+    </section>
+
+    <section class="dx-sec">
+      <div class="dx-sec-head"><div class="dx-sec-num">13</div><h2>联系我们</h2></div>
+      <p>如对本协议、隐私保护、客服支持或内容违规举报有任何问题，请通过以下方式联系我们。以下联系方式亦在<strong>全站页脚</strong>公示，便于在任意页面快速找到：</p>
+      <div class="dx-contact">
+        <div class="dx-contact-row"><span class="dx-label">客服邮箱</span><span><a href="mailto:support@daoxe.com">support@daoxe.com</a></span></div>
+        <div class="dx-contact-row"><span class="dx-label">滥用 / 内容举报</span><span><a href="mailto:support@daoxe.com">support@daoxe.com</a>（主题标注 <strong>[Abuse Report]</strong>）</span></div>
+        <div class="dx-contact-row"><span class="dx-label">Telegram</span><span><a href="https://t.me/daoxe_ai" target="_blank" rel="noopener noreferrer">@daoxe_ai</a></span></div>
+        <div class="dx-contact-row"><span class="dx-label">网站</span><span><a href="https://daoxe.com" target="_blank" rel="noopener noreferrer">https://daoxe.com</a></span></div>
+      </div>
+      <p style="margin-top: 0.85rem">一般咨询我们会在合理期限内回复；举报类请求的处理时效见本协议第 5.4 条。我们不提供面向中国大陆用户的服务。</p>
+    </section>
+
+    <footer class="dx-foot">
+      本协议最终解释权归 <strong>DaoXE · 道熹</strong> 所有 · © 2026 ·
+      <a href="https://daoxe.com" target="_blank" rel="noopener noreferrer">daoxe.com</a> ·
+      客服 <a href="mailto:support@daoxe.com">support@daoxe.com</a>
+    </footer>
+  </div>
+
+  <!-- ================= English ================= -->
+  <div class="dx-body dx-en">
+    <h1 class="dx-title">Terms of Service</h1>
+    <p class="dx-subtitle">DaoXE — please read these Terms in full before registering or using the service.</p>
+
+    <div class="dx-meta">
+      <div class="dx-meta-item"><strong>Effective date</strong><span>2026-05-25</span></div>
+      <div class="dx-meta-item"><strong>Last updated</strong><span>2026-07-20</span></div>
+      <div class="dx-meta-item"><strong>Domain</strong><span>daoxe.com</span></div>
+      <div class="dx-meta-item"><strong>Operator</strong><span>DaoXE</span></div>
+    </div>
+
+    <div class="dx-banner">
+      <div class="dx-banner-title">Service Availability Notice</div>
+      <p>
+        <strong>DaoXE (daoxe.com)</strong> is an overseas AI access platform for developers worldwide and
+        <strong>does not provide any service to users located in mainland China</strong> (excluding Hong Kong, Macau and Taiwan).
+        If you are located in mainland China, please stop registering and using the service immediately.
+        You are solely responsible for ensuring that your jurisdiction permits the use of this service and of encrypted-communication tools; you bear all consequences of any violation of local laws and regulations.
+      </p>
+    </div>
+
+    <section class="dx-sec">
+      <div class="dx-sec-head"><div class="dx-sec-num">01</div><h2>Acceptance of Terms</h2></div>
+      <p>These Terms constitute a legal agreement between you and <strong>DaoXE</strong> (the "Service" or "we") regarding your use of <strong>daoxe.com</strong> and related services. By registering, logging in or otherwise using the Service, you are deemed to have fully read, understood and accepted these Terms in their entirety (including the <strong>AI Acceptable Use Policy / AUP</strong> contained herein).</p>
+      <p>If you do not agree to any provision of these Terms, please do not register or use the Service.</p>
+    </section>
+
+    <section class="dx-sec">
+      <div class="dx-sec-head"><div class="dx-sec-num">02</div><h2>Description of Service</h2></div>
+      <p>The Service is an <strong>AI model API aggregation and relay platform</strong> that provides, through a unified interface, access to models from third-party AI providers such as OpenAI, Anthropic, Google and Mistral (including text, image and video generation capabilities, subject to the models actually made available).</p>
+      <p>The Service acts primarily as a relay channel. The capabilities, output and availability of the models themselves are determined by the original providers, and we make no warranty in respect of them. You bear primary responsibility for the legality and compliance of your prompts, use and output.</p>
+    </section>
+
+    <section class="dx-sec">
+      <div class="dx-sec-head"><div class="dx-sec-num">03</div><h2>Eligibility</h2></div>
+      <p>To use the Service, you must meet all of the following conditions:</p>
+      <ul>
+        <li>Be at least <strong>18 years old</strong>, or have reached the age of legal majority in your jurisdiction</li>
+        <li>Not be a user located in <strong>mainland China (PRC Mainland)</strong></li>
+        <li>Be permitted by the laws of your jurisdiction to use AI services and encrypted-communication tools</li>
+        <li>Have full legal capacity to contract</li>
+      </ul>
+    </section>
+
+    <section class="dx-sec">
+      <div class="dx-sec-head"><div class="dx-sec-num">04</div><h2>Account &amp; Security</h2></div>
+      <ul>
+        <li>You must keep your account password and API Key secure; you bear any loss resulting from their disclosure</li>
+        <li>You must not transfer, lend or sell your account or API Key to others</li>
+        <li>We recommend enabling two-factor authentication (2FA) and rotating your password and API Key regularly</li>
+        <li>If you discover any account anomaly, contact us immediately via the "Contact Us" channels in these Terms</li>
+      </ul>
+    </section>
+
+    <section class="dx-sec">
+      <div class="dx-sec-head"><div class="dx-sec-num">05</div><h2>Acceptable Use Policy (AUP)</h2></div>
+      <p>You undertake to comply with applicable law, these Terms and the usage policies of the upstream model providers (such as OpenAI, Anthropic and Google). Because the Service may offer AI image generation, video generation and other generative capabilities, you <strong>must not</strong> use the Service to generate, request the generation of, distribute, store or in any way assist in producing the following prohibited content (each category below is <strong>independently prohibited</strong> and may not be circumvented on grounds such as "testing only" or "fictional creation", except where clearly permitted by law and not in breach of these Terms or upstream policies):</p>
+
+      <h3>5.1 Prohibited categories of generated or distributed content</h3>
+      <div class="dx-deny">
+        <ul>
+          <li><strong>Pornography / NSFW:</strong> sexually explicit content, pornographic descriptions, content related to sexual exploitation, or other clearly inappropriate sexual material</li>
+          <li><strong>Violence / gore:</strong> glorification, incitement or gratuitous depiction of extreme violence, torture-killing or graphic gore</li>
+          <li><strong>Hate speech:</strong> hatred, incitement to discrimination or advocacy of violence based on protected characteristics such as race, ethnicity, religion, nationality, sex, sexual orientation, disability or caste</li>
+          <li><strong>Child-unsafe content:</strong> any content that sexualizes, exploits, abuses or is otherwise inappropriate toward minors (<strong>zero tolerance</strong>)</li>
+          <li><strong>Deepfakes &amp; impersonation:</strong> without the authorization of the rights holder or the person concerned, creating, requesting, editing, synthesizing or distributing false content likely to make an ordinary person believe it is real, including but not limited to: (1) fake faces / voices / video / images (including "face swap", "voice cloning", "lip-sync", etc.); (2) impersonating real individuals, public figures, corporate brands, government or public bodies, news media or other entities; (3) forging another person's identity, credentials, signature, calls or meetings; (4) use for fraud, defamation, extortion, harassment, political manipulation, election interference, financial fraud, commercial disparagement or other unlawful / infringing purposes. Creative fictional characters, or content clearly labelled as fictional and not depicting a real, identifiable person, may be assessed separately provided it does not breach other provisions or the law; however, this clause <strong>may not be circumvented on grounds of "art / testing"</strong>.</li>
+          <li><strong>Copyright / trademark infringement:</strong> deliberately generating or distributing content that clearly infringes third-party copyright, trademark, likeness rights, trade secrets or other intellectual property</li>
+          <li><strong>Other unlawful or harmful content:</strong> content that violates any applicable law or regulation, and content expressly prohibited by third-party provider policies</li>
+        </ul>
+      </div>
+
+      <h3>5.2 Other prohibited abuse</h3>
+      <div class="dx-deny">
+        <ul>
+          <li>Conducting any form of <strong>network attack</strong> (DDoS, brute-forcing, scanning, injection, etc.)</li>
+          <li>Using the Service for <strong>malicious scraping, automated spam generation or large-scale spread of disinformation</strong></li>
+          <li>Unauthorized <strong>resale or redistribution</strong> of the Service's API, keys or capabilities</li>
+          <li>Abusing, stress-testing, or circumventing rate limits, security mechanisms or upstream content filters</li>
+          <li>Engaging in any activity that infringes others' privacy or other lawful rights</li>
+        </ul>
+      </div>
+
+      <h3>5.3 Enforcement</h3>
+      <p>Upon discovery or reasonable suspicion of any of the above violations, we may, individually or in combination and without prior notice, take the following measures according to the severity:</p>
+      <ul>
+        <li>Restrict, suspend or <strong>permanently ban</strong> the account</li>
+        <li>Revoke API Keys and restrict access to models, endpoints or features</li>
+        <li><strong>Zero out or deduct</strong> account quota / balance; fees related to the violation are <strong>non-refundable</strong></li>
+        <li>Refuse to process the relevant requests and retain necessary audit records to the extent permitted by law</li>
+        <li>Report to, or cooperate with, competent authorities as required by law</li>
+        <li>Reserve the right to pursue further legal liability</li>
+      </ul>
+      <div class="dx-deny-after">For matters involving child safety, fraud, deepfakes used for crime, or otherwise serious cases, we may <strong>immediately and permanently ban the account with no refund</strong> and cooperate with law enforcement as appropriate.</div>
+
+      <h3>5.4 Reporting channels</h3>
+      <p>If you discover that a user, an API caller, or content generated / distributed via the Service may violate this AUP or these Terms, please report it through the following channels (reporting entry points are also published in the <strong>site-wide footer</strong> and the <strong>support entry</strong>, not only within this clause):</p>
+      <div class="dx-contact">
+        <div class="dx-contact-row">
+          <span class="dx-label">Email (preferred)</span>
+          <span><a href="mailto:support@daoxe.com">support@daoxe.com</a> (please use the subject <strong>[Abuse Report]</strong> plus a brief description; you may also tag [AUP] / [Content Report])</span>
+        </div>
+        <div class="dx-contact-row">
+          <span class="dx-label">Telegram</span>
+          <span><a href="https://t.me/daoxe_ai" target="_blank" rel="noopener noreferrer">@daoxe_ai</a> (please note <strong>Abuse Report</strong> in your first message)</span>
+        </div>
+      </div>
+      <p style="margin-top: 0.85rem"><strong>Suggested materials (to aid review):</strong> account / username (if known), approximate time of occurrence (with time zone), model name, Base URL / route, request ID or client log screenshots, a description of the offending content, and relevant links or sample hashes. After we receive <strong>complete, verifiable materials</strong>, we typically complete an initial review and provide a status update within <strong>3–7 business days</strong>; complex cases may take longer and we will try to keep you informed.</p>
+      <p><strong>Handling process:</strong> intake and logging → initial triage (child safety / fraud / general violation, etc.) → review of available metadata and user-submitted evidence → enforcement under "5.3 Enforcement" (restriction / ban / quota zeroing, etc.) → feedback on the outcome category to the reporter, to the extent permitted by law and the Privacy Policy. Malicious false reports may result in restricted submission; good-faith reports do not incur liability merely because a claim is not upheld.</p>
+
+      <h3>5.5 Content moderation model</h3>
+      <p>As an API gateway / relay platform, DaoXE forwards requests to upstream model providers. For AIGC capabilities such as AI text, image generation and video generation, content management follows a multi-layer "user responsibility + platform governance + upstream policy" model, forming a before–during–after loop:</p>
+      <ol>
+        <li><strong>Before (policy &amp; notice):</strong> this AUP and the Terms enumerate prohibited categories (including pornography / NSFW, violence / gore, hate speech, child-unsafe content, deepfakes / impersonation, copyright / trademark infringement, etc.); registration, login or use constitutes consent. Use of key capabilities (including image / video) must also comply with upstream provider policies and applicable law.</li>
+        <li><strong>During (access &amp; risk control):</strong> for traffic that is abnormally frequent, batch-automated, exhibits clear abuse patterns or triggers risk rules, we may apply rate limiting, human verification, temporary blocking or rejection, and route control based on channel availability and security policy. The platform does not guarantee real-time human review of all generated content.</li>
+        <li><strong>Upstream safety filtering:</strong> upstream providers (such as OpenAI / Anthropic / Google) may apply their own safety filters, refusal policies or safety classifiers; a refusal by the upstream does not constitute a platform fault, nor does it change the non-refundable portion of charges under the rules.</li>
+        <li><strong>After (review &amp; sampling):</strong> based on user reports, partner notifications, public leads, abnormal usage signals or internal checks, we review the relevant account and log metadata (time, model, tokens, status, channel, etc.). The Service <strong>does not actively retain full conversation / generated content long-term</strong> (see the Privacy Policy); review relies primarily on metadata, user-submitted evidence, upstream receipts and reproducible information, with priority handling for high-risk categories (especially child safety, fraud and deepfakes used unlawfully).</li>
+        <li><strong>Closing the loop:</strong> once a violation is confirmed, we act under "5.3 Enforcement" (including account bans, quota zeroing, key revocation, cooperation with law enforcement, etc.) and retain audit records as appropriate for compliance and law-enforcement assistance; false positives may be re-reviewed after the user provides additional materials.</li>
+        <li><strong>Continuous improvement:</strong> we may update the prohibited list, risk thresholds and review process in light of laws, upstream policies and the risk landscape; the version published on the website prevails.</li>
+      </ol>
+      <div class="dx-callout dx-callout-ok">You bear <strong>primary responsibility</strong> for the legality and compliance of your prompts, use and output; you must not use the Service to circumvent upstream or local-law content restrictions, and must not generate or distribute content prohibited by this AUP.</div>
+    </section>
+
+    <section class="dx-sec">
+      <div class="dx-sec-head"><div class="dx-sec-num">06</div><h2>Billing &amp; Top-up</h2></div>
+      <ul>
+        <li>The Service uses a <strong>pay-as-you-go</strong> model, billed on metering units such as token usage (subject to the actual model and the amounts shown on your bill)</li>
+        <li>Top-up amounts may only be used to pay for the Service and are <strong>non-withdrawable, non-transferable and non-refundable</strong> (unless otherwise mandated by law or agreed by us in writing)</li>
+        <li>Where an account balance has been inactive for <strong>12 months</strong> from the last top-up or call, we may zero it out</li>
+        <li>For service interruptions caused by force majeure or third-party upstream failures, we will provide reasonable remediation or handling based on the actual circumstances</li>
+      </ul>
+    </section>
+
+    <section class="dx-sec">
+      <div class="dx-sec-head"><div class="dx-sec-num">07</div><h2>Data &amp; Privacy</h2></div>
+      <ul>
+        <li>The Service <strong>does not actively store</strong> the body of your API requests / responses; conversation data is discarded after forwarding completes</li>
+        <li>To ensure service quality and troubleshooting, we log request metadata (time, model, token counts, etc.) without conversation content</li>
+        <li>Your input <strong>is still received and processed by the upstream model providers</strong> (such as OpenAI and Anthropic) under their own policies</li>
+        <li>Do not submit to the Service any sensitive information you would not want processed by third parties</li>
+        <li>For more detail, see the <a href="/privacy-policy">Privacy Policy</a></li>
+      </ul>
+    </section>
+
+    <section class="dx-sec">
+      <div class="dx-sec-head"><div class="dx-sec-num">08</div><h2>Intellectual Property</h2></div>
+      <p>Ownership of intellectual property in model output follows the <strong>policies of each model's origin provider</strong> (such as the OpenAI ToS). The website design and brand identity of the Service belong to <strong>DaoXE</strong>; the Service is built on open-source projects, and the rights and licenses of those open-source components belong to their respective rights holders.</p>
+    </section>
+
+    <section class="dx-sec">
+      <div class="dx-sec-head"><div class="dx-sec-num">09</div><h2>Availability &amp; Disclaimer</h2></div>
+      <p>The Service is provided on an "<strong>as-is</strong>" and "<strong>as-available</strong>" basis, and we make no express or implied warranty as to its uninterrupted operation, accuracy or completeness. We are <strong>not liable</strong> for service interruption or loss caused by the following (except as mandated by law):</p>
+      <ul>
+        <li>Force majeure (natural disasters, war, government action, etc.)</li>
+        <li>Policy changes, rate limiting or bans by third-party model providers (OpenAI, Anthropic, etc.)</li>
+        <li>Network carrier failures or cross-border link fluctuations</li>
+        <li>Network controls or legal restrictions in your region</li>
+        <li>Problems caused by your own device, network or improper operation</li>
+      </ul>
+      <div class="dx-callout"><strong>Limitation of liability:</strong> to the maximum extent permitted by law, our aggregate liability to you shall not exceed the amount you actually paid to, and consumed on, the Service in the most recent <strong>30 days</strong>.</div>
+    </section>
+
+    <section class="dx-sec">
+      <div class="dx-sec-head"><div class="dx-sec-num">10</div><h2>Changes &amp; Termination</h2></div>
+      <ul>
+        <li>We may <strong>change, suspend or terminate</strong> all or part of the Service at any time as business needs require</li>
+        <li>If you breach these Terms, we may <strong>ban your account immediately</strong> without prior notice</li>
+        <li>You may stop using the Service at any time, but amounts already consumed are non-refundable (except as mandated by law)</li>
+      </ul>
+    </section>
+
+    <section class="dx-sec">
+      <div class="dx-sec-head"><div class="dx-sec-num">11</div><h2>Amendments</h2></div>
+      <p>We reserve the right to amend these Terms at any time. Amended Terms will be published on this page and take effect from the date of publication. Continued use of the Service constitutes acceptance of the amended Terms. For material changes, we may notify you via in-site announcements or email.</p>
+    </section>
+
+    <section class="dx-sec">
+      <div class="dx-sec-head"><div class="dx-sec-num">12</div><h2>Governing Law &amp; Disputes</h2></div>
+      <p>The interpretation, validity, performance of, and disputes arising from, these Terms shall be governed by the <strong>law of the place where the operating entity is located</strong> (excluding its conflict-of-laws rules). Any dispute arising from these Terms shall first be resolved through friendly negotiation; failing which, it shall be submitted to a competent court at the location of the operating entity.</p>
+      <p style="color: var(--muted-foreground); font-size: 0.88rem">Note: the governing law and forum in this clause must be consistent with the real operating entity and place of registration; please confirm with legal counsel before official publication.</p>
+    </section>
+
+    <section class="dx-sec">
+      <div class="dx-sec-head"><div class="dx-sec-num">13</div><h2>Contact Us</h2></div>
+      <p>If you have any question regarding these Terms, privacy, support, or content-violation reporting, please contact us using the methods below. These contacts are also published in the <strong>site-wide footer</strong> for quick access from any page:</p>
+      <div class="dx-contact">
+        <div class="dx-contact-row"><span class="dx-label">Support email</span><span><a href="mailto:support@daoxe.com">support@daoxe.com</a></span></div>
+        <div class="dx-contact-row"><span class="dx-label">Abuse / content report</span><span><a href="mailto:support@daoxe.com">support@daoxe.com</a> (subject <strong>[Abuse Report]</strong>)</span></div>
+        <div class="dx-contact-row"><span class="dx-label">Telegram</span><span><a href="https://t.me/daoxe_ai" target="_blank" rel="noopener noreferrer">@daoxe_ai</a></span></div>
+        <div class="dx-contact-row"><span class="dx-label">Website</span><span><a href="https://daoxe.com" target="_blank" rel="noopener noreferrer">https://daoxe.com</a></span></div>
+      </div>
+      <p style="margin-top: 0.85rem">We respond to general enquiries within a reasonable time; timelines for reports are set out in Section 5.4. We do not provide services to users in mainland China.</p>
+    </section>
+
+    <footer class="dx-foot">
+      Final right of interpretation of these Terms rests with <strong>DaoXE</strong> · © 2026 ·
+      <a href="https://daoxe.com" target="_blank" rel="noopener noreferrer">daoxe.com</a> ·
+      Support <a href="mailto:support@daoxe.com">support@daoxe.com</a>
+    </footer>
+  </div>
+</div>

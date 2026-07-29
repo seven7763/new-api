@@ -1,0 +1,383 @@
+<!-- DaoXE · 道熹 — 关于页面 / About（中英双语，统一设计版 2026-07） -->
+<!-- 承载体：options 表 key = "About"，前端 /api/about 读取，检测为 HTML 后在隔离 Shadow DOM 中渲染 -->
+<!-- 双语切换为纯 CSS（radio + :checked 兄弟选择器），无 JS，已按前端同款 DOMPurify(3.4.11) 配置实测存活 -->
+<!-- 默认显示中文；点击顶部「中文 / English」切换 -->
+
+<style>
+  .dx-doc,
+  .dx-doc * { box-sizing: border-box; }
+  .dx-doc {
+    max-width: 72rem;
+    margin: 0 auto;
+    padding: 5rem clamp(1rem, 4vw, 1.5rem) 4rem;
+    color: var(--foreground);
+    font-family: var(--font-body, var(--font-sans, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif));
+    line-height: 1.7;
+    font-size: 15px;
+  }
+  .dx-doc a { color: var(--primary); text-decoration: none; }
+  .dx-doc a:hover { text-decoration: underline; }
+  .dx-doc strong { color: var(--foreground); font-weight: 600; }
+
+  /* 语言切换（纯 CSS，主色选中态，默认中文） */
+  .dx-langradio { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
+  .dx-langbar { display: inline-flex; gap: .25rem; margin: 0 0 1.75rem; padding: .25rem; border: 1px solid var(--border); border-radius: 9999px; background: var(--muted); }
+  .dx-langbtn { cursor: pointer; user-select: none; padding: .4rem 1rem; border-radius: 9999px; font-size: .85rem; font-weight: 600; color: var(--muted-foreground); line-height: 1; transition: background .15s ease, color .15s ease; }
+  .dx-langbtn:hover { color: var(--foreground); }
+  #dxl-ab-zh:checked ~ .dx-langbar label[for="dxl-ab-zh"],
+  #dxl-ab-en:checked ~ .dx-langbar label[for="dxl-ab-en"] { background: var(--primary); color: var(--primary-foreground); }
+  #dxl-ab-zh:focus-visible ~ .dx-langbar label[for="dxl-ab-zh"],
+  #dxl-ab-en:focus-visible ~ .dx-langbar label[for="dxl-ab-en"] { outline: 2px solid var(--ring, var(--primary)); outline-offset: 2px; }
+  .dx-body.dx-en { display: none; }
+  #dxl-ab-en:checked ~ .dx-body.dx-en { display: block; }
+  #dxl-ab-en:checked ~ .dx-body.dx-zh { display: none; }
+
+  /* 提示条 banner（红=服务范围；绿=承诺） */
+  .dx-banner { margin: 0 0 1.25rem; padding: 1.1rem 1.25rem; border: 1px solid color-mix(in oklch, var(--destructive) 22%, transparent); border-left: 3px solid var(--destructive); border-radius: var(--radius); background: color-mix(in oklch, var(--destructive) 7%, var(--card)); color: var(--foreground); }
+  .dx-banner-title { display: flex; align-items: center; gap: .5rem; font-size: .95rem; font-weight: 700; margin: 0 0 .4rem; color: var(--destructive); }
+  .dx-banner-title::before { content: ""; width: 7px; height: 7px; border-radius: 9999px; background: currentColor; flex: 0 0 auto; }
+  .dx-banner p { margin: 0; font-size: .92rem; line-height: 1.7; color: var(--foreground); }
+  .dx-banner strong { color: var(--destructive); }
+  .dx-banner-ok { border-color: color-mix(in oklch, var(--success) 22%, transparent); border-left-color: var(--success); background: color-mix(in oklch, var(--success) 8%, var(--card)); }
+  .dx-banner-ok .dx-banner-title, .dx-banner-ok strong { color: var(--success); }
+
+  /* 联系方式 */
+  .dx-contact { display: grid; gap: .55rem; margin: .65rem 0 0; }
+  .dx-contact-row { display: grid; grid-template-columns: 9.5rem 1fr; gap: .75rem; align-items: start; padding: .7rem .85rem; border: 1px solid var(--border); border-radius: calc(var(--radius) * .7); background: var(--muted); }
+  .dx-label { font-size: .78rem; font-weight: 600; color: var(--muted-foreground); letter-spacing: .02em; }
+
+  .dx-foot { margin-top: 2rem; padding-top: 1.5rem; border-top: 1px solid var(--border); text-align: center; color: var(--muted-foreground); font-size: .84rem; }
+  .dx-foot strong { color: var(--foreground); }
+
+  @media (max-width: 640px) {
+    .dx-doc { padding: 4.5rem .9rem 3rem; }
+    .dx-sec { padding: 1.1rem; }
+    .dx-contact-row { grid-template-columns: 1fr; gap: .25rem; }
+  }
+
+  /* 关于页：hero / 卡片网格 / 引文 / 指标 / 标签 / CTA（全部走站点令牌） */
+  .dx-hero { text-align: center; padding: 3rem 1.25rem 2.5rem; border: 1px solid var(--border); border-radius: var(--radius); background: var(--card); }
+  .dx-brand { display: inline-flex; align-items: center; gap: .5rem; font-size: .75rem; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; color: var(--muted-foreground); border: 1px solid var(--border); border-radius: 9999px; padding: .35rem .85rem; margin-bottom: 1.15rem; background: var(--muted); }
+  .dx-brand::before { content: ""; width: 6px; height: 6px; border-radius: 9999px; background: var(--primary); }
+  .dx-hero h1 { margin: 0 0 .7rem; font-size: clamp(2rem, 4.5vw, 2.9rem); font-weight: 700; letter-spacing: -.02em; line-height: 1.12; color: var(--foreground); }
+  .dx-lede { margin: 0 auto; max-width: 42rem; font-size: 1.05rem; color: var(--muted-foreground); }
+  .dx-lede strong { color: var(--foreground); }
+  .dx-section { margin-top: 2.25rem; }
+  .dx-section > h2 { margin: 0 0 1.1rem; font-size: 1.3rem; font-weight: 700; letter-spacing: -.01em; color: var(--foreground); }
+  .dx-section > p { margin: 0 0 1rem; color: var(--muted-foreground); }
+  .dx-section > p strong { color: var(--foreground); }
+  .dx-grid-2, .dx-grid-3, .dx-grid-4 { display: grid; gap: 1rem; grid-template-columns: 1fr; }
+  @media (min-width: 640px) { .dx-grid-3, .dx-grid-4 { grid-template-columns: 1fr 1fr; } }
+  @media (min-width: 768px) { .dx-grid-2 { grid-template-columns: 1fr 1fr; } .dx-grid-3 { grid-template-columns: repeat(3, 1fr); } .dx-grid-4 { grid-template-columns: repeat(4, 1fr); } }
+  .dx-card { background: var(--card); color: var(--card-foreground); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.35rem 1.3rem; transition: transform .15s ease, box-shadow .15s ease; }
+  @media (min-width: 641px) { .dx-card:hover { transform: translateY(-1px); box-shadow: 0 4px 12px rgb(0 0 0 / .06); } }
+  .dx-card .dx-glyph { width: 2.5rem; height: 2.5rem; display: inline-flex; align-items: center; justify-content: center; border-radius: calc(var(--radius) * .6); font-size: 1.3rem; font-weight: 700; line-height: 1; color: var(--primary); background: color-mix(in oklch, var(--primary) 12%, transparent); border: 1px solid color-mix(in oklch, var(--primary) 22%, transparent); margin-bottom: .85rem; }
+  .dx-card .dx-icon { width: 2.25rem; height: 2.25rem; display: inline-flex; align-items: center; justify-content: center; border-radius: calc(var(--radius) * .55); font-size: .72rem; font-weight: 700; letter-spacing: .04em; color: var(--primary); background: color-mix(in oklch, var(--primary) 12%, transparent); border: 1px solid color-mix(in oklch, var(--primary) 22%, transparent); margin-bottom: .85rem; font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace; }
+  .dx-card h3 { margin: 0 0 .4rem; font-size: 1rem; font-weight: 600; color: var(--foreground); }
+  .dx-card p { margin: 0; color: var(--muted-foreground); font-size: .92rem; line-height: 1.6; }
+  .dx-quote { margin: 1.5rem 0 0; padding: 1rem 1.25rem; border-left: 3px solid var(--primary); background: var(--muted); border-radius: 0 var(--radius) var(--radius) 0; color: var(--muted-foreground); }
+  .dx-quote strong { color: var(--foreground); }
+  .dx-stat { background: var(--muted); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.25rem 1rem; text-align: center; }
+  .dx-stat .dx-num { font-size: 1.1rem; font-weight: 700; letter-spacing: -.01em; color: var(--foreground); margin-bottom: .3rem; }
+  .dx-stat .dx-lbl { font-size: .82rem; color: var(--muted-foreground); }
+  .dx-tags { display: flex; flex-wrap: wrap; gap: .5rem; margin-top: .35rem; }
+  .dx-chip { padding: .4rem .8rem; border-radius: 9999px; font-size: .85rem; color: var(--foreground); background: var(--muted); border: 1px solid var(--border); }
+  .dx-cta { margin-top: 1rem; padding: 1.5rem 1.35rem; border: 1px solid var(--border); border-radius: var(--radius); background: var(--card); }
+  .dx-btns { display: flex; flex-wrap: wrap; gap: .75rem; }
+  .dx-btn { display: inline-flex; align-items: center; justify-content: center; gap: .4rem; border-radius: calc(var(--radius) * .8); padding: .6rem 1.05rem; font-size: .9rem; font-weight: 600; text-decoration: none; border: 1px solid transparent; transition: background .15s ease; }
+  .dx-btn:hover { text-decoration: none; }
+  .dx-btn-primary { background: var(--primary); color: var(--primary-foreground); }
+  .dx-btn-primary:hover { background: color-mix(in oklch, var(--primary) 85%, transparent); }
+  .dx-btn-ghost { background: transparent; color: var(--foreground); border-color: var(--border); }
+  .dx-btn-ghost:hover { background: var(--muted); }
+</style>
+
+<div class="dx-doc dx-about not-prose">
+  <!-- 语言切换控件（radio，视觉隐藏；label 作为按钮） -->
+  <input type="radio" name="dxlang-ab" id="dxl-ab-zh" class="dx-langradio" checked />
+  <input type="radio" name="dxlang-ab" id="dxl-ab-en" class="dx-langradio" />
+  <div class="dx-langbar" role="group" aria-label="Language">
+    <label class="dx-langbtn" for="dxl-ab-zh">中文</label>
+    <label class="dx-langbtn" for="dxl-ab-en">English</label>
+  </div>
+
+  <!-- ================= 中文 ================= -->
+  <div class="dx-body dx-zh">
+    <section class="dx-hero">
+      <span class="dx-brand">DaoXE · 道熹 · 全球可用</span>
+      <h1>通向 AI 的道</h1>
+      <p class="dx-lede">
+        <strong>道熹（DaoXE）</strong> 是一个聚合多家上游服务商的 AI API 网关 ——
+        以统一接口连接全球主流大模型，提供多线路、按量计费与完善的用量管理，
+        让前沿智能触手可及。
+      </p>
+    </section>
+
+    <section class="dx-section">
+      <h2>关于道熹</h2>
+      <div class="dx-grid-2">
+        <div class="dx-card">
+          <div class="dx-glyph">道</div>
+          <h3>承千年智慧之源</h3>
+          <p>「道」是规律，是路径，是万物运行的本然。我们以「道」为骨，构建稳定、高效、可控的 AI 推理通路。</p>
+        </div>
+        <div class="dx-card">
+          <div class="dx-glyph">熹</div>
+          <h3>破晓之光，温暖蓄势</h3>
+          <p>「熹」寓示新时代的开启。我们以「熹」为光，让每一次调用都成为照亮智能未来的微芒。</p>
+        </div>
+      </div>
+      <blockquote class="dx-quote">
+        从 OpenAI 到 Anthropic，从 Claude 到 Gemini，从 GPT 到国产大模型 ——
+        <strong>统一接口、按量计费、多线路聚合</strong>，一处接入，随取随用。
+      </blockquote>
+    </section>
+
+    <section class="dx-section">
+      <h2>我们提供什么</h2>
+      <div class="dx-grid-3">
+        <div class="dx-card">
+          <div class="dx-icon">API</div>
+          <h3>统一接口</h3>
+          <p>兼容 OpenAI 接口规范，并支持 Claude Messages 等多协议格式，迁移几乎零改动。</p>
+        </div>
+        <div class="dx-card">
+          <div class="dx-icon">HUB</div>
+          <h3>多模型聚合</h3>
+          <p>汇聚 OpenAI、Anthropic、Google、Mistral、xAI 及主流国产大模型，一处密钥，多模型可用。</p>
+        </div>
+        <div class="dx-card">
+          <div class="dx-icon">HA</div>
+          <h3>多线路与故障转移</h3>
+          <p>同一模型可配置多条上游线路，异常自动切换，尽力保障调用连续性。</p>
+        </div>
+        <div class="dx-card">
+          <div class="dx-icon">PAY</div>
+          <h3>按量计费与配额</h3>
+          <p>以 Token 等用量计量、按量结算，无套餐绑定；支持分组配额与令牌额度管理。</p>
+        </div>
+        <div class="dx-card">
+          <div class="dx-icon">LOG</div>
+          <h3>用量日志与看板</h3>
+          <p>提供调用日志、用量统计与数据看板，消费与用量清晰可查、便于对账。</p>
+        </div>
+        <div class="dx-card">
+          <div class="dx-icon">SEC</div>
+          <h3>密钥与安全</h3>
+          <p>传输层 TLS 加密、令牌隔离、最小化数据留存；不主动存储对话正文。</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="dx-section">
+      <h2>能力概览</h2>
+      <div class="dx-grid-4">
+        <div class="dx-stat"><div class="dx-num">OpenAI 兼容</div><div class="dx-lbl">统一 API 规范</div></div>
+        <div class="dx-stat"><div class="dx-num">多模型</div><div class="dx-lbl">多家上游聚合</div></div>
+        <div class="dx-stat"><div class="dx-num">多线路</div><div class="dx-lbl">冗余与故障转移</div></div>
+        <div class="dx-stat"><div class="dx-num">按量计费</div><div class="dx-lbl">无套餐绑定</div></div>
+      </div>
+    </section>
+
+    <section class="dx-section">
+      <h2>支持的协议与客户端</h2>
+      <p>基于 OpenAI 兼容规范，DaoXE 可对接绝大多数支持自定义 Base URL 的第三方客户端、SDK 与命令行工具，包括但不限于：</p>
+      <div class="dx-tags">
+        <span class="dx-chip">OpenAI 兼容 API</span>
+        <span class="dx-chip">Claude Messages</span>
+        <span class="dx-chip">Cherry Studio</span>
+        <span class="dx-chip">ChatBox</span>
+        <span class="dx-chip">Lobe Chat</span>
+        <span class="dx-chip">NextChat</span>
+        <span class="dx-chip">Open WebUI</span>
+        <span class="dx-chip">Cline / 编程助手</span>
+        <span class="dx-chip">沉浸式翻译</span>
+        <span class="dx-chip">各语言 SDK</span>
+      </div>
+      <p style="margin-top: 1rem">
+        详细接入方式与推荐模型请参阅
+        <a href="https://daoxe.com" target="_blank" rel="noopener noreferrer">官网</a>
+        与文档中心。
+      </p>
+    </section>
+
+    <div class="dx-banner">
+      <div class="dx-banner-title">服务范围声明</div>
+      <p>
+        DaoXE 是面向<strong>全球开发者</strong>的境外 AI 服务接入平台，
+        <strong>不向中华人民共和国大陆地区</strong>（不含香港、澳门、台湾）用户提供服务。
+        使用本服务须遵守 <a href="/user-agreement">《用户服务协议》</a> 与 <a href="/privacy-policy">《隐私政策》</a>，
+        并自行确保所在地区法律允许使用相关服务。
+      </p>
+    </div>
+
+    <section class="dx-section">
+      <h2>联系我们</h2>
+      <div class="dx-cta">
+        <div class="dx-contact">
+          <div class="dx-contact-row">
+            <span class="dx-label">客服邮箱</span>
+            <span><a href="mailto:support@daoxe.com">support@daoxe.com</a></span>
+          </div>
+          <div class="dx-contact-row">
+            <span class="dx-label">内容举报</span>
+            <span><a href="mailto:support@daoxe.com">support@daoxe.com</a>（主题请注明 <strong>[Abuse Report]</strong>）</span>
+          </div>
+          <div class="dx-contact-row">
+            <span class="dx-label">Telegram</span>
+            <span><a href="https://t.me/daoxe_ai" target="_blank" rel="noopener noreferrer">@daoxe_ai</a></span>
+          </div>
+        </div>
+        <div class="dx-btns">
+          <a class="dx-btn dx-btn-primary" href="https://daoxe.com" target="_blank" rel="noopener noreferrer">访问官网 →</a>
+          <a class="dx-btn dx-btn-ghost" href="https://t.me/daoxe_ai" target="_blank" rel="noopener noreferrer">Telegram 交流群</a>
+        </div>
+      </div>
+    </section>
+
+    <footer class="dx-foot">
+      © 2026 <strong>DaoXE · 道熹</strong> · 通向 AI 的道 ·
+      <a href="https://daoxe.com" target="_blank" rel="noopener noreferrer">daoxe.com</a>
+    </footer>
+  </div>
+
+  <!-- ================= English ================= -->
+  <div class="dx-body dx-en">
+    <section class="dx-hero">
+      <span class="dx-brand">DaoXE · Available Worldwide</span>
+      <h1>Your Gateway to AI</h1>
+      <p class="dx-lede">
+        <strong>DaoXE</strong> is an AI API gateway that aggregates multiple upstream providers ——
+        connecting you to the world's leading models through a single, unified interface, with
+        multi-route delivery, pay-as-you-go billing and complete usage management.
+      </p>
+    </section>
+
+    <section class="dx-section">
+      <h2>About DaoXE</h2>
+      <div class="dx-grid-2">
+        <div class="dx-card">
+          <div class="dx-glyph">道</div>
+          <h3>The Dao — order and the way</h3>
+          <p>"Dao" means the underlying order and the path along which all things move. We build a stable, efficient and controllable channel for AI inference.</p>
+        </div>
+        <div class="dx-card">
+          <div class="dx-glyph">熹</div>
+          <h3>Xi — the light of dawn</h3>
+          <p>"Xi" evokes the first light of a new era. We let every request become a small spark that lights the way toward an intelligent future.</p>
+        </div>
+      </div>
+      <blockquote class="dx-quote">
+        From OpenAI to Anthropic, from Claude to Gemini, from GPT to leading regional models ——
+        <strong>one unified interface, pay-as-you-go, multi-route aggregation</strong>: integrate once, use anytime.
+      </blockquote>
+    </section>
+
+    <section class="dx-section">
+      <h2>What We Offer</h2>
+      <div class="dx-grid-3">
+        <div class="dx-card">
+          <div class="dx-icon">API</div>
+          <h3>Unified interface</h3>
+          <p>Compatible with the OpenAI API specification and additional protocols such as Claude Messages — migrate with virtually no code changes.</p>
+        </div>
+        <div class="dx-card">
+          <div class="dx-icon">HUB</div>
+          <h3>Multi-model aggregation</h3>
+          <p>Access OpenAI, Anthropic, Google, Mistral, xAI and leading regional models — one key, many models.</p>
+        </div>
+        <div class="dx-card">
+          <div class="dx-icon">HA</div>
+          <h3>Multi-route &amp; failover</h3>
+          <p>Configure multiple upstream routes for the same model, with automatic switchover on errors to help keep requests flowing.</p>
+        </div>
+        <div class="dx-card">
+          <div class="dx-icon">PAY</div>
+          <h3>Pay-as-you-go &amp; quotas</h3>
+          <p>Metered by tokens and other usage units with no plan lock-in; supports group quotas and per-token limits.</p>
+        </div>
+        <div class="dx-card">
+          <div class="dx-icon">LOG</div>
+          <h3>Usage logs &amp; dashboard</h3>
+          <p>Request logs, usage statistics and dashboards make spending and consumption easy to review and reconcile.</p>
+        </div>
+        <div class="dx-card">
+          <div class="dx-icon">SEC</div>
+          <h3>Keys &amp; security</h3>
+          <p>TLS in transit, token isolation and data minimization; conversation content is not actively stored.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="dx-section">
+      <h2>Capabilities at a Glance</h2>
+      <div class="dx-grid-4">
+        <div class="dx-stat"><div class="dx-num">OpenAI-compatible</div><div class="dx-lbl">Unified API spec</div></div>
+        <div class="dx-stat"><div class="dx-num">Multi-model</div><div class="dx-lbl">Many upstreams</div></div>
+        <div class="dx-stat"><div class="dx-num">Multi-route</div><div class="dx-lbl">Redundancy &amp; failover</div></div>
+        <div class="dx-stat"><div class="dx-num">Pay-as-you-go</div><div class="dx-lbl">No plan lock-in</div></div>
+      </div>
+    </section>
+
+    <section class="dx-section">
+      <h2>Supported Protocols &amp; Clients</h2>
+      <p>Built on the OpenAI-compatible specification, DaoXE works with most third-party clients, SDKs and command-line tools that support a custom Base URL, including but not limited to:</p>
+      <div class="dx-tags">
+        <span class="dx-chip">OpenAI-compatible API</span>
+        <span class="dx-chip">Claude Messages</span>
+        <span class="dx-chip">Cherry Studio</span>
+        <span class="dx-chip">ChatBox</span>
+        <span class="dx-chip">Lobe Chat</span>
+        <span class="dx-chip">NextChat</span>
+        <span class="dx-chip">Open WebUI</span>
+        <span class="dx-chip">Cline / coding assistants</span>
+        <span class="dx-chip">Immersive Translate</span>
+        <span class="dx-chip">SDKs for all languages</span>
+      </div>
+      <p style="margin-top: 1rem">
+        For integration guides and recommended models, see our
+        <a href="https://daoxe.com" target="_blank" rel="noopener noreferrer">website</a>
+        and documentation.
+      </p>
+    </section>
+
+    <div class="dx-banner">
+      <div class="dx-banner-title">Service Availability Notice</div>
+      <p>
+        DaoXE is an overseas AI access platform for <strong>developers worldwide</strong> and
+        <strong>does not provide services to users in mainland China</strong> (excluding Hong Kong, Macau and Taiwan).
+        Use of the service is subject to our <a href="/user-agreement">Terms of Service</a> and
+        <a href="/privacy-policy">Privacy Policy</a>; you are responsible for ensuring that local law permits your use.
+      </p>
+    </div>
+
+    <section class="dx-section">
+      <h2>Contact Us</h2>
+      <div class="dx-cta">
+        <div class="dx-contact">
+          <div class="dx-contact-row">
+            <span class="dx-label">Support email</span>
+            <span><a href="mailto:support@daoxe.com">support@daoxe.com</a></span>
+          </div>
+          <div class="dx-contact-row">
+            <span class="dx-label">Abuse reports</span>
+            <span><a href="mailto:support@daoxe.com">support@daoxe.com</a> (please use the subject <strong>[Abuse Report]</strong>)</span>
+          </div>
+          <div class="dx-contact-row">
+            <span class="dx-label">Telegram</span>
+            <span><a href="https://t.me/daoxe_ai" target="_blank" rel="noopener noreferrer">@daoxe_ai</a></span>
+          </div>
+        </div>
+        <div class="dx-btns">
+          <a class="dx-btn dx-btn-primary" href="https://daoxe.com" target="_blank" rel="noopener noreferrer">Visit website →</a>
+          <a class="dx-btn dx-btn-ghost" href="https://t.me/daoxe_ai" target="_blank" rel="noopener noreferrer">Telegram group</a>
+        </div>
+      </div>
+    </section>
+
+    <footer class="dx-foot">
+      © 2026 <strong>DaoXE</strong> · Your Gateway to AI ·
+      <a href="https://daoxe.com" target="_blank" rel="noopener noreferrer">daoxe.com</a>
+    </footer>
+  </div>
+</div>

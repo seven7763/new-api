@@ -1,0 +1,861 @@
+@import 'tailwindcss';
+@import 'tw-animate-css';
+@import '@fontsource-variable/inter/index.css';
+@import '@fontsource-variable/jetbrains-mono/index.css';
+
+/* DaoXE docs — enterprise brand aligned with main dashboard */
+@custom-variant dark (&:is(.dark *));
+
+@theme {
+  --font-sans:
+    'Inter Variable', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
+    'PingFang SC', 'Noto Sans SC', 'Helvetica Neue', Arial, sans-serif;
+  --font-mono:
+    'JetBrains Mono Variable', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
+    'Liberation Mono', monospace;
+
+  --color-background: oklch(0.985 0 0);
+  --color-foreground: oklch(0.145 0.005 285);
+  --color-card: oklch(1 0 0);
+  --color-card-foreground: oklch(0.145 0.005 285);
+  --color-popover: oklch(1 0 0);
+  --color-popover-foreground: oklch(0.145 0.005 285);
+  --color-primary: oklch(0.42 0.16 270);
+  --color-primary-foreground: oklch(0.985 0 0);
+  --color-secondary: oklch(0.96 0.005 270);
+  --color-secondary-foreground: oklch(0.2 0.01 270);
+  --color-muted: oklch(0.955 0.005 270);
+  --color-muted-foreground: oklch(0.46 0.01 270);
+  --color-accent: oklch(0.94 0.02 270);
+  --color-accent-foreground: oklch(0.3 0.08 270);
+  --color-destructive: oklch(0.55 0.2 27);
+  --color-border: oklch(0.915 0.005 270);
+  --color-input: oklch(0.91 0.005 270);
+  --color-ring: oklch(0.42 0.16 270);
+  --color-sidebar: oklch(0.98 0.003 270);
+  --color-sidebar-foreground: oklch(0.35 0.01 270);
+  --color-sidebar-accent: oklch(0.94 0.025 270);
+  --color-sidebar-accent-foreground: oklch(0.3 0.1 270);
+  --color-sidebar-border: oklch(0.92 0.005 270);
+  --color-sidebar-primary: oklch(0.42 0.16 270);
+  --color-link: oklch(0.42 0.16 270);
+  --color-link-hover: oklch(0.35 0.18 270);
+  --radius-sm: 0.375rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 0.75rem;
+  --radius-xl: 1rem;
+  --radius-2xl: 1.25rem;
+
+  --animate-fade-up: fade-up 0.4s cubic-bezier(0.16, 1, 0.3, 1) both;
+  --animate-fade-in: fade-in 0.3s ease both;
+
+  @keyframes fade-up {
+    from {
+      opacity: 0;
+      transform: translateY(12px);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+  @keyframes fade-in {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+}
+
+.dark {
+  --color-background: oklch(0.13 0.01 270);
+  --color-foreground: oklch(0.95 0.005 270);
+  --color-card: oklch(0.17 0.012 270);
+  --color-card-foreground: oklch(0.95 0.005 270);
+  --color-popover: oklch(0.18 0.012 270);
+  --color-popover-foreground: oklch(0.95 0.005 270);
+  --color-primary: oklch(0.72 0.12 270);
+  --color-primary-foreground: oklch(0.13 0.02 270);
+  --color-secondary: oklch(0.22 0.015 270);
+  --color-secondary-foreground: oklch(0.94 0.005 270);
+  --color-muted: oklch(0.22 0.015 270);
+  --color-muted-foreground: oklch(0.72 0.015 270);
+  --color-accent: oklch(0.26 0.04 270);
+  --color-accent-foreground: oklch(0.92 0.02 270);
+  --color-destructive: oklch(0.65 0.18 25);
+  --color-border: oklch(1 0 0 / 10%);
+  --color-input: oklch(1 0 0 / 12%);
+  --color-ring: oklch(0.72 0.12 270);
+  --color-sidebar: oklch(0.14 0.01 270);
+  --color-sidebar-foreground: oklch(0.78 0.015 270);
+  --color-sidebar-accent: oklch(0.26 0.045 270);
+  --color-sidebar-accent-foreground: oklch(0.92 0.02 270);
+  --color-sidebar-border: oklch(1 0 0 / 8%);
+  --color-sidebar-primary: oklch(0.72 0.12 270);
+  --color-link: oklch(0.75 0.1 262);
+  --color-link-hover: oklch(0.85 0.08 262);
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 5.5rem;
+  }
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+    margin: 0;
+    min-height: 100vh;
+    font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11';
+    text-rendering: optimizeLegibility;
+  }
+  #root {
+    min-height: 100vh;
+  }
+
+  ::selection {
+    background: color-mix(in oklab, var(--color-primary) 22%, transparent);
+  }
+
+  /* slim, theme-aware scrollbars */
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: color-mix(in oklab, var(--color-foreground) 18%, transparent) transparent;
+  }
+
+  /* Global readable links (skip anchors rendered as buttons) */
+  a:not([data-btn]) {
+    color: var(--color-link);
+    text-decoration-color: color-mix(in oklab, var(--color-link) 35%, transparent);
+    text-underline-offset: 3px;
+  }
+  a:not([data-btn]):hover {
+    color: var(--color-link-hover);
+    text-decoration: underline;
+  }
+
+  /* Visible keyboard focus ring for links (buttons already ring via cva).
+     :focus-visible only triggers for keyboard users, so mouse UX is unchanged. */
+  a:focus-visible,
+  summary:focus-visible {
+    outline: 2px solid var(--color-ring);
+    outline-offset: 2px;
+    border-radius: var(--radius-sm);
+  }
+
+  kbd {
+    @apply bg-muted border-border rounded-md border px-1.5 py-0.5 font-mono text-[0.75em] shadow-[inset_0_-1px_0_var(--color-border)];
+  }
+
+  mark.search-mark {
+    background: color-mix(in oklab, var(--color-primary) 20%, transparent);
+    color: inherit;
+    border-radius: 3px;
+    padding: 0 1px;
+  }
+}
+
+/* Ambient page glow behind the content */
+.page-glow {
+  pointer-events: none;
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background:
+    radial-gradient(
+      70rem 28rem at 80% -12%,
+      color-mix(in oklab, var(--color-primary) 6%, transparent),
+      transparent 60%
+    ),
+    radial-gradient(
+      50rem 22rem at -5% 10%,
+      oklch(0.7 0.08 300 / 5%),
+      transparent 55%
+    );
+}
+.dark .page-glow {
+  background:
+    radial-gradient(
+      70rem 28rem at 80% -12%,
+      color-mix(in oklab, var(--color-primary) 10%, transparent),
+      transparent 60%
+    ),
+    radial-gradient(
+      50rem 22rem at -5% 10%,
+      oklch(0.5 0.12 300 / 8%),
+      transparent 55%
+    );
+}
+
+/* Article typography */
+.article {
+  @apply w-full max-w-[52rem];
+  animation: var(--animate-fade-up);
+}
+.article h1 {
+  @apply text-foreground m-0 mb-3 text-[2.1rem] leading-[1.15] font-extrabold tracking-tight;
+  text-wrap: balance;
+}
+.article .lead {
+  @apply text-muted-foreground m-0 mb-8 text-[1.05rem] leading-relaxed;
+  text-wrap: pretty;
+}
+.article h2 {
+  @apply text-foreground mt-12 mb-4 flex scroll-mt-28 items-center gap-2.5 border-b border-border/60 pb-3 text-[1.35rem] font-bold tracking-tight;
+}
+.article h2::before {
+  content: '';
+  @apply bg-primary/80 block h-5 w-1 shrink-0 rounded-full;
+}
+.article h3 {
+  @apply text-foreground mt-9 mb-2.5 scroll-mt-28 text-[1.05rem] font-semibold tracking-tight;
+}
+.article p {
+  @apply text-foreground/88 mb-4 text-[0.94rem] leading-[1.85];
+}
+.article ul,
+.article ol {
+  @apply text-foreground/88 mb-4.5 pl-5 text-[0.94rem] leading-[1.8];
+}
+/* Tailwind preflight strips list-style — restore markers in article body */
+.article ul {
+  list-style: disc;
+}
+.article ol:not(.steps-list) {
+  list-style: decimal;
+}
+.article li {
+  @apply my-1.5;
+}
+.article li::marker {
+  color: color-mix(in oklab, var(--color-primary) 70%, var(--color-muted-foreground));
+}
+/* Scroll wrapper for wide tables — keep real table layout (no display:block on table) */
+.article .table-wrap {
+  @apply border-border bg-card mb-5 w-full overflow-x-auto rounded-xl border shadow-sm;
+}
+.article table {
+  @apply w-full min-w-[28rem] border-collapse text-[0.88rem];
+  table-layout: auto;
+}
+.article th,
+.article td {
+  @apply border-border border-b px-4 py-3 text-left align-middle;
+}
+.article th {
+  @apply bg-muted/60 text-muted-foreground sticky top-0 text-[11px] font-semibold tracking-wider uppercase;
+  white-space: nowrap;
+}
+.article td {
+  @apply text-foreground/88;
+}
+.article tr:last-child td {
+  border-bottom: 0;
+}
+.article tbody tr:nth-child(even) td {
+  background: color-mix(in oklab, var(--color-muted) 35%, transparent);
+}
+.article tbody tr {
+  transition: background-color 0.15s ease;
+}
+.article tbody tr:hover td {
+  background: color-mix(in oklab, var(--color-primary) 6%, transparent);
+}
+/* link cells stay readable */
+.article td a {
+  font-weight: 600;
+}
+.article code:not(pre code) {
+  @apply bg-muted border-border text-foreground rounded-md border px-1.5 py-0.5 font-mono text-[0.84em] font-medium;
+}
+
+/* In-article links: stronger, always visible.
+   Skip button-anchors and card-style links that opt out via .no-underline. */
+.article a:not([data-btn]):not(.no-underline) {
+  color: var(--color-link);
+  font-weight: 600;
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+  transition:
+    color 0.15s ease,
+    text-decoration-color 0.15s ease;
+}
+.article a:not([data-btn]):not(.no-underline):hover {
+  color: var(--color-link-hover);
+  text-decoration-thickness: 2px;
+}
+
+/* Shiki code blocks */
+.code-block pre {
+  @apply m-0 overflow-x-auto bg-transparent p-4.5 font-mono text-[12.75px] leading-[1.75];
+}
+.code-block pre code {
+  @apply block font-mono;
+}
+.code-block .shiki {
+  background: transparent !important;
+}
+
+/* Numbered steps with connector line */
+.steps-list {
+  @apply relative mb-5 list-none space-y-0 pl-0;
+}
+.steps-list::before {
+  content: '';
+  @apply bg-border absolute top-3 bottom-3 left-[13.5px] w-px;
+}
+.steps-list > li {
+  @apply relative m-0 flex gap-3.5 pb-4;
+}
+.steps-list > li:last-child {
+  @apply pb-0;
+}
+
+/* Public header capsule — matches newapi main site */
+.site-header {
+  @apply pointer-events-none fixed inset-x-0 top-0 z-50;
+}
+.header-shell {
+  @apply pointer-events-auto mx-auto max-w-7xl px-4 transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] md:px-6;
+}
+.site-header:not(.scrolled) .header-nav {
+  @apply h-16 px-2;
+}
+.site-header.scrolled .header-shell {
+  @apply max-w-[52rem] px-3 pt-3;
+}
+.header-nav {
+  @apply flex items-center justify-between transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)];
+}
+.site-header.scrolled .header-nav {
+  @apply bg-background/60 ring-border/50 h-12 rounded-2xl pr-1.5 pl-4 shadow-[0_2px_16px_-6px_rgba(0,0,0,0.08),0_0_0_0.5px_rgba(0,0,0,0.02)] ring-[0.5px] backdrop-blur-2xl dark:shadow-[0_2px_16px_-6px_rgba(0,0,0,0.4)];
+}
+
+/* Respect the OS "reduce motion" setting: neutralize transitions, hover
+   lifts, fade-ups and smooth-scroll for users who opt out of animation.
+   Scoped entirely behind the media query, so the default experience is
+   unchanged. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* TOC active indicator */
+.toc-link {
+  @apply text-muted-foreground hover:text-foreground -ml-px block border-l-2 border-transparent py-1 pl-3 text-[12.5px] leading-snug no-underline transition-colors duration-150;
+}
+.toc-link:hover {
+  text-decoration: none;
+}
+
+/* ── Floating docs assistant ─────────────────────────────────────────
+   Layout is pure CSS so mobile / tablet / short-height never depend on
+   JS media-query state. Tokens match the rest of the docs shell. */
+.docs-assistant {
+  --da-fab: 3rem;
+  --da-gap: 0.75rem;
+  --da-safe-r: env(safe-area-inset-right, 0px);
+  --da-safe-b: env(safe-area-inset-bottom, 0px);
+  --da-safe-t: env(safe-area-inset-top, 0px);
+  --da-edge: max(1rem, var(--da-safe-r));
+  --da-bottom: max(1rem, var(--da-safe-b));
+}
+
+/* FAB */
+.docs-assistant-fab {
+  position: fixed;
+  z-index: 109;
+  right: var(--da-edge);
+  bottom: var(--da-bottom);
+  width: var(--da-fab);
+  height: var(--da-fab);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 0;
+  border-radius: 9999px;
+  color: var(--color-primary-foreground);
+  background: var(--color-primary);
+  box-shadow:
+    0 10px 28px -10px color-mix(in oklab, var(--color-primary) 55%, transparent),
+    0 0 0 1px color-mix(in oklab, var(--color-primary) 30%, transparent);
+  cursor: pointer;
+  transition:
+    transform 0.18s ease,
+    box-shadow 0.18s ease,
+    opacity 0.18s ease;
+}
+.docs-assistant-fab:hover {
+  transform: scale(1.05);
+  box-shadow:
+    0 14px 32px -10px color-mix(in oklab, var(--color-primary) 60%, transparent),
+    0 0 0 1px color-mix(in oklab, var(--color-primary) 35%, transparent);
+}
+.docs-assistant-fab:active {
+  transform: scale(0.96);
+}
+.docs-assistant-fab:focus-visible {
+  outline: 2px solid var(--color-ring);
+  outline-offset: 3px;
+}
+.docs-assistant-fab[data-open='true'] {
+  box-shadow:
+    0 10px 28px -10px color-mix(in oklab, var(--color-primary) 45%, transparent),
+    0 0 0 2px color-mix(in oklab, var(--color-primary) 28%, transparent),
+    0 0 0 4px var(--color-background);
+}
+/* Hide FAB under the mobile sheet (panel covers it); keep for desktop toggle */
+@media (max-width: 639.98px) {
+  .docs-assistant-fab[data-open='true'] {
+    opacity: 0;
+    pointer-events: none;
+    transform: scale(0.9);
+  }
+}
+.docs-assistant-fab-dot {
+  position: absolute;
+  top: 0.2rem;
+  right: 0.2rem;
+  width: 0.55rem;
+  height: 0.55rem;
+  border-radius: 9999px;
+  background: oklch(0.75 0.17 155);
+  box-shadow: 0 0 0 2px var(--color-background);
+}
+
+/* Backdrop — only meaningful on narrow screens */
+.docs-assistant-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 108;
+  border: 0;
+  padding: 0;
+  margin: 0;
+  cursor: pointer;
+  background: color-mix(in oklab, black 42%, transparent);
+  backdrop-filter: blur(2px);
+  -webkit-backdrop-filter: blur(2px);
+  animation: docs-assistant-fade 0.18s ease-out both;
+}
+@media (min-width: 640px) {
+  .docs-assistant-backdrop {
+    background: transparent;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    /* still catches outside clicks to close on desktop */
+  }
+}
+
+/* Panel shell */
+.docs-assistant-panel {
+  position: fixed;
+  z-index: 110;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  color: var(--color-card-foreground);
+  background: var(--color-card);
+  border: 1px solid var(--color-border);
+  /* Mobile: bottom sheet */
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  height: min(86dvh, calc(100dvh - var(--da-safe-t) - 0.75rem));
+  max-height: min(86dvh, calc(100dvh - var(--da-safe-t) - 0.75rem));
+  border-radius: 1.1rem 1.1rem 0 0;
+  padding-bottom: var(--da-safe-b);
+  box-shadow:
+    0 -1px 0 0 color-mix(in oklab, var(--color-border) 70%, transparent),
+    0 24px 48px -16px rgb(0 0 0 / 0.28);
+  animation: docs-assistant-in 0.26s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+/* Desktop / tablet: floating card above FAB */
+@media (min-width: 640px) {
+  .docs-assistant {
+    --da-edge: max(1.25rem, var(--da-safe-r));
+    --da-bottom: max(1.25rem, var(--da-safe-b));
+  }
+  .docs-assistant-panel {
+    left: auto;
+    right: var(--da-edge);
+    bottom: calc(var(--da-fab) + var(--da-bottom) + var(--da-gap));
+    width: min(24rem, calc(100vw - 2 * var(--da-edge)));
+    /* keep inside the viewport on short laptop windows */
+    height: min(34rem, calc(100dvh - var(--da-fab) - var(--da-bottom) - var(--da-gap) - var(--da-safe-t) - 1rem));
+    max-height: min(34rem, calc(100dvh - var(--da-fab) - var(--da-bottom) - var(--da-gap) - var(--da-safe-t) - 1rem));
+    border-radius: 1rem;
+    padding-bottom: 0;
+    box-shadow:
+      0 24px 48px -16px rgb(0 0 0 / 0.22),
+      0 0 0 0.5px color-mix(in oklab, var(--color-border) 80%, transparent);
+    animation-name: docs-assistant-in-card;
+  }
+  .docs-assistant-handle {
+    display: none;
+  }
+}
+
+/* Very short viewports (landscape phones, short browser chrome) */
+@media (max-height: 540px) {
+  .docs-assistant-panel {
+    height: calc(100dvh - var(--da-safe-t) - 0.35rem);
+    max-height: calc(100dvh - var(--da-safe-t) - 0.35rem);
+  }
+}
+@media (min-width: 640px) and (max-height: 640px) {
+  .docs-assistant-panel {
+    bottom: max(0.75rem, var(--da-safe-b));
+    height: calc(100dvh - var(--da-safe-t) - var(--da-safe-b) - 1.25rem);
+    max-height: calc(100dvh - var(--da-safe-t) - var(--da-safe-b) - 1.25rem);
+  }
+  /* FAB sits on top of a full-height short panel — tuck it into the panel corner */
+  .docs-assistant-fab[data-open='true'] {
+    opacity: 0;
+    pointer-events: none;
+  }
+}
+
+.docs-assistant-handle {
+  display: flex;
+  justify-content: center;
+  padding: 0.45rem 0 0.1rem;
+  flex-shrink: 0;
+}
+.docs-assistant-handle > span {
+  width: 2.4rem;
+  height: 0.28rem;
+  border-radius: 9999px;
+  background: var(--color-border);
+}
+
+.docs-assistant-header {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-shrink: 0;
+  padding: 0.55rem 0.7rem 0.65rem;
+  border-bottom: 1px solid var(--color-border);
+}
+.docs-assistant-avatar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.15rem;
+  height: 2.15rem;
+  flex-shrink: 0;
+  border-radius: 0.7rem;
+  color: var(--color-primary);
+  background: color-mix(in oklab, var(--color-primary) 12%, transparent);
+}
+.docs-assistant-heading {
+  min-width: 0;
+  flex: 1;
+}
+.docs-assistant-title {
+  font-size: 0.875rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  line-height: 1.25;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.docs-assistant-subtitle {
+  margin-top: 0.1rem;
+  font-size: 0.6875rem;
+  line-height: 1.3;
+  color: var(--color-muted-foreground);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Message list — native scroll, reliable in flex */
+.docs-assistant-list {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow-x: hidden;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
+  padding: 0.85rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.docs-assistant-empty {
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+}
+.docs-assistant-welcome {
+  border: 1px solid color-mix(in oklab, var(--color-primary) 14%, var(--color-border));
+  background: color-mix(in oklab, var(--color-primary) 6%, var(--color-muted));
+  border-radius: 0.85rem;
+  padding: 0.8rem 0.9rem;
+}
+.docs-assistant-welcome p {
+  margin: 0;
+  font-size: 0.8125rem;
+  line-height: 1.55;
+  color: color-mix(in oklab, var(--color-foreground) 90%, transparent);
+}
+.docs-assistant-page {
+  margin-top: 0.4rem !important;
+  font-size: 0.6875rem !important;
+  color: var(--color-muted-foreground) !important;
+}
+.docs-assistant-suggests {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+.docs-assistant-chip {
+  appearance: none;
+  border: 1px solid var(--color-border);
+  background: var(--color-background);
+  color: var(--color-foreground);
+  border-radius: 9999px;
+  padding: 0.4rem 0.75rem;
+  font-size: 0.75rem;
+  line-height: 1.3;
+  text-align: left;
+  cursor: pointer;
+  transition:
+    background-color 0.15s ease,
+    border-color 0.15s ease;
+}
+.docs-assistant-chip:hover {
+  background: var(--color-muted);
+  border-color: color-mix(in oklab, var(--color-primary) 30%, var(--color-border));
+}
+
+.docs-assistant-row {
+  display: flex;
+  gap: 0.5rem;
+  align-items: flex-start;
+  max-width: 100%;
+}
+.docs-assistant-row.is-user {
+  justify-content: flex-end;
+}
+.docs-assistant-row.is-assistant {
+  justify-content: flex-start;
+}
+.docs-assistant-bot {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.7rem;
+  height: 1.7rem;
+  flex-shrink: 0;
+  margin-top: 0.1rem;
+  border-radius: 9999px;
+  color: var(--color-primary);
+  background: color-mix(in oklab, var(--color-primary) 12%, transparent);
+}
+.docs-assistant-bubble {
+  max-width: min(88%, 20rem);
+  min-width: 0;
+  border-radius: 1rem;
+  padding: 0.55rem 0.75rem;
+  background: var(--color-muted);
+  color: var(--color-foreground);
+  border-bottom-left-radius: 0.35rem;
+  box-shadow: 0 1px 0 color-mix(in oklab, var(--color-border) 50%, transparent);
+}
+.docs-assistant-bubble.is-user {
+  background: var(--color-primary);
+  color: var(--color-primary-foreground);
+  border-bottom-left-radius: 1rem;
+  border-bottom-right-radius: 0.35rem;
+  box-shadow: none;
+}
+.docs-assistant-bubble.is-error {
+  background: color-mix(in oklab, var(--color-destructive) 10%, var(--color-card));
+  color: var(--color-destructive);
+  border: 1px solid color-mix(in oklab, var(--color-destructive) 22%, transparent);
+}
+@media (min-width: 640px) {
+  .docs-assistant-bubble {
+    max-width: 88%;
+  }
+}
+
+.docs-assistant-md {
+  font-size: 0.8125rem;
+  line-height: 1.55;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+.docs-assistant-code {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  border-radius: 0.3rem;
+  padding: 0.05rem 0.3rem;
+  background: color-mix(in oklab, var(--color-muted) 80%, var(--color-background));
+  color: inherit;
+  border: 1px solid color-mix(in oklab, var(--color-border) 80%, transparent);
+}
+.docs-assistant-bubble.is-user .docs-assistant-code {
+  background: color-mix(in oklab, white 16%, transparent);
+  border-color: color-mix(in oklab, white 18%, transparent);
+}
+.docs-assistant-path {
+  color: var(--color-primary);
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+.docs-assistant-bubble.is-user .docs-assistant-path {
+  color: inherit;
+}
+.docs-assistant-thinking {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.75rem;
+  color: var(--color-muted-foreground);
+}
+.docs-assistant-refs {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.3rem;
+  margin-top: 0.5rem;
+  padding-top: 0.5rem;
+  border-top: 1px solid color-mix(in oklab, var(--color-border) 70%, transparent);
+}
+.docs-assistant-refs-label {
+  font-size: 0.625rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--color-muted-foreground);
+  margin-right: 0.15rem;
+}
+.docs-assistant-ref {
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 0.6875rem;
+  font-weight: 600;
+  color: var(--color-primary);
+  background: color-mix(in oklab, var(--color-background) 85%, transparent);
+  border: 1px solid color-mix(in oklab, var(--color-border) 80%, transparent);
+  border-radius: 0.4rem;
+  padding: 0.15rem 0.4rem;
+  text-decoration: none !important;
+}
+.docs-assistant-ref:hover {
+  background: var(--color-background);
+}
+
+/* Composer */
+.docs-assistant-composer {
+  flex-shrink: 0;
+  border-top: 1px solid var(--color-border);
+  background: color-mix(in oklab, var(--color-card) 92%, transparent);
+  padding: 0.65rem 0.7rem 0.7rem;
+}
+.docs-assistant-input-wrap {
+  display: flex;
+  align-items: flex-end;
+  gap: 0.4rem;
+  border: 1px solid var(--color-border);
+  background: var(--color-background);
+  border-radius: 0.8rem;
+  padding: 0.3rem 0.35rem 0.3rem 0.65rem;
+  box-shadow: 0 1px 0 color-mix(in oklab, var(--color-border) 40%, transparent);
+  transition:
+    border-color 0.15s ease,
+    box-shadow 0.15s ease;
+}
+.docs-assistant-input-wrap:focus-within {
+  border-color: color-mix(in oklab, var(--color-primary) 40%, var(--color-border));
+  box-shadow: 0 0 0 3px color-mix(in oklab, var(--color-ring) 22%, transparent);
+}
+.docs-assistant-input {
+  flex: 1 1 auto;
+  min-width: 0;
+  min-height: 2.1rem;
+  max-height: 6rem;
+  resize: none;
+  border: 0;
+  outline: none;
+  background: transparent;
+  color: var(--color-foreground);
+  font: inherit;
+  font-size: 0.8125rem;
+  line-height: 1.4;
+  padding: 0.4rem 0;
+}
+.docs-assistant-input::placeholder {
+  color: var(--color-muted-foreground);
+}
+.docs-assistant-input:disabled {
+  opacity: 0.65;
+}
+.docs-assistant-send {
+  flex-shrink: 0;
+  margin-bottom: 0.05rem;
+}
+.docs-assistant-disclaimer {
+  margin: 0.45rem 0.15rem 0;
+  font-size: 0.625rem;
+  line-height: 1.4;
+  color: var(--color-muted-foreground);
+}
+
+@keyframes docs-assistant-in {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes docs-assistant-in-card {
+  from {
+    opacity: 0;
+    transform: translateY(10px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes docs-assistant-fade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .docs-assistant-panel,
+  .docs-assistant-backdrop,
+  .docs-assistant-fab {
+    animation: none !important;
+    transition: none !important;
+  }
+}
+.toc-link.active {
+  @apply border-primary font-semibold;
+  color: var(--color-link);
+}

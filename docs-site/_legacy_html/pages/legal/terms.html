@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="zh-CN" data-root="../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="DaoXE 文档 — 用户协议" />
+  <meta name="theme-color" content="#fff" />
+  <title>用户协议 · DaoXE Docs</title>
+  <script>
+    (function () {
+      var t; try {
+        var m = document.cookie.match(/(?:^|;\s*)vite-ui-theme=([^;]*)/);
+        t = m ? decodeURIComponent(m[1]) : localStorage.getItem('vite-ui-theme');
+      } catch (e) {}
+      if (t !== 'light' && t !== 'dark') t = 'system';
+      var dark = t === 'dark' || (t === 'system' && matchMedia('(prefers-color-scheme: dark)').matches);
+      document.documentElement.classList.add(dark ? 'dark' : 'light');
+    })();
+  </script>
+  <link rel="stylesheet" href="../../css/docs.css" />
+</head>
+<body data-page="pages/legal/terms.html">
+  <!-- lucide-like icons for PublicHeader -->
+  <svg xmlns="http://www.w3.org/2000/svg" style="display:none" aria-hidden="true">
+    <symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></symbol>
+    <symbol id="i-moon" viewBox="0 0 24 24"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></symbol>
+    <symbol id="i-check" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></symbol>
+    <symbol id="i-bell" viewBox="0 0 24 24"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></symbol>
+    <symbol id="i-menu" viewBox="0 0 24 24"><path d="M4 6h16"/><path d="M4 12h16"/><path d="M4 18h16"/></symbol>
+  </svg>
+  <header class="site-header" id="site-header">
+    <div class="header-shell">
+      <nav class="header-nav" aria-label="站点导航">
+        <a class="brand" href="https://daoxe.com/">
+          <span class="brand-logo"><img src="https://pub-c7d601dad0a34aa5a4c2120181c189f9.r2.dev/logo.png" alt="DaoXE"></span>
+          <span class="brand-name">DaoXE</span>
+        </a>
+        <div class="header-desktop">
+          <span id="header-nav-links">
+            <a class="nav-link" href="https://daoxe.com/">主页</a>
+            <a class="nav-link" href="https://daoxe.com/dashboard">控制台</a>
+            <a class="nav-link" href="https://daoxe.com/pricing">模型广场</a>
+            <a class="nav-link" href="https://daoxe.com/rankings">排行榜</a>
+            <a class="nav-link active" href="../../index.html">文档</a>
+            <a class="nav-link" href="https://daoxe.com/about">关于</a>
+          </span>
+          <span class="nav-sep" aria-hidden="true"></span>
+          <div class="theme-switch">
+            <button class="icon-btn" type="button" id="theme-toggle" aria-haspopup="menu" aria-expanded="false" aria-label="切换主题">
+              <svg class="icon icon-lg theme-icon-sun" aria-hidden="true"><use href="#i-sun"/></svg>
+              <svg class="icon icon-lg theme-icon-moon" aria-hidden="true"><use href="#i-moon"/></svg>
+            </button>
+            <div class="theme-menu" id="theme-menu" role="menu" hidden>
+              <button type="button" role="menuitem" data-theme-option="light">浅色<svg class="icon icon-check" aria-hidden="true"><use href="#i-check"/></svg></button>
+              <button type="button" role="menuitem" data-theme-option="dark">深色<svg class="icon icon-check" aria-hidden="true"><use href="#i-check"/></svg></button>
+              <button type="button" role="menuitem" data-theme-option="system">系统<svg class="icon icon-check" aria-hidden="true"><use href="#i-check"/></svg></button>
+            </div>
+          </div>
+          <button class="icon-btn" type="button" id="notice-toggle" title="通知" aria-label="通知">
+            <svg class="icon icon-lg" aria-hidden="true"><use href="#i-bell"/></svg>
+            <i class="notice-dot" id="notice-dot" hidden></i>
+          </button>
+          <span class="nav-sep sep-tight" aria-hidden="true"></span>
+          <a class="btn-signin" href="https://daoxe.com/sign-in">登录</a>
+        </div>
+        <div class="header-mobile">
+          <button class="icon-btn docs-menu-btn" type="button" id="docs-menu-toggle" aria-label="打开文档目录">
+            <svg class="icon icon-lg" aria-hidden="true"><use href="#i-menu"/></svg>
+          </button>
+          <div class="theme-switch">
+            <button class="icon-btn" type="button" id="theme-toggle-m" aria-label="切换主题">
+              <svg class="icon icon-lg theme-icon-sun" aria-hidden="true"><use href="#i-sun"/></svg>
+              <svg class="icon icon-lg theme-icon-moon" aria-hidden="true"><use href="#i-moon"/></svg>
+            </button>
+          </div>
+          <a class="btn-signin" href="https://daoxe.com/sign-in">登录</a>
+        </div>
+      </nav>
+    </div>
+  </header>
+  <div class="notice-modal" id="notice-modal" hidden>
+    <div class="notice-backdrop" id="notice-backdrop"></div>
+    <div class="notice-panel" role="dialog" aria-modal="true" aria-label="系统公告">
+      <div class="notice-head">
+        <span class="notice-title">系统公告</span>
+        <button class="icon-btn notice-close" type="button" id="notice-close" aria-label="关闭公告">
+          <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+        </button>
+      </div>
+      <div class="notice-body" id="notice-body"></div>
+    </div>
+  </div>
+  <div class="docs-body"><div class="layout">
+    <aside class="sidebar" id="sidebar" aria-label="文档目录"></aside>
+    <main class="main">
+      <article class="article">
+        <div class="breadcrumb" id="breadcrumb"></div>
+
+    <h1>用户协议</h1>
+    <p class="lead">完整法律文本由主站统一维护，文档站不另写一份，避免两边不一致。</p>
+
+    <div class="callout">
+      <div class="callout-title">权威页面</div>
+      请以主站正式协议为准。注册 / 登录流程中展示的也是同一份内容。
+    </div>
+
+    <div class="card-grid">
+      <a class="card" href="https://daoxe.com/user-agreement" target="_blank" rel="noopener noreferrer">
+        <h3>打开完整用户协议 ↗</h3>
+        <p>https://daoxe.com/user-agreement</p>
+      </a>
+      <a class="card" href="https://daoxe.com/sign-in" target="_blank" rel="noopener noreferrer">
+        <h3>登录主站 ↗</h3>
+        <p>账号相关请在主站完成</p>
+      </a>
+      <a class="card" href="https://daoxe.com/sign-up" target="_blank" rel="noopener noreferrer">
+        <h3>注册账号 ↗</h3>
+        <p>新用户注册入口</p>
+      </a>
+    </div>
+
+    <h2>摘要（非法律全文）</h2>
+    <ul>
+      <li>使用 DaoXE 服务前，请先阅读并同意主站用户协议与隐私政策。</li>
+      <li>本服务不向中国大陆地区提供访问与使用支持（以主站公告与协议表述为准）。</li>
+      <li>密钥、余额、调用行为由账号本人负责保管与使用。</li>
+      <li>若协议更新，以主站最新发布版本为准；文档站仅作导航入口。</li>
+    </ul>
+
+    <h2>相关链接</h2>
+    <ul>
+      <li><a href="privacy.html">隐私政策（入口）</a></li>
+      <li><a href="abuse.html">滥用举报</a></li>
+      <li><a href="../support/contact.html">联系客服</a></li>
+    </ul>
+
+        <div id="pager"></div>
+      </article>
+    </main>
+  </div>
+  </div>
+  <footer class="site-footer" id="site-footer"></footer>
+  <script src="../../js/config.js"></script>
+  <script src="../../js/shell.js"></script>
+</body>
+</html>

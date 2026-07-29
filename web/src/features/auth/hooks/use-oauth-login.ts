@@ -22,14 +22,17 @@ import { toast } from 'sonner'
 
 import { clearAuthentication, isAuthBundle } from '@/lib/api'
 
-import { createOAuthFlow, logout, telegramLogin } from '../api'
+import {
+  createOAuthFlow,
+  createOAuthFlowDetailed,
+  logout,
+} from '../api'
 import {
   buildGitHubOAuthUrl,
   buildDiscordOAuthUrl,
   buildOIDCOAuthUrl,
   buildLinuxDOOAuthUrl,
 } from '../lib/oauth'
-import { pickTelegramAuthorization } from '../lib/telegram-login'
 import type { SystemStatus, CustomOAuthProviderInfo } from '../types'
 import { useAuthRedirect } from './use-auth-redirect'
 
@@ -43,8 +46,6 @@ export function useOAuthLogin(
   const { t } = useTranslation()
   const { handleLoginSuccess } = useAuthRedirect()
   const [isLoading, setIsLoading] = useState(false)
-  const [isTelegramDialogOpen, setIsTelegramDialogOpen] = useState(false)
-  const [isTelegramPending, setIsTelegramPending] = useState(false)
   const [githubButtonText, setGithubButtonText] = useState('')
   const [githubButtonDisabled, setGithubButtonDisabled] = useState(false)
   const githubTimeoutRef = useRef<NodeJS.Timeout | null>(null)
@@ -160,46 +161,30 @@ export function useOAuthLogin(
   }
 
   const handleTelegramLogin = async () => {
-    if (!status?.telegram_bot_name?.trim()) {
-      toast.error(t('Login failed'))
-      return
-    }
-
     setIsLoading(true)
     try {
       await resetSession()
-      setIsTelegramDialogOpen(true)
+      // Telegram retired the Login Widget's domain allow-list, so its embed
+      // endpoint now always answers "Bot domain invalid". Use the OIDC flow the
+      // new BotFather panel configures instead: the backend mints the PKCE
+      // challenge and hands back the authorize URL to redirect to.
+      const { authorizationUrl } = await createOAuthFlowDetailed(
+        'telegram_oidc',
+        'login'
+      )
+      if (!authorizationUrl) {
+        toast.error(
+          t('Failed to start {{provider}} login', { provider: 'Telegram' })
+        )
+        return
+      }
+      window.open(authorizationUrl, '_self')
     } catch {
       toast.error(
         t('Failed to start {{provider}} login', { provider: 'Telegram' })
       )
     } finally {
       setIsLoading(false)
-    }
-  }
-
-  const handleTelegramAuthorization = async (value: unknown) => {
-    const authorization = pickTelegramAuthorization(value)
-    if (!authorization) {
-      toast.error(t('Login failed'))
-      return
-    }
-
-    setIsTelegramPending(true)
-    try {
-      const response = await telegramLogin(authorization)
-      if (!response.success || !isAuthBundle(response.data)) {
-        toast.error(t('Login failed'))
-        return
-      }
-
-      setIsTelegramDialogOpen(false)
-      await handleLoginSuccess(response.data, redirectTo)
-      toast.success(t('Welcome back!'))
-    } catch {
-      toast.error(t('Login failed'))
-    } finally {
-      setIsTelegramPending(false)
     }
   }
 
@@ -235,15 +220,11 @@ export function useOAuthLogin(
     isLoading,
     githubButtonText,
     githubButtonDisabled,
-    isTelegramDialogOpen,
-    isTelegramPending,
     handleGitHubLogin,
     handleDiscordLogin,
     handleOIDCLogin,
     handleLinuxDOLogin,
     handleTelegramLogin,
-    handleTelegramAuthorization,
-    setIsTelegramDialogOpen,
     handleCustomOAuthLogin,
   }
 }

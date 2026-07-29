@@ -5307,7 +5307,9 @@
     "Image shown in social media link previews": "Image shown in social media link previews",
     "Allow Search Engine Indexing": "Allow Search Engine Indexing",
     "When disabled, robots.txt will block all crawlers": "When disabled, robots.txt will block all crawlers",
-    "Legal": "Legal",
-    "Anonymous": "Anonymous"
+    "Anonymous": "Anonymous",
+    "Login Widget Client Secret": "Login Widget Client Secret",
+    "From BotFather → Bot Settings → Web Login": "From BotFather → Bot Settings → Web Login",
+    "Required for Telegram login. This is not the bot token — open BotFather, pick your bot, then Bot Settings → Web Login. Register https://your-domain/oauth/telegram_oidc as a Redirect URI there.": "Required for Telegram login. This is not the bot token — open BotFather, pick your bot, then Bot Settings → Web Login. Register https://your-domain/oauth/telegram_oidc as a Redirect URI there."
   }
 }

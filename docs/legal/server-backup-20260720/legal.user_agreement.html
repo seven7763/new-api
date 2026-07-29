@@ -1,0 +1,956 @@
+<!-- DaoXE · 道熹 — 用户服务协议 (合规增强版 2026-07) -->
+<!-- 自包含 HTML + <style>
+，外层 LegalDocument 已渲染 h1 标题，本文件从元信息/章节开始 -->
+<!-- 后台粘贴位置：系统设置 → 站点/系统信息 → User Agreement（用户协议） -->
+<!-- 请将文中 support@daoxe.com 替换为你们真实可收信的客服邮箱后再上线 -->
+
+<style>
+  .dx-terms,
+  .dx-terms * {
+    box-sizing: border-box;
+  }
+  .dx-terms {
+    --dx-fg: #0a0a0a;
+    --dx-muted: #6b7280;
+    --dx-border: #e5e7eb;
+    --dx-card: #ffffff;
+    --dx-card-soft: #f9fafb;
+    --dx-warn-bg: #fef2f2;
+    --dx-warn-border: #fecaca;
+    --dx-warn-fg: #991b1b;
+    --dx-warn-accent: #dc2626;
+    --dx-info-bg: #f0f9ff;
+    --dx-info-border: #bae6fd;
+    --dx-info-fg: #075985;
+    --dx-ok-bg: #f0fdf4;
+    --dx-ok-border: #bbf7d0;
+    --dx-ok-fg: #166534;
+    --dx-radius: 12px;
+
+    color: var(--dx-fg);
+    font-family:
+      ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI',
+      Roboto, 'Helvetica Neue', Arial, sans-serif, 'Apple Color Emoji';
+    line-height: 1.7;
+  }
+  :is(.dark, [data-theme='dark']) .dx-terms {
+    --dx-fg: #fafafa;
+    --dx-muted: #a1a1aa;
+    --dx-border: #27272a;
+    --dx-card: #0a0a0a;
+    --dx-card-soft: #18181b;
+    --dx-warn-bg: rgba(220, 38, 38, 0.12);
+    --dx-warn-border: rgba(220, 38, 38, 0.35);
+    --dx-warn-fg: #fca5a5;
+    --dx-warn-accent: #f87171;
+    --dx-info-bg: rgba(2, 132, 199, 0.12);
+    --dx-info-border: rgba(2, 132, 199, 0.35);
+    --dx-info-fg: #7dd3fc;
+    --dx-ok-bg: rgba(22, 163, 74, 0.12);
+    --dx-ok-border: rgba(22, 163, 74, 0.35);
+    --dx-ok-fg: #86efac;
+  }
+
+  .dx-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem 1.25rem;
+    align-items: center;
+    margin: 0 0 1.5rem;
+    padding: 0.75rem 1rem;
+    background: var(--dx-card-soft);
+    border: 1px solid var(--dx-border);
+    border-radius: var(--dx-radius);
+    font-size: 0.85rem;
+    color: var(--dx-muted);
+  }
+  .dx-meta-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+  }
+  .dx-meta strong {
+    color: var(--dx-fg);
+    font-weight: 600;
+  }
+
+  .dx-banner {
+    margin: 0 0 2rem;
+    padding: 1.25rem 1.5rem;
+    background: var(--dx-warn-bg);
+    border: 1px solid var(--dx-warn-border);
+    border-left: 4px solid var(--dx-warn-accent);
+    border-radius: var(--dx-radius);
+    color: var(--dx-warn-fg);
+  }
+  .dx-banner-title {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 1rem;
+    font-weight: 700;
+    margin: 0 0 0.5rem;
+    color: var(--dx-warn-accent);
+  }
+  .dx-banner p {
+    margin: 0;
+    font-size: 0.95rem;
+    line-height: 1.65;
+    color: var(--dx-warn-fg);
+  }
+  .dx-banner strong {
+    color: var(--dx-warn-accent);
+  }
+
+  .dx-sec {
+    margin: 0 0 1.5rem;
+    padding: 1.5rem;
+    background: var(--dx-card);
+    border: 1px solid var(--dx-border);
+    border-radius: var(--dx-radius);
+  }
+  .dx-sec-head {
+    display: flex;
+    align-items: center;
+    gap: 0.85rem;
+    margin: 0 0 1rem;
+  }
+  .dx-sec-num {
+    flex-shrink: 0;
+    width: 2.25rem;
+    height: 2.25rem;
+    border-radius: 8px;
+    background: var(--dx-card-soft);
+    border: 1px solid var(--dx-border);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--dx-fg);
+    letter-spacing: 0.02em;
+  }
+  .dx-sec h2 {
+    margin: 0;
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--dx-fg);
+    letter-spacing: -0.01em;
+  }
+  .dx-sec h3 {
+    margin: 1.15rem 0 0.55rem;
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--dx-fg);
+  }
+  .dx-sec p {
+    margin: 0 0 0.75rem;
+    color: var(--dx-fg);
+  }
+  .dx-sec p:last-child {
+    margin-bottom: 0;
+  }
+  .dx-sec strong {
+    color: var(--dx-fg);
+    font-weight: 600;
+  }
+  .dx-sec ul,
+  .dx-sec ol {
+    margin: 0.5rem 0 0;
+    padding-left: 1.25rem;
+    color: var(--dx-fg);
+  }
+  .dx-sec ul li,
+  .dx-sec ol li {
+    margin: 0.4rem 0;
+    line-height: 1.65;
+  }
+  .dx-sec ul li::marker,
+  .dx-sec ol li::marker {
+    color: var(--dx-muted);
+  }
+  .dx-sec a {
+    color: var(--dx-fg);
+    text-decoration: underline;
+    text-decoration-color: var(--dx-border);
+    text-underline-offset: 3px;
+  }
+
+  .dx-deny {
+    background: var(--dx-warn-bg);
+    border: 1px solid var(--dx-warn-border);
+    border-radius: var(--dx-radius);
+    padding: 1rem 1.25rem;
+    margin-top: 0.75rem;
+  }
+  .dx-deny ul {
+    list-style: none;
+    padding-left: 0;
+    margin: 0;
+  }
+  .dx-deny ul li {
+    position: relative;
+    padding: 0.4rem 0 0.4rem 1.65rem;
+    color: var(--dx-fg);
+    line-height: 1.65;
+    border-bottom: 1px dashed var(--dx-warn-border);
+  }
+  .dx-deny ul li:last-child {
+    border-bottom: none;
+  }
+  .dx-deny ul li::before {
+    content: '✕';
+    position: absolute;
+    left: 0;
+    top: 0.4rem;
+    width: 1.1rem;
+    height: 1.1rem;
+    border-radius: 999px;
+    background: var(--dx-warn-accent);
+    color: #fff;
+    font-size: 0.7rem;
+    font-weight: 700;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1;
+  }
+  .dx-deny ul li strong {
+    color: var(--dx-warn-accent);
+  }
+  .dx-deny-after {
+    margin-top: 0.85rem;
+    padding: 0.75rem 1rem;
+    background: var(--dx-warn-accent);
+    color: #fff;
+    border-radius: 8px;
+    font-size: 0.92rem;
+    font-weight: 500;
+  }
+  .dx-deny-after strong {
+    color: #fff;
+  }
+
+  .dx-cap {
+    margin-top: 0.85rem;
+    padding: 0.85rem 1rem;
+    background: var(--dx-info-bg);
+    border: 1px solid var(--dx-info-border);
+    border-radius: 8px;
+    color: var(--dx-info-fg);
+    font-size: 0.92rem;
+  }
+  .dx-cap strong {
+    color: var(--dx-info-fg);
+  }
+
+  .dx-ok {
+    margin-top: 0.85rem;
+    padding: 0.85rem 1rem;
+    background: var(--dx-ok-bg);
+    border: 1px solid var(--dx-ok-border);
+    border-radius: 8px;
+    color: var(--dx-ok-fg);
+    font-size: 0.92rem;
+  }
+  .dx-ok strong {
+    color: var(--dx-ok-fg);
+  }
+
+  .dx-contact {
+    display: grid;
+    gap: 0.65rem;
+    margin-top: 0.75rem;
+  }
+  .dx-contact-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem 0.75rem;
+    padding: 0.75rem 1rem;
+    background: var(--dx-card-soft);
+    border: 1px solid var(--dx-border);
+    border-radius: 8px;
+    font-size: 0.95rem;
+  }
+  .dx-contact-row .dx-label {
+    color: var(--dx-muted);
+    min-width: 7.5rem;
+  }
+
+  .dx-foot {
+    margin-top: 2rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--dx-border);
+    text-align: center;
+    color: var(--dx-muted);
+    font-size: 0.85rem;
+  }
+  .dx-foot a {
+    color: var(--dx-fg);
+    text-decoration: underline;
+    text-decoration-color: var(--dx-border);
+    text-underline-offset: 3px;
+  }
+  .dx-foot strong {
+    color: var(--dx-fg);
+  }
+
+  @media (max-width: 640px) {
+    .dx-sec {
+      padding: 1.1rem;
+    }
+    .dx-banner {
+      padding: 1rem 1.1rem;
+    }
+    .dx-contact-row .dx-label {
+      min-width: 100%;
+    }
+  }
+
+
+  /* —— DaoXE legal UI refresh (professional) —— */
+  .dx-terms {
+    --dx-fg: #0f172a;
+    --dx-muted: #64748b;
+    --dx-border: #e2e8f0;
+    --dx-card: #ffffff;
+    --dx-card-soft: #f8fafc;
+    --dx-accent: #4f46e5;
+    --dx-accent-2: #7c3aed;
+    --dx-warn-bg: #fff7ed;
+    --dx-warn-border: #fed7aa;
+    --dx-warn-fg: #9a3412;
+    --dx-warn-accent: #ea580c;
+    --dx-info-bg: #eef2ff;
+    --dx-info-border: #c7d2fe;
+    --dx-info-fg: #3730a3;
+    --dx-ok-bg: #f8fafc;
+    --dx-ok-border: #e2e8f0;
+    --dx-ok-fg: #0f172a;
+    --dx-ok-accent: #4f46e5;
+    --dx-deny-bg: #fff1f2;
+    --dx-deny-border: #fecdd3;
+    --dx-deny-fg: #9f1239;
+    --dx-radius: 14px;
+    --dx-shadow: 0 1px 0 rgba(15,23,42,.03), 0 8px 24px rgba(15,23,42,.04);
+    color: var(--dx-fg);
+    font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "PingFang SC", "Noto Sans SC", "Helvetica Neue", Arial, sans-serif;
+    line-height: 1.75;
+    font-size: 15px;
+    letter-spacing: 0.01em;
+    max-width: 880px;
+    margin: 0 auto;
+    padding: 2.5rem 1.25rem 4rem;
+  }
+  :is(.dark, [data-theme="dark"]) .dx-terms {
+    --dx-fg: #f1f5f9;
+    --dx-muted: #94a3b8;
+    --dx-border: #1e293b;
+    --dx-card: #0b1220;
+    --dx-card-soft: #111827;
+    --dx-accent: #818cf8;
+    --dx-accent-2: #a78bfa;
+    --dx-warn-bg: rgba(234,88,12,.10);
+    --dx-warn-border: rgba(234,88,12,.28);
+    --dx-warn-fg: #fdba74;
+    --dx-warn-accent: #fb923c;
+    --dx-info-bg: rgba(79,70,229,.12);
+    --dx-info-border: rgba(129,140,248,.28);
+    --dx-info-fg: #c7d2fe;
+    --dx-ok-bg: rgba(15,23,42,.55);
+    --dx-ok-border: #1e293b;
+    --dx-ok-fg: #e2e8f0;
+    --dx-ok-accent: #818cf8;
+    --dx-deny-bg: rgba(225,29,72,.10);
+    --dx-deny-border: rgba(251,113,133,.28);
+    --dx-deny-fg: #fda4af;
+    --dx-shadow: 0 1px 0 rgba(255,255,255,.03), 0 12px 32px rgba(0,0,0,.28);
+  }
+
+  .dx-terms .dx-meta {
+    display: grid !important;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: .65rem 1rem;
+    margin: 0 0 1.75rem;
+    padding: 1rem 1.15rem;
+    background: linear-gradient(180deg, var(--dx-card) 0%, var(--dx-card-soft) 100%);
+    border: 1px solid var(--dx-border);
+    border-radius: var(--dx-radius);
+    box-shadow: var(--dx-shadow);
+    font-size: .84rem;
+    color: var(--dx-muted);
+  }
+  .dx-terms .dx-meta-item {
+    display: flex !important;
+    flex-direction: column;
+    gap: .15rem;
+    min-width: 0;
+    align-items: flex-start !important;
+  }
+  .dx-terms .dx-meta-item strong {
+    color: var(--dx-fg);
+    font-weight: 600;
+    font-size: .78rem;
+  }
+
+  .dx-terms .dx-banner {
+    margin: 0 0 2rem;
+    padding: 1.1rem 1.25rem;
+    background: var(--dx-warn-bg);
+    border: 1px solid var(--dx-warn-border);
+    border-left: 3px solid var(--dx-warn-accent);
+    border-radius: var(--dx-radius);
+    color: var(--dx-warn-fg);
+  }
+  .dx-terms .dx-banner-title {
+    display: flex;
+    align-items: center;
+    gap: .55rem;
+    font-size: .95rem;
+    font-weight: 650;
+    margin: 0 0 .45rem;
+  }
+  .dx-terms .dx-banner-title::before {
+    content: "";
+    width: 7px;
+    height: 7px;
+    border-radius: 99px;
+    background: var(--dx-warn-accent);
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--dx-warn-accent) 18%, transparent);
+    flex: 0 0 auto;
+  }
+  .dx-terms .dx-banner p { margin: 0; font-size: .92rem; line-height: 1.7; }
+
+  .dx-terms .dx-banner-ok,
+  .dx-terms .dx-ok {
+    background: var(--dx-ok-bg) !important;
+    border: 1px solid var(--dx-ok-border) !important;
+    border-left: 3px solid var(--dx-ok-accent) !important;
+    color: var(--dx-ok-fg) !important;
+    border-radius: var(--dx-radius);
+    padding: 1rem 1.15rem !important;
+    margin: 1rem 0 0 !important;
+    font-size: .92rem;
+  }
+  .dx-terms .dx-banner-info,
+  .dx-terms .dx-info {
+    background: var(--dx-info-bg) !important;
+    border: 1px solid var(--dx-info-border) !important;
+    border-left: 3px solid var(--dx-accent) !important;
+    color: var(--dx-info-fg) !important;
+    border-radius: var(--dx-radius);
+    padding: 1rem 1.15rem !important;
+  }
+
+  .dx-terms .dx-sec {
+    margin: 0 0 1.75rem !important;
+    padding: 1.35rem 1.35rem 1.25rem !important;
+    background: var(--dx-card) !important;
+    border: 1px solid var(--dx-border) !important;
+    border-radius: calc(var(--dx-radius) + 2px) !important;
+    box-shadow: var(--dx-shadow) !important;
+  }
+  .dx-terms .dx-sec-head {
+    display: flex !important;
+    align-items: center !important;
+    gap: .75rem !important;
+    margin: 0 0 1rem !important;
+    padding-bottom: .85rem !important;
+    border-bottom: 1px solid var(--dx-border) !important;
+  }
+  .dx-terms .dx-sec-num {
+    width: 2rem !important;
+    height: 2rem !important;
+    min-width: 2rem !important;
+    border-radius: 8px !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    font-size: .78rem !important;
+    font-weight: 650 !important;
+    letter-spacing: .04em !important;
+    color: var(--dx-accent) !important;
+    background: color-mix(in srgb, var(--dx-accent) 10%, transparent) !important;
+    border: 1px solid color-mix(in srgb, var(--dx-accent) 22%, transparent) !important;
+    box-shadow: none !important;
+    flex: 0 0 auto !important;
+  }
+  .dx-terms .dx-sec-head h2 {
+    margin: 0 !important;
+    font-size: 1.08rem !important;
+    font-weight: 650 !important;
+    letter-spacing: -.01em !important;
+    color: var(--dx-fg) !important;
+  }
+  .dx-terms .dx-sec h3 {
+    margin: 1.15rem 0 .55rem !important;
+    font-size: .98rem !important;
+    font-weight: 650 !important;
+    color: var(--dx-fg) !important;
+  }
+  .dx-terms .dx-sec p {
+    margin: 0 0 .75rem !important;
+    color: color-mix(in srgb, var(--dx-fg) 88%, var(--dx-muted)) !important;
+    font-size: .94rem !important;
+  }
+  .dx-terms .dx-sec ul,
+  .dx-terms .dx-sec ol {
+    margin: .35rem 0 .85rem !important;
+    padding-left: 1.15rem !important;
+  }
+  .dx-terms .dx-sec li {
+    margin: .35rem 0 !important;
+    color: color-mix(in srgb, var(--dx-fg) 90%, var(--dx-muted)) !important;
+    font-size: .93rem !important;
+  }
+  .dx-terms .dx-sec li::marker { color: var(--dx-accent); }
+
+  .dx-terms .dx-deny {
+    background: var(--dx-deny-bg) !important;
+    border: 1px solid var(--dx-deny-border) !important;
+    border-radius: var(--dx-radius) !important;
+    padding: .85rem 1rem .85rem .85rem !important;
+    color: var(--dx-deny-fg) !important;
+    margin: .5rem 0 1rem !important;
+  }
+  .dx-terms .dx-deny ul { margin: 0 !important; }
+  .dx-terms .dx-deny li { color: inherit !important; }
+  .dx-terms .dx-deny-after {
+    margin-top: .75rem !important;
+    padding: .75rem .9rem !important;
+    border-radius: 10px !important;
+    background: color-mix(in srgb, var(--dx-warn-accent) 8%, transparent) !important;
+    border: 1px solid var(--dx-warn-border) !important;
+    color: var(--dx-warn-fg) !important;
+    font-size: .9rem !important;
+  }
+
+  .dx-terms .dx-contact {
+    display: grid !important;
+    gap: .55rem !important;
+    margin: .65rem 0 0 !important;
+  }
+  .dx-terms .dx-contact-row {
+    display: grid !important;
+    grid-template-columns: 140px 1fr !important;
+    gap: .75rem !important;
+    align-items: start !important;
+    padding: .7rem .85rem !important;
+    border: 1px solid var(--dx-border) !important;
+    border-radius: 12px !important;
+    background: var(--dx-card-soft) !important;
+  }
+  @media (max-width: 640px) {
+    .dx-terms .dx-contact-row { grid-template-columns: 1fr !important; gap: .25rem !important; }
+    .dx-terms { padding: 1.5rem .9rem 3rem !important; }
+  }
+  .dx-terms .dx-label {
+    font-size: .78rem !important;
+    font-weight: 650 !important;
+    color: var(--dx-muted) !important;
+    letter-spacing: .02em !important;
+  }
+  .dx-terms a {
+    color: var(--dx-accent) !important;
+    text-decoration: none !important;
+    border-bottom: 1px solid color-mix(in srgb, var(--dx-accent) 28%, transparent) !important;
+  }
+  .dx-terms a:hover {
+    color: var(--dx-accent-2) !important;
+    border-bottom-color: color-mix(in srgb, var(--dx-accent-2) 45%, transparent) !important;
+  }
+  .dx-terms strong { font-weight: 650 !important; }
+
+</style>
+
+<div class="dx-terms not-prose">
+  <!-- 元信息 -->
+  <div class="dx-meta">
+    <span class="dx-meta-item"><strong>生效日期:</strong> 2026-05-25</span>
+    <span class="dx-meta-item"><strong>最近更新:</strong> 2026-07-15</span>
+    <span class="dx-meta-item"><strong>域名:</strong> daoxe.com</span>
+    <span class="dx-meta-item">️ <strong>主体:</strong> DaoXE · 道熹</span>
+  </div>
+
+  <!-- 区域限制警示 -->
+  <div class="dx-banner">
+    <div class="dx-banner-title">服务范围声明</div>
+    <p>
+      <strong>DaoXE (daoxe.com)</strong>
+      是一个面向全球开发者的境外 AI 服务接入平台，
+      <strong>不向中华人民共和国大陆地区</strong>（不含香港、澳门、台湾）的用户提供任何形式的服务。
+      若您身处中国大陆地区，请立即停止注册和使用本服务。
+      用户须自行确保所在地区允许使用本服务及加密通信工具，因违反所在地法律法规导致的一切后果由用户自行承担。
+    </p>
+  </div>
+
+  <!-- 01 协议接受 -->
+  <section class="dx-sec">
+    <div class="dx-sec-head">
+      <div class="dx-sec-num">01</div>
+      <h2>协议接受</h2>
+    </div>
+    <p>
+      本协议是您与 <strong>DaoXE</strong>（以下简称「本服务」或「我们」）之间就使用
+      <strong>daoxe.com</strong> 及其相关服务所订立的法律协议。当您注册、登录或以任何方式使用本服务时，
+      即视为您已充分阅读、理解并接受本协议的全部内容（含本协议中的
+      <strong>AI 内容可接受使用政策 / AUP</strong>）。
+    </p>
+    <p>如您不同意本协议任一条款，请勿注册或使用本服务。</p>
+  </section>
+
+  <!-- 02 服务说明 -->
+  <section class="dx-sec">
+    <div class="dx-sec-head">
+      <div class="dx-sec-num">02</div>
+      <h2>服务说明</h2>
+    </div>
+    <p>
+      本服务是一个 <strong>AI 模型 API 中转聚合平台</strong>，通过统一接口为用户提供来自
+      OpenAI、Anthropic、Google、Mistral 等第三方 AI 服务商的模型调用能力（含文本、图像、视频等生成类能力，以实际开放模型为准）。
+    </p>
+    <p>
+      本服务主要作为中转通道，模型本身的能力、输出内容、可用性由原服务商决定，
+      我们不对其作任何保证。用户对其提示词、用途及输出内容的合法合规性承担首要责任。
+    </p>
+  </section>
+
+  <!-- 03 用户资格 -->
+  <section class="dx-sec">
+    <div class="dx-sec-head">
+      <div class="dx-sec-num">03</div>
+      <h2>用户资格</h2>
+    </div>
+    <p>使用本服务，您须同时满足以下全部条件：</p>
+    <ul>
+      <li>年满 <strong>18 周岁</strong>，或在所在司法管辖区已达到法定成年年龄</li>
+      <li><strong>非中国大陆地区（PRC Mainland）</strong>用户</li>
+      <li>所在地区的法律法规允许您使用 AI 服务及加密通信工具</li>
+      <li>具备完全民事行为能力</li>
+    </ul>
+  </section>
+
+  <!-- 04 账户与安全 -->
+  <section class="dx-sec">
+    <div class="dx-sec-head">
+      <div class="dx-sec-num">04</div>
+      <h2>账户与安全</h2>
+    </div>
+    <ul>
+      <li>您应妥善保管账户密码与 API Key，因泄露导致的损失由您自行承担</li>
+      <li>禁止将账户、API Key 转让、出借、出售给他人</li>
+      <li>建议启用二次验证（2FA），并定期更换密码与 API Key</li>
+      <li>发现账户异常，请立即通过本协议「联系我们」渠道联系我们处理</li>
+    </ul>
+  </section>
+
+  <!-- 05 使用规范 + AUP -->
+  <section class="dx-sec">
+    <div class="dx-sec-head">
+      <div class="dx-sec-num">05</div>
+      <h2>使用规范与 AI 内容可接受使用政策（AUP）</h2>
+    </div>
+    <p>
+      您承诺遵守适用法律、本协议及上游模型服务商（如 OpenAI、Anthropic、Google 等）的使用政策。
+      鉴于本服务可能提供 AI 生图、生成视频及其他生成式 AI 能力，您<strong>不得</strong>利用本服务生成、请求生成、传播、存储或以任何方式协助产生下列违禁内容
+      （下列类别<strong>逐项禁止</strong>，不得以「仅供测试」「虚构创作」等理由规避，法律明确允许且不违反本协议与上游政策的情形除外）：
+    </p>
+
+    <h3>5.1 禁止生成与传播的内容类别</h3>
+    <div class="dx-deny">
+      <ul>
+        <li>
+          <strong>色情 / NSFW：</strong>
+          露骨性内容、色情描写、性剥削相关内容，或其他明显不适宜的色情材料
+        </li>
+        <li>
+          <strong>暴力 / 血腥：</strong>
+          极端暴力、虐杀、血腥细节的美化、教唆或过度渲染
+        </li>
+        <li>
+          <strong>仇恨言论：</strong>
+          基于种族、民族、宗教、国籍、性别、性取向、残疾、种姓等受保护特征的仇恨、歧视煽动或暴力鼓动
+        </li>
+        <li>
+          <strong>儿童不安全内容：</strong>
+          任何涉及未成年人的性化、剥削、虐待、色情或不当内容（<strong>零容忍</strong>）
+        </li>
+                <li>
+          <strong>深度伪造 / 冒充他人（Deepfake &amp; Impersonation）：</strong>
+          未经权利人或当事人授权，制作、请求生成、编辑、合成或传播足以使一般人误认为真实的虚假内容，包括但不限于：
+          （1）虚假人脸/人声/视频/图像（含“换脸”“声纹克隆”“口型同步”等）；
+          （2）冒充真实个人、公众人物、企业品牌、政府或公共机构、新闻媒体或其他主体；
+          （3）伪造他人身份、证件、签名、通话或会议场景；
+          （4）用于欺诈、诽谤、勒索、骚扰、政治操纵、选举干预、金融诈骗、商业诋毁或其他违法/侵权用途。
+          创作性虚构角色或明确标注为虚构且不指向真实可识别个人的内容，在不违反其他条款与法律的前提下可另行评估；但<strong>不得以“艺术/测试”为由规避本条</strong>。
+        </li>
+        <li>
+          <strong>侵犯版权 / 商标：</strong>
+          故意生成或传播明显侵犯第三方著作权、商标权、肖像权、商业秘密或其他知识产权的内容
+        </li>
+        <li>
+          <strong>其他违法或有害内容：</strong>
+          违反任何适用法律法规的内容，以及第三方服务商政策明确禁止的内容
+        </li>
+      </ul>
+    </div>
+
+    <h3>5.2 其他禁止的滥用行为</h3>
+    <div class="dx-deny">
+      <ul>
+        <li>进行任何形式的 <strong>网络攻击</strong>（DDoS、爆破、扫描、注入等）</li>
+        <li>用于 <strong>恶意爬虫、自动化垃圾内容生成、虚假信息规模化传播</strong></li>
+        <li>未经授权 <strong>转售、二次分发</strong> 本服务的 API、Key 或服务能力</li>
+        <li>滥用、压力测试、绕过频率限制、安全机制或上游内容过滤</li>
+        <li>从事任何侵犯他人隐私权或其他合法权益的行为</li>
+      </ul>
+    </div>
+
+    <h3>5.3 违规处置机制</h3>
+    <p>一经发现或经合理怀疑存在上述违规，我们有权视情节单独或合并采取下列措施，且可不事先通知：</p>
+    <ul>
+      <li>限制、暂停或<strong>永久封禁</strong>账号</li>
+      <li>吊销 API Key，限制模型、接口或功能访问</li>
+      <li><strong>清零或扣减</strong>账户额度 / 余额；违规相关费用<strong>不予退款</strong></li>
+      <li>拒绝继续处理相关请求，并在法律允许范围内保留必要审计记录</li>
+      <li>依法向有权机关报告或配合调查</li>
+      <li>保留进一步追究法律责任的权利</li>
+    </ul>
+    <div class="dx-deny-after">
+      涉及儿童安全、欺诈、深度伪造用于犯罪或情节严重的，我们可
+      <strong>立即永久封禁且不予退款</strong>，并视情况配合执法机关。
+    </div>
+
+        <h3>5.4 用户举报渠道</h3>
+    <p>
+      若您发现本平台用户、API 调用方或通过本服务生成/传播的内容涉嫌违反本 AUP / 本协议，请通过以下渠道举报
+      （举报入口亦在<strong>全站页脚</strong>与<strong>悬浮客服入口</strong>公示，不仅限于本条款正文）：
+    </p>
+    <div class="dx-contact">
+      <div class="dx-contact-row">
+        <span class="dx-label">邮件举报（推荐）</span>
+        <span>
+          <a href="mailto:cabesalberto36216@gmail.com">cabesalberto36216@gmail.com</a>
+          （主题请注明：<strong>[Abuse Report]</strong> + 简要说明；亦可标注 [AUP] / [内容举报]）
+        </span>
+      </div>
+      <div class="dx-contact-row">
+        <span class="dx-label">Telegram 客服 / 群组</span>
+        <span>
+          <a href="https://t.me/daoxe_ai" target="_blank" rel="noopener noreferrer">https://t.me/daoxe_ai</a>
+          （@daoxe_ai；请在首条消息注明 <strong>Abuse Report</strong>）
+        </span>
+      </div>
+      <div class="dx-contact-row">
+        <span class="dx-label">页脚 / 悬浮入口</span>
+        <span>全站页脚「客服联系 / Support · 内容举报 / Abuse」及右侧悬浮客服中的邮箱与 Telegram 入口</span>
+      </div>
+    </div>
+    <p style="margin-top: 0.85rem">
+      <strong>建议随附材料（便于核查）：</strong>账号/用户名（如知）、大致发生时间（含时区）、模型名称、
+      Base URL / 线路、请求 ID 或客户端日志截图、违规内容描述、相关链接或样本哈希。
+      我们在收到<strong>可核查的完整材料</strong>后，通常于 <strong>3–7 个工作日</strong>内完成初步核查并反馈处理进展；
+      复杂案件可能延长并将尽量告知进展。
+    </p>
+    <p>
+      <strong>举报处理流程：</strong>受理登记 → 初步分流（儿童安全 / 欺诈 / 普通违规等）→ 调取可用元数据与用户提交证据核查 →
+      按本条「违规处置机制」采取限制/封禁/清零额度等措施 → 在法律与隐私政策允许范围内向举报人反馈结果类别。
+      恶意虚假举报可能被限制提交；善意举报不因结果不成立而承担责任。
+    </p>
+
+        <h3>5.5 平台内容审核机制</h3>
+    <p>
+      DaoXE 作为 API 网关 / 转发平台，请求会发往上游模型服务商。针对 AI 文本、生图、生成视频等 AIGC 能力，
+      内容管理采取「用户责任 + 平台治理 + 上游策略」的多层机制，形成事前—事中—事后闭环：
+    </p>
+    <ol>
+      <li>
+        <strong>事前规则（政策与告知）：</strong>
+        本 AUP 与服务条款逐项列明禁止类别（含色情/NSFW、暴力/血腥、仇恨言论、儿童不安全内容、
+        深度伪造/冒充他人、侵犯版权/商标等）；注册、登录或使用即视为同意。关键能力（含生图/视频）的
+        使用须同时遵守上游服务商政策与适用法律。
+      </li>
+      <li>
+        <strong>事中接入与风控检测：</strong>
+        对异常高频、批量自动化、明显滥用特征或命中风控规则的流量，可进行速率限制、人机验证、
+        临时拦截或拒绝；结合渠道可用性与安全策略进行路由控制。平台不保证对全部生成内容做实时人工审阅。
+      </li>
+      <li>
+        <strong>上游安全过滤：</strong>
+        上游（如 OpenAI / Anthropic / Google 等）可能自带安全过滤、拒绝策略或安全分类器；
+        被上游拒绝不构成平台故障，亦不改变按规则不可退部分的计费结果。
+      </li>
+      <li>
+        <strong>事后审查与抽样：</strong>
+        基于用户举报、合作方通报、公开线索、异常用量信号或内部巡检，对涉事账号及日志元数据
+        （时间、模型、Token、状态、渠道等）进行核查。本服务<strong>不主动长期存储完整对话/生成正文</strong>
+        （详见隐私政策），审查以元数据、用户提交证据、上游回执及可复现信息为主；
+        对高风险类别（尤其儿童安全、欺诈、深度伪造用于违法）优先加急处理。
+      </li>
+      <li>
+        <strong>处置闭环：</strong>
+        确认违规后按本条「违规处置机制」执行（含账号封禁、额度清零、吊销密钥、配合执法等），
+        并视情况保留审计记录以备合规与执法协助；对误报可在用户补充材料后复核。
+      </li>
+      <li>
+        <strong>持续改进：</strong>
+        可根据法规、上游政策与风险态势更新禁止清单、风控阈值与审核流程，更新后以网站公示版本为准。
+      </li>
+    </ol>
+    <div class="dx-ok">
+       用户应对自身提示词、用途及输出的合法合规性负<strong>首要责任</strong>；
+      不得利用本服务规避上游或当地法律的内容限制，不得生成或传播本 AUP 列明的违禁内容。
+    </div>
+  </section>
+
+  <!-- 06 计费与充值 -->
+  <section class="dx-sec">
+    <div class="dx-sec-head">
+      <div class="dx-sec-num">06</div>
+      <h2>计费与充值</h2>
+    </div>
+    <ul>
+      <li>本服务采用 <strong>按量计费</strong> 模式，以 Token 用量等计量单位为计费依据（以实际模型与账单展示为准）</li>
+      <li>充值金额仅可用于本服务消费，<strong>不可提现、不可转让、不可退款</strong>（法律另有强制规定或我们书面同意的除外）</li>
+      <li>账户余额自最后一次充值或调用之日起 <strong>12 个月</strong>无活动，我们有权清零处理</li>
+      <li>因不可抗力、第三方源站故障导致的服务中断，我们将根据实际情况进行合理补偿或处理</li>
+    </ul>
+  </section>
+
+  <!-- 07 数据与隐私 -->
+  <section class="dx-sec">
+    <div class="dx-sec-head">
+      <div class="dx-sec-num">07</div>
+      <h2>数据与隐私</h2>
+    </div>
+    <ul>
+      <li>本服务 <strong>不主动存储</strong> 您的 API 请求 / 响应正文，对话数据在转发完成后即被丢弃</li>
+      <li>为保障服务质量与排障，我们会记录请求的元数据（时间、模型、Token 数等），不含对话原文</li>
+      <li>您输入的内容 <strong>仍可能被上游模型服务商</strong>（如 OpenAI、Anthropic）按其自身政策存储 / 审计</li>
+      <li>请勿向本服务输入您不愿被第三方处理的敏感信息</li>
+      <li>更多细节见 <a href="/privacy-policy">《隐私政策》</a></li>
+    </ul>
+  </section>
+
+  <!-- 08 知识产权 -->
+  <section class="dx-sec">
+    <div class="dx-sec-head">
+      <div class="dx-sec-num">08</div>
+      <h2>知识产权</h2>
+    </div>
+    <p>
+      模型输出内容的知识产权归属遵循 <strong>各模型源站的政策</strong>（如 OpenAI ToS）。
+      本服务的网站设计、品牌标识、源代码等知识产权归 <strong>DaoXE</strong> 所有。
+    </p>
+  </section>
+
+  <!-- 09 服务可用性与免责 -->
+  <section class="dx-sec">
+    <div class="dx-sec-head">
+      <div class="dx-sec-num">09</div>
+      <h2>服务可用性与免责</h2>
+    </div>
+    <p>
+      本服务按「<strong>现状</strong>」提供，我们不对服务的不间断性、准确性、完整性作任何明示或默示保证。
+      以下情形造成的服务中断或损失，我们 <strong>不承担任何责任</strong>：
+    </p>
+    <ul>
+      <li>不可抗力（自然灾害、战争、政府行为等）</li>
+      <li>第三方模型服务商（OpenAI、Anthropic 等）政策变更、限流或封禁</li>
+      <li>网络运营商故障、跨境链路波动</li>
+      <li>您所在地区的网络管制或法律限制</li>
+      <li>您自身设备、网络、操作不当导致的问题</li>
+    </ul>
+    <div class="dx-cap">
+       <strong>责任上限：</strong>
+      在任何情况下，我们对您的总赔偿责任不超过您在最近
+      <strong>30 天</strong>内的实际充值消费金额。
+    </div>
+  </section>
+
+  <!-- 10 服务变更与终止 -->
+  <section class="dx-sec">
+    <div class="dx-sec-head">
+      <div class="dx-sec-num">10</div>
+      <h2>服务变更与终止</h2>
+    </div>
+    <ul>
+      <li>我们有权根据业务需要随时 <strong>变更、暂停或终止</strong> 全部或部分服务</li>
+      <li>您违反本协议时，我们有权 <strong>立即封禁账户</strong>，无需事先通知</li>
+      <li>您可随时停止使用本服务，但已消费金额不予退还（法律另有强制规定的除外）</li>
+    </ul>
+  </section>
+
+  <!-- 11 协议修改 -->
+  <section class="dx-sec">
+    <div class="dx-sec-head">
+      <div class="dx-sec-num">11</div>
+      <h2>协议修改</h2>
+    </div>
+    <p>
+      我们保留随时修改本协议的权利。修改后的协议将在本页面公布，并自公布之日起生效。
+      继续使用本服务即视为接受修改后的协议。重大变更时，我们可能通过站内公告或邮件等方式提示。
+    </p>
+  </section>
+
+  <!-- 12 法律适用与争议解决 -->
+  <section class="dx-sec">
+    <div class="dx-sec-head">
+      <div class="dx-sec-num">12</div>
+      <h2>法律适用与争议解决</h2>
+    </div>
+    <p>
+      本协议的解释、效力、履行及争议解决均适用 <strong>服务器所在地法律</strong>。
+      因本协议引起的任何争议，双方应首先友好协商；协商不成的，
+      提交服务器注册地有管辖权的法院诉讼解决。
+    </p>
+  </section>
+
+  <!-- 13 联系我们 -->
+  <section class="dx-sec">
+    <div class="dx-sec-head">
+      <div class="dx-sec-num">13</div>
+      <h2>联系我们</h2>
+    </div>
+    <p>
+      如对本协议、隐私保护、客服支持或内容违规举报有任何问题，请通过以下方式联系我们。
+      以下联系方式亦在<strong>全站页脚</strong>公示，便于在任意页面快速找到：
+    </p>
+    <div class="dx-contact">
+      <div class="dx-contact-row">
+        <span class="dx-label">客服邮箱</span>
+        <span><a href="mailto:support@daoxe.com">support@daoxe.com</a></span>
+      </div>
+      <div class="dx-contact-row">
+        <span class="dx-label">滥用 / 内容举报</span>
+        <span>
+          <a href="mailto:support@daoxe.com">support@daoxe.com</a>
+          （主题标注 <strong>[Abuse Report]</strong>）
+        </span>
+      </div>
+      <div class="dx-contact-row">
+        <span class="dx-label">Telegram</span>
+        <span>
+          <a href="https://t.me/daoxe_ai" target="_blank" rel="noopener noreferrer">https://t.me/daoxe_ai</a>
+        </span>
+      </div>
+      <div class="dx-contact-row">
+        <span class="dx-label">网站</span>
+        <span>
+          <a href="https://daoxe.com" target="_blank" rel="noopener noreferrer">https://daoxe.com</a>
+        </span>
+      </div>
+    </div>
+    <p style="margin-top: 0.85rem">
+      一般咨询我们会在合理期限内回复；举报类请求的处理时效见本协议第 5.4 条。
+      我们不提供面向中国大陆用户的服务。
+    </p>
+  </section>
+
+  <!-- 页脚 -->
+  <footer class="dx-foot">
+    本协议最终解释权归 <strong>DaoXE · 道熹</strong> 所有 · © 2026 ·
+    <a href="https://daoxe.com" target="_blank" rel="noopener">daoxe.com</a>
+    · 客服 <a href="mailto:support@daoxe.com">support@daoxe.com</a>
+  </footer>
+</div>

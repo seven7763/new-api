@@ -22,7 +22,6 @@ import { api, refreshAuthentication, type RefreshOutcome } from '@/lib/api'
 import { useAuthStore } from '@/stores/auth-store'
 
 import { getAffiliateCode } from './lib/storage'
-import type { TelegramAuthorization } from './lib/telegram-login'
 import type {
   LoginPayload,
   LoginResponse,
@@ -142,6 +141,18 @@ export async function createOAuthFlow(
   provider: string,
   intent: 'login' | 'bind'
 ): Promise<string> {
+  return (await createOAuthFlowDetailed(provider, intent)).flowToken
+}
+
+/**
+ * Same call as createOAuthFlow, but also returns the authorize URL for providers
+ * that build it server-side (Telegram's OIDC flow, which needs a PKCE challenge
+ * derived from a verifier the browser must never see).
+ */
+export async function createOAuthFlowDetailed(
+  provider: string,
+  intent: 'login' | 'bind'
+): Promise<{ flowToken: string; authorizationUrl?: string }> {
   const aff = intent === 'login' ? getAffiliateCode() : ''
   const res = await api.post(
     '/api/oauth/state',
@@ -149,9 +160,15 @@ export async function createOAuthFlow(
     { skipAuthRefresh: intent === 'login' }
   )
   if (res.data?.success) {
-    if (typeof res.data.data === 'string') return res.data.data
+    if (typeof res.data.data === 'string') {
+      return { flowToken: res.data.data }
+    }
     if (typeof res.data.data?.flow_token === 'string') {
-      return res.data.data.flow_token
+      const url = res.data.data.authorization_url
+      return {
+        flowToken: res.data.data.flow_token,
+        authorizationUrl: typeof url === 'string' ? url : undefined,
+      }
     }
   }
   throw new Error(res.data?.message || 'Failed to initialize OAuth')
@@ -160,19 +177,6 @@ export async function createOAuthFlow(
 // WeChat login by authorization code
 export async function wechatLoginByCode(code: string): Promise<ApiResponse> {
   const res = await api.get('/api/oauth/wechat', { params: { code } })
-  return res.data
-}
-
-export async function telegramLogin(
-  authorization: TelegramAuthorization
-): Promise<ApiResponse> {
-  const res = await api.get('/api/oauth/telegram/login', {
-    params: authorization,
-    disableDuplicate: true,
-    skipAuthRefresh: true,
-    skipBusinessError: true,
-    skipErrorHandler: true,
-  })
   return res.data
 }
 

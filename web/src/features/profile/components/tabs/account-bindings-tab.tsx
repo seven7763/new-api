@@ -33,6 +33,10 @@ import {
   OAUTH_BIND_RESULT_MESSAGE,
 } from '@/features/auth/constants'
 import { watchOAuthPopupClosed } from '@/features/auth/lib/oauth-bind-window'
+import {
+  getOAuthSessionStorage,
+  markOAuthBindPopup,
+} from '@/features/auth/lib/oauth-callback-mode'
 import type { CustomOAuthProviderInfo } from '@/features/auth/types'
 import { useDialogs } from '@/hooks/use-dialog'
 import { useStatus } from '@/hooks/use-status'
@@ -100,7 +104,6 @@ export function AccountBindingsTab({
       if (!pending || (expected && pending !== expected)) return
       pending.stopCloseWatcher()
       pendingOAuthBinding.current = null
-      clearPendingOAuthBindMarker()
     },
     []
   )
@@ -179,6 +182,9 @@ export function AccountBindingsTab({
       )
       pendingOAuthBinding.current = pending
       try {
+        // Providers that mint their authorize URL server-side (Telegram OIDC,
+        // whose PKCE verifier must stay on the server) omit buildUrl and use
+        // the URL returned by /api/oauth/state instead.
         const { flowToken, authorizationUrl } = await createOAuthFlowDetailed(
           provider,
           'bind'
@@ -186,8 +192,20 @@ export function AccountBindingsTab({
         if (pendingOAuthBinding.current !== pending || popup.closed) return
         const target = buildUrl ? buildUrl(flowToken) : authorizationUrl
         if (!target) throw new Error('no authorization url')
+        // Stamp the popup while it is still same-origin (about:blank). Tying
+        // the mark to this state prevents a stale popup from claiming a later
+        // login callback. If storage is blocked, do not navigate into a
+        // callback that cannot safely identify the bind flow.
+        if (
+          !markOAuthBindPopup(
+            getOAuthSessionStorage(popup),
+            provider,
+            flowToken
+          )
+        ) {
+          throw new Error('OAuth bind popup storage is unavailable')
+        }
         pending.state = flowToken
-        markPendingOAuthBind(provider, flowToken)
         popup.location.replace(target)
       } catch {
         const isCurrent = pendingOAuthBinding.current === pending

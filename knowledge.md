@@ -1,13 +1,3 @@
-## Infra
-- Target IP: 152.53.242.23
-- ASN / Owner: pending
-- Tech: pending
-
-## Cred
-- pending
-
-## Vulns
-- pending
-
-## Endpoints
-- pending
+## @manual
+- next: Confirm project read (new-api dev codebase confirmed). Provide project overview/summary if requested. Prepare for specific tasks like code review, feature addition, relay adapter work, billing fixes, or frontend changes.
+- hypotheses: User is clarifying this is the **development** (new-api) project, not external pentest. Core focus: Go backend (Gin + GORM + relaykit), React 19 frontend (Bun + i18next), multi-provider AI gateway with strict billing/DB compatibility rules. No urgent bugs; ready for targeted work.

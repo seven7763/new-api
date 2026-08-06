@@ -1,12 +1,3 @@
-## PTT
-- 🎯 ROOT 152.53.242.23 (152_53_242_23)
-  - 🔵 1. Recon
-    - ⚪ 1.1 passive DNS/whois/httpx
-    - ⚪ 1.2 ports (Kali)
-    - ⚪ 1.3 tech fingerprint
-  - ⚪ 2. Capability
-  - ⚪ 3. Surfaces
-## Done
-## Blocked
-## Next
-- 1.1 passive recon on Kali
+## @manual
+- next: Read the project files using filesystem tools (ls, find, Read) to understand the structure, key components, and any immediate issues or features to implement.
+- hypotheses: The codebase is a Go-based AI proxy/gateway with React frontend, supporting multiple LLM providers via relay adapters. Protected branding for QuantumNous/new-api. Pentest context on external target but primary focus on codebase maintenance.

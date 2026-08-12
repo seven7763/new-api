@@ -59,6 +59,21 @@ const isolatedContentBaseStyles = `
 </style>
 `
 
+// Tags that can hijack the whole document (script execution, base-URL
+// rewriting, meta refresh, plugin content) rather than just render markup.
+// Every variant forbids them, so operator-authored HTML can never escalate
+// into script execution in a visitor's session.
+const forbiddenTags = ['base', 'embed', 'link', 'meta', 'object', 'script']
+
+// DOMPurify drops `target`/`rel` by default, but operator-authored inline HTML
+// (site footer, announcements) routinely links out in a new tab, so they are
+// allowed back and then hardened in `hardenSanitizedHtml`.
+const inlineSanitizeOptions = {
+  ADD_ATTR: ['rel', 'target'],
+  FORBID_ATTR: ['srcdoc'],
+  FORBID_TAGS: forbiddenTags,
+} satisfies Config
+
 const isolatedSanitizeOptions = {
   ADD_ATTR: [
     'allowfullscreen',
@@ -83,11 +98,14 @@ const isolatedSanitizeOptions = {
   ],
   ADD_TAGS: ['audio', 'iframe', 'picture', 'source', 'style', 'track', 'video'],
   FORBID_ATTR: ['srcdoc'],
-  FORBID_TAGS: ['base', 'embed', 'link', 'meta', 'object', 'script'],
+  FORBID_TAGS: forbiddenTags,
   FORCE_BODY: true,
 } satisfies Config
 
-function hardenIsolatedHtml(html: string): string {
+function hardenSanitizedHtml(
+  html: string,
+  variant: HtmlContentVariant
+): string {
   if (typeof document === 'undefined') {
     return html
   }
@@ -105,15 +123,17 @@ function hardenIsolatedHtml(html: string): string {
     link.setAttribute('rel', [...rel].join(' '))
   })
 
-  template.content.querySelectorAll('iframe').forEach((frame) => {
-    frame.removeAttribute('srcdoc')
-    frame.setAttribute('sandbox', isolatedContentSandbox)
-    frame.setAttribute('referrerpolicy', 'no-referrer')
+  if (variant === 'isolated') {
+    template.content.querySelectorAll('iframe').forEach((frame) => {
+      frame.removeAttribute('srcdoc')
+      frame.setAttribute('sandbox', isolatedContentSandbox)
+      frame.setAttribute('referrerpolicy', 'no-referrer')
 
-    if (!frame.hasAttribute('loading')) {
-      frame.setAttribute('loading', 'lazy')
-    }
-  })
+      if (!frame.hasAttribute('loading')) {
+        frame.setAttribute('loading', 'lazy')
+      }
+    })
+  }
 
   return template.innerHTML
 }
@@ -122,13 +142,12 @@ function sanitizeHtmlContent(
   content: string,
   variant: HtmlContentVariant
 ): string {
-  if (variant === 'isolated') {
-    const html = DOMPurify.sanitize(content, isolatedSanitizeOptions)
+  const html = DOMPurify.sanitize(
+    content,
+    variant === 'isolated' ? isolatedSanitizeOptions : inlineSanitizeOptions
+  )
 
-    return hardenIsolatedHtml(html)
-  }
-
-  return DOMPurify.sanitize(content)
+  return hardenSanitizedHtml(html, variant)
 }
 
 function syncDarkClass(wrapper: HTMLElement): void {

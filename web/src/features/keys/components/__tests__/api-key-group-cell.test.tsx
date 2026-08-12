@@ -205,6 +205,32 @@ describe('API key group table cell', () => {
     container.remove()
   })
 
+  test('hides the Cross-group badge when the key has cross-group retry disabled', async () => {
+    const container = document.createElement('div')
+    document.body.append(container)
+    const root = createRoot(container)
+
+    await act(async () =>
+      root.render(
+        <CellHarness
+          group='auto'
+          ratio='Auto'
+          crossGroupRetry={false}
+          shouldReduceMotion
+        />
+      )
+    )
+
+    assert.equal(
+      container.querySelectorAll('[data-auto-group-frame]').length,
+      2
+    )
+    assert.equal(container.textContent?.includes('Cross-group'), false)
+
+    await act(async () => root.unmount())
+    container.remove()
+  })
+
   test('narrows normal group ratios to numbers and never applies Auto rings', async () => {
     const container = document.createElement('div')
     document.body.append(container)

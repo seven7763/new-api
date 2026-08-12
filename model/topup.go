@@ -413,6 +413,7 @@ func ManualCompleteTopUp(tradeNo string, callerIp string) error {
 	var quotaToAdd int
 	var payMoney float64
 	var paymentMethod string
+	var alreadyCompleted bool
 
 	err := DB.Transaction(func(tx *gorm.DB) error {
 		topUp := &TopUp{}
@@ -423,6 +424,7 @@ func ManualCompleteTopUp(tradeNo string, callerIp string) error {
 
 		// 幂等处理：已成功直接返回
 		if topUp.Status == common.TopUpStatusSuccess {
+			alreadyCompleted = true
 			return nil
 		}
 
@@ -467,6 +469,11 @@ func ManualCompleteTopUp(tradeNo string, callerIp string) error {
 
 	if err != nil {
 		return err
+	}
+	// 重复补单没有任何入账发生，上面的局部变量全是零值：此时继续往下走会记下一条
+	// 归属 user 0 的「管理员补单成功，充值金额: 0」日志，污染对账。
+	if alreadyCompleted {
+		return nil
 	}
 
 	// 缓存同步属于入账的一部分，必须先于返佣等事后动作执行

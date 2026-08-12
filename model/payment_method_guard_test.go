@@ -190,6 +190,31 @@ func createEpayTestOrder(t *testing.T, userId int, tradeNo string, provider stri
 	return topUp
 }
 
+// Completing an already-completed order credits nothing, so it must also record
+// nothing: the transaction returns before any of the log fields are populated, and a
+// log written from those zero values reads "管理员补单成功，充值金额: 0，支付金额：0.000000"
+// and is filed against user 0, which corrupts top-up reconciliation.
+func TestManualCompleteTopUpLogsOnlyTheCompletionThatCredited(t *testing.T) {
+	truncateTables(t)
+
+	oldQuotaPerUnit := common.QuotaPerUnit
+	common.QuotaPerUnit = 500000
+	t.Cleanup(func() { common.QuotaPerUnit = oldQuotaPerUnit })
+
+	user := insertUserForPaymentGuardTest(t, 601, 0)
+	order := createEpayTestOrder(t, user.Id, "MANUALCOMPLETEONCE", PaymentProviderEpay, common.TopUpStatusPending)
+
+	require.NoError(t, ManualCompleteTopUp(order.TradeNo, "127.0.0.1"))
+	require.NoError(t, ManualCompleteTopUp(order.TradeNo, "127.0.0.1"))
+
+	assert.Equal(t, 2*500000, getUserQuotaForPaymentGuardTest(t, user.Id), "the repeat must not credit again")
+
+	var logs []Log
+	require.NoError(t, DB.Where("type = ?", LogTypeTopup).Order("id asc").Find(&logs).Error)
+	require.Len(t, logs, 1)
+	assert.Equal(t, user.Id, logs[0].UserId)
+}
+
 func TestRechargeEpayCreditsQuotaExactlyOnce(t *testing.T) {
 	truncateTables(t)
 

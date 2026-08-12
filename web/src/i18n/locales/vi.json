@@ -5311,9 +5311,6 @@
     "Canonical base URL for Open Graph and sitemap": "URL gốc chuẩn cho Open Graph và sitemap",
     "Leave empty to use System Name + suffix": "Để trống để sử dụng Tên hệ thống + hậu tố",
     "e.g. AI大模型API网关|OpenAI兼容|统一分发平台": "VD: Cổng API AI|Tương thích OpenAI|Nền tảng phân phối hợp nhất",
-    "Appended after system name when full title is empty: {Name} - {Suffix}": "Thêm sau tên hệ thống khi tiêu đề đầy đủ trống: {Name} - {Suffix}",
-    "Login Widget Client Secret": "Client Secret của Login Widget",
-    "From BotFather → Bot Settings → Web Login": "Từ BotFather → Bot Settings → Web Login",
-    "Required for Telegram login. This is not the bot token — open BotFather, pick your bot, then Bot Settings → Web Login. Register https://your-domain/oauth/telegram_oidc as a Redirect URI there.": "Bắt buộc để đăng nhập Telegram. Đây không phải bot token — mở BotFather, chọn bot của bạn, rồi Bot Settings → Web Login. Đăng ký https://ten-mien-cua-ban/oauth/telegram_oidc làm Redirect URI ở đó."
+    "Appended after system name when full title is empty: {Name} - {Suffix}": "Thêm sau tên hệ thống khi tiêu đề đầy đủ trống: {Name} - {Suffix}"
   }
 }

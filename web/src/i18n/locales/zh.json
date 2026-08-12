@@ -5328,9 +5328,6 @@
     "Image shown in social media link previews": "社交媒体分享时显示的图片",
     "Allow Search Engine Indexing": "允许搜索引擎收录",
     "When disabled, robots.txt will block all crawlers": "关闭后 robots.txt 将阻止所有爬虫",
-    "Anonymous": "匿名",
-    "Login Widget Client Secret": "登录组件 Client Secret",
-    "From BotFather → Bot Settings → Web Login": "来自 BotFather → Bot Settings → Web Login",
-    "Required for Telegram login. This is not the bot token — open BotFather, pick your bot, then Bot Settings → Web Login. Register https://your-domain/oauth/telegram_oidc as a Redirect URI there.": "Telegram 登录必填。这不是 Bot Token —— 打开 BotFather，选择你的 bot，进入 Bot Settings → Web Login 获取，并在那里把 https://你的域名/oauth/telegram_oidc 注册为 Redirect URI。"
+    "Anonymous": "匿名"
   }
 }

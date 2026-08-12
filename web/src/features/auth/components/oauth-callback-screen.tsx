@@ -48,9 +48,6 @@ const providerDictionary: Record<string, ProviderMeta> = {
     ),
   },
   telegram: { label: 'Telegram', Icon: Send },
-  // Telegram's OIDC flow registers under its own slug so the generic `oidc`
-  // provider stays available; both surface as "Telegram" to the user.
-  telegram_oidc: { label: 'Telegram', Icon: Send },
   wechat: {
     label: 'WeChat',
     Icon: (props: { className?: string }) => (

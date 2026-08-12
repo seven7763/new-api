@@ -31,6 +31,7 @@ export {
   createOAuthFlow,
   githubOAuthStart,
   wechatLoginByCode,
+  telegramLogin,
 } from './api'
 
 // ============================================================================

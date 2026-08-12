@@ -20,9 +20,6 @@ import assert from 'node:assert/strict'
 import { describe, test } from 'node:test'
 
 import {
-  clearPendingOAuthBindMarker,
-  isPendingOAuthBind,
-  markPendingOAuthBind,
   parseTelegramBindCallback,
   postTelegramBindResult,
   startOAuthBindResponseDeadline,
@@ -189,74 +186,5 @@ describe('OAuth bind popup lifecycle', () => {
     timer.fire()
     assert.equal(closedCount, 1)
     assert.deepEqual(timer.cancelled, [timer.handle])
-  })
-})
-
-// The marker decides whether a callback runs the binding handshake or logs the
-// user in, so a mismatched or stale marker must never route a login into bind
-// mode (which previously left the page waiting until it timed out).
-describe('pending OAuth bind marker', () => {
-  const store = new Map<string, string>()
-
-  function installLocalStorage() {
-    ;(globalThis as unknown as { localStorage: unknown }).localStorage = {
-      getItem: (k: string) => (store.has(k) ? store.get(k)! : null),
-      setItem: (k: string, v: string) => void store.set(k, v),
-      removeItem: (k: string) => void store.delete(k),
-    }
-  }
-
-  test('matches only the provider and state that were recorded', () => {
-    installLocalStorage()
-    store.clear()
-    markPendingOAuthBind('telegram_oidc', 'state-1')
-
-    assert.equal(isPendingOAuthBind('telegram_oidc', 'state-1'), true)
-    assert.equal(isPendingOAuthBind('telegram_oidc', 'state-2'), false)
-    assert.equal(isPendingOAuthBind('github', 'state-1'), false)
-  })
-
-  test('reports nothing pending once cleared', () => {
-    installLocalStorage()
-    store.clear()
-    markPendingOAuthBind('telegram_oidc', 'state-1')
-    clearPendingOAuthBindMarker()
-
-    assert.equal(isPendingOAuthBind('telegram_oidc', 'state-1'), false)
-  })
-
-  test('ignores and drops an expired marker', () => {
-    installLocalStorage()
-    store.clear()
-    store.set(
-      'new_api_pending_oauth_bind',
-      JSON.stringify({
-        provider: 'telegram_oidc',
-        state: 'state-1',
-        createdAt: Date.now() - 11 * 60 * 1000,
-      })
-    )
-
-    assert.equal(isPendingOAuthBind('telegram_oidc', 'state-1'), false)
-    assert.equal(store.has('new_api_pending_oauth_bind'), false)
-  })
-
-  test('ignores a malformed marker', () => {
-    installLocalStorage()
-    store.clear()
-    store.set('new_api_pending_oauth_bind', 'not json')
-    assert.equal(isPendingOAuthBind('telegram_oidc', 'state-1'), false)
-
-    store.set('new_api_pending_oauth_bind', '"a string"')
-    assert.equal(isPendingOAuthBind('telegram_oidc', 'state-1'), false)
-  })
-
-  test('treats empty provider or state as not pending', () => {
-    installLocalStorage()
-    store.clear()
-    markPendingOAuthBind('telegram_oidc', 'state-1')
-
-    assert.equal(isPendingOAuthBind('', 'state-1'), false)
-    assert.equal(isPendingOAuthBind('telegram_oidc', ''), false)
   })
 })

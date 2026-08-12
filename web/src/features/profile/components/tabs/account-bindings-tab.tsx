@@ -27,7 +27,7 @@ import { ConfirmDialog } from '@/components/confirm-dialog'
 import { StatusBadge } from '@/components/status-badge'
 import { Button } from '@/components/ui/button'
 import { Separator } from '@/components/ui/separator'
-import { createOAuthFlowDetailed } from '@/features/auth/api'
+import { createOAuthFlow } from '@/features/auth/api'
 import {
   OAUTH_BIND_CALLBACK_MESSAGE,
   OAUTH_BIND_RESULT_MESSAGE,
@@ -55,6 +55,7 @@ import {
 } from '../../api'
 import type { UserProfile, BindingItem } from '../../types'
 import { EmailBindDialog } from '../dialogs/email-bind-dialog'
+import { TelegramBindDialog } from '../dialogs/telegram-bind-dialog'
 import { WeChatBindDialog } from '../dialogs/wechat-bind-dialog'
 
 // ============================================================================
@@ -66,7 +67,7 @@ interface AccountBindingsTabProps {
   onUpdate: () => void
 }
 
-type DialogKey = 'email' | 'wechat'
+type DialogKey = 'email' | 'wechat' | 'telegram'
 
 interface PendingOAuthBinding {
   provider: string
@@ -152,14 +153,8 @@ export function AccountBindingsTab({
     }
   }
 
-  /**
-   * Opens the OAuth popup and drives it through the shared pending/cleanup
-   * machinery. `buildUrl` is optional: providers that mint their authorize URL
-   * server-side (Telegram's OIDC flow, whose PKCE verifier must stay on the
-   * server) omit it and the URL returned by /api/oauth/state is used instead.
-   */
   const startOAuthBinding = useCallback(
-    async (provider: string, buildUrl?: (state: string) => string) => {
+    async (provider: string, buildUrl: (state: string) => string) => {
       const previous = pendingOAuthBinding.current
       if (previous) {
         clearPendingOAuthBinding(previous)
@@ -182,31 +177,19 @@ export function AccountBindingsTab({
       )
       pendingOAuthBinding.current = pending
       try {
-        // Providers that mint their authorize URL server-side (Telegram OIDC,
-        // whose PKCE verifier must stay on the server) omit buildUrl and use
-        // the URL returned by /api/oauth/state instead.
-        const { flowToken, authorizationUrl } = await createOAuthFlowDetailed(
-          provider,
-          'bind'
-        )
+        const state = await createOAuthFlow(provider, 'bind')
         if (pendingOAuthBinding.current !== pending || popup.closed) return
-        const target = buildUrl ? buildUrl(flowToken) : authorizationUrl
-        if (!target) throw new Error('no authorization url')
         // Stamp the popup while it is still same-origin (about:blank). Tying
         // the mark to this state prevents a stale popup from claiming a later
         // login callback. If storage is blocked, do not navigate into a
         // callback that cannot safely identify the bind flow.
         if (
-          !markOAuthBindPopup(
-            getOAuthSessionStorage(popup),
-            provider,
-            flowToken
-          )
+          !markOAuthBindPopup(getOAuthSessionStorage(popup), provider, state)
         ) {
           throw new Error('OAuth bind popup storage is unavailable')
         }
-        pending.state = flowToken
-        popup.location.replace(target)
+        pending.state = state
+        popup.location.replace(buildUrl(state))
       } catch {
         const isCurrent = pendingOAuthBinding.current === pending
         clearPendingOAuthBinding(pending)
@@ -404,11 +387,7 @@ export function AccountBindingsTab({
           (profile as unknown as Record<string, unknown>).telegram_id
         ),
         isEnabled: status?.telegram_oauth || false,
-        // Same popup flow as the other OAuth providers; the authorize URL comes
-        // from the server because Telegram's OIDC flow needs a PKCE challenge.
-        onBind: () => {
-          void startOAuthBinding('telegram_oidc')
-        },
+        onBind: () => dialogs.open('telegram'),
       },
       {
         id: 'linuxdo',
@@ -592,6 +571,17 @@ export function AccountBindingsTab({
         onSuccess={onUpdate}
       />
 
+      {/* Telegram Bind Dialog */}
+      {status?.telegram_bot_name && (
+        <TelegramBindDialog
+          open={dialogs.isOpen('telegram')}
+          onOpenChange={(open) =>
+            open ? dialogs.open('telegram') : dialogs.close('telegram')
+          }
+          botName={status.telegram_bot_name as string}
+          onSuccess={onUpdate}
+        />
+      )}
     </>
   )
 }

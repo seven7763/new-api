@@ -31,6 +31,7 @@ import { cn } from '@/lib/utils'
 
 import { useOAuthLogin } from '../hooks/use-oauth-login'
 import type { SystemStatus } from '../types'
+import { TelegramLoginDialog } from './telegram-login-dialog'
 
 type OAuthProvidersProps = {
   status: SystemStatus | null
@@ -68,6 +69,10 @@ export function OAuthProviders({
     handleLinuxDOLogin,
     handleTelegramLogin,
     handleCustomOAuthLogin,
+    isTelegramDialogOpen,
+    isTelegramPending,
+    handleTelegramAuthorization,
+    setIsTelegramDialogOpen,
   } = useOAuthLogin(status, redirectTo)
 
   const providerButtons: ProviderButton[] = []
@@ -145,7 +150,8 @@ export function OAuthProviders({
   if (providerButtons.length === 0) return null
 
   return (
-    <div className={cn('space-y-3', className)}>
+    <>
+      <div className={cn('space-y-3', className)}>
         <div className='relative'>
           <div className='absolute inset-0 flex items-center'>
             <span className='w-full border-t' />
@@ -173,7 +179,16 @@ export function OAuthProviders({
               </Button>
             )
           )}
+        </div>
       </div>
-    </div>
+
+      <TelegramLoginDialog
+        open={isTelegramDialogOpen}
+        botName={status?.telegram_bot_name ?? ''}
+        pending={isTelegramPending}
+        onOpenChange={setIsTelegramDialogOpen}
+        onAuthorization={handleTelegramAuthorization}
+      />
+    </>
   )
 }

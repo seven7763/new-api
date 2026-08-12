@@ -72,9 +72,6 @@ function OAuthCallback() {
     flow_token?: string
     error_code?: string
   }
-  // Prefer positive proof of a bind (popup sessionStorage stamp, or the
-  // legacy Telegram widget callback params) over guessing from window.opener.
-  // A sign-in tab can legitimately have an opener, so opener alone is not enough.
   const callbackState = search.state ?? ''
   const isTelegramBindCallback =
     provider === 'telegram' &&

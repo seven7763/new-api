@@ -34,7 +34,7 @@ func BuildSEOTitle(systemName, lang string) string {
 		name = SystemName
 	}
 	if name == "" {
-		name = "DaoXE"
+		name = "New API"
 	}
 	suffix := strings.TrimSpace(SEOTitleSuffix)
 	if suffix == "" {

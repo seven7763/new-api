@@ -15,7 +15,7 @@ func GetSelfInviteRebateSummary(c *gin.Context) {
 		common.ApiError(c, err)
 		return
 	}
-	user, err := model.GetUserById(userId, true)
+	user, err := model.GetUserById(userId, false)
 	if err != nil {
 		common.ApiError(c, err)
 		return
@@ -88,7 +88,6 @@ func GetAdminInviteRebateSummary(c *gin.Context) {
 		"ratio_bp":         common.InviteTopupRebateRatioBp,
 	})
 }
-
 
 func GetInviteRebateLeaderboard(c *gin.Context) {
 	userId := c.GetInt("id")

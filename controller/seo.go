@@ -12,7 +12,7 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func seoSiteBase(c *gin.Context) string {
+func seoSiteBase() string {
 	// Prefer configured absolute site URL only. Do not trust Request.Host —
 	// without SEOSiteURL/ServerAddress, omit absolute links rather than
 	// emitting attacker-controlled Host into robots/sitemap.
@@ -48,7 +48,7 @@ func RobotsTxt(c *gin.Context) {
 		b.WriteString("Disallow: /channel\n")
 		b.WriteString("Disallow: /user\n")
 		b.WriteString("\n")
-		if site := seoSiteBase(c); site != "" {
+		if site := seoSiteBase(); site != "" {
 			b.WriteString("Sitemap: ")
 			b.WriteString(site)
 			b.WriteString("/sitemap.xml\n")
@@ -67,7 +67,7 @@ type sitemapEntry struct {
 
 // SitemapXML serves GET /sitemap.xml with core public URLs.
 func SitemapXML(c *gin.Context) {
-	site := seoSiteBase(c)
+	site := seoSiteBase()
 	if site == "" {
 		c.Data(http.StatusOK, "application/xml; charset=utf-8", []byte(
 			`<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"></urlset>`,
@@ -80,7 +80,6 @@ func SitemapXML(c *gin.Context) {
 		{"/pricing", "weekly", "0.8"},
 		{"/about", "monthly", "0.6"},
 		{"/rankings", "daily", "0.7"},
-		{"/login", "monthly", "0.3"},
 		{"/register", "monthly", "0.3"},
 	}
 

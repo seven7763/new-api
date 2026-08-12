@@ -1,6 +1,7 @@
 package model
 
 import (
+	"errors"
 	"strconv"
 	"strings"
 	"time"
@@ -226,6 +227,33 @@ func validateOptionValue(key string, value string) error {
 	return nil
 }
 
+const (
+	inviteTopupRebateEnabledKey   = "InviteTopupRebateEnabled"
+	inviteTopupRebateEnabledAtKey = "InviteTopupRebateEnabledAt"
+)
+
+// stampInviteTopupRebateEnabledCutoff records "now" as the invite rebate cutoff the
+// first time an administrator switches the feature on. Only top-ups completed at or
+// after the cutoff earn a rebate, so the stamp must never move once written.
+//
+// The persisted option row is the source of truth, not common.InviteTopupRebateEnabledAt:
+// while loadOptionsFromDatabase replays the stored rows the in-memory value is still the
+// Go zero value, so deciding from memory restamps the cutoff on every process start.
+func stampInviteTopupRebateEnabledCutoff() error {
+	var existing Option
+	err := DB.Where(&Option{Key: inviteTopupRebateEnabledAtKey}).First(&existing).Error
+	if err == nil {
+		if stamp, convErr := strconv.ParseInt(existing.Value, 10, 64); convErr == nil && stamp > 0 {
+			return nil
+		}
+		// A blank, zero or unparsable row means "never enabled" to the rest of the
+		// rebate code, so treat it as unstamped and write a real cutoff now.
+	} else if !errors.Is(err, gorm.ErrRecordNotFound) {
+		return err
+	}
+	return UpdateOption(inviteTopupRebateEnabledAtKey, strconv.FormatInt(common.GetTimestamp(), 10))
+}
+
 func UpdateOption(key string, value string) error {
 	if err := validateOptionValue(key, value); err != nil {
 		return err
@@ -242,7 +270,13 @@ func UpdateOption(key string, value string) error {
 	// otherwise it will execute Update (with all fields).
 	DB.Save(&option)
 	// Update OptionMap
-	return updateOptionMap(key, value)
+	if err := updateOptionMap(key, value); err != nil {
+		return err
+	}
+	if key == inviteTopupRebateEnabledKey && value == "true" {
+		return stampInviteTopupRebateEnabledCutoff()
+	}
+	return nil
 }
 
 // UpdateOptionsBulk persists multiple key/value pairs in a single database
@@ -279,6 +313,9 @@ func UpdateOptionsBulk(values map[string]string) error {
 		if err := updateOptionMap(k, v); err != nil {
 			return err
 		}
+	}
+	if values[inviteTopupRebateEnabledKey] == "true" {
+		return stampInviteTopupRebateEnabledCutoff()
 	}
 	return nil
 }
@@ -335,22 +372,10 @@ func updateOptionMap(key string, value string) (err error) {
 		case "RegisterEnabled":
 			common.RegisterEnabled = boolValue
 		case "InviteTopupRebateEnabled":
-			was := common.InviteTopupRebateEnabled
+			// Turning the feature on stamps the rebate cutoff, but that write lives in
+			// UpdateOption/UpdateOptionsBulk: this function also runs for every row of
+			// loadOptionsFromDatabase, and it holds the global option write lock.
 			common.InviteTopupRebateEnabled = boolValue
-			// First/last turn-ON stamps the cutoff: only later top-ups earn rebate.
-			// Turning OFF does not clear the stamp (re-enable keeps original start).
-			// If admin never had a stamp and enables, set now.
-			if boolValue && !was {
-				if common.InviteTopupRebateEnabledAt <= 0 {
-					common.InviteTopupRebateEnabledAt = common.GetTimestamp()
-					common.OptionMap["InviteTopupRebateEnabledAt"] = strconv.FormatInt(common.InviteTopupRebateEnabledAt, 10)
-					// Persist cutoff so restarts / other nodes share the same boundary.
-					_ = DB.Save(&Option{
-						Key:   "InviteTopupRebateEnabledAt",
-						Value: common.OptionMap["InviteTopupRebateEnabledAt"],
-					}).Error
-				}
-			}
 		case "EmailDomainRestrictionEnabled":
 			common.EmailDomainRestrictionEnabled = boolValue
 		case "EmailAliasRestrictionEnabled":

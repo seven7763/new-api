@@ -32,8 +32,8 @@ type InviteRebate struct {
 	TopupQuota  int    `json:"topup_quota" gorm:"not null"`
 	RebateQuota int    `json:"rebate_quota" gorm:"not null"`
 	RatioBp     int    `json:"ratio_bp" gorm:"not null"`
-	Status      string `json:"status" gorm:"type:varchar(32);not null;default:'granted'"`
-	CreatedAt   int64  `json:"created_at" gorm:"bigint"`
+	Status      string `json:"status" gorm:"type:varchar(32);not null"`
+	CreatedAt   int64  `json:"created_at" gorm:"index"`
 }
 
 func (InviteRebate) TableName() string { return "invite_rebates" }
@@ -102,7 +102,11 @@ func insertInviteRebateSkip(db *gorm.DB, inviteeId, inviterId, topupQuota, ratio
 		Status:      InviteRebateStatusSkipped,
 		CreatedAt:   common.GetTimestamp(),
 	}
-	if err := db.Create(row).Error; err != nil && !isDuplicateKeyError(err) {
+	// Insert inside a transaction so a duplicate topup_id only rolls back to a
+	// savepoint when db is a caller-supplied transaction. Without one PostgreSQL
+	// marks that transaction aborted and rejects every statement the caller runs next.
+	err := db.Transaction(func(inner *gorm.DB) error { return inner.Create(row).Error })
+	if err != nil && !isDuplicateKeyError(err) {
 		common.SysError(fmt.Sprintf(
 			"invite rebate skip-row failed topup_id=%d invitee_id=%d err=%q",
 			topUp.Id, inviteeId, err.Error(),
@@ -158,7 +162,8 @@ func isDuplicateKeyError(err error) bool {
 }
 
 // GrantInviteTopupRebate credits inviter aff_quota for one successful top-up.
-// tx may be nil (uses DB). Idempotent on topup_id.
+// Idempotent on topup_id. tx may be nil (uses DB); when it is a live transaction the
+// ledger write runs in a nested savepoint so a duplicate never aborts it.
 //
 // Permanent non-grant outcomes (no inviter, zero base/rebate, missing users,
 // user_id mismatch) write status=skipped so backfill can advance.
@@ -177,13 +182,13 @@ func GrantInviteTopupRebate(tx *gorm.DB, inviteeId int, topupQuota int, topUp *T
 	if topUp.Status != "" && topUp.Status != common.TopUpStatusSuccess {
 		return nil
 	}
+	db := tx
+	if db == nil {
+		db = DB
+	}
 	// Historical top-ups before the feature was enabled never earn rebate.
 	// Write a permanent skip so backfill does not keep rescanning them.
 	if inviteRebateBeforeEnabledCutoff(topUp) {
-		db := tx
-		if db == nil {
-			db = DB
-		}
 		ratioBp := common.InviteTopupRebateRatioBp
 		if ratioBp < 0 {
 			ratioBp = 0
@@ -193,10 +198,6 @@ func GrantInviteTopupRebate(tx *gorm.DB, inviteeId int, topupQuota int, topUp *T
 		}
 		insertInviteRebateSkip(db, inviteeId, 0, topupQuota, ratioBp, topUp)
 		return nil
-	}
-	db := tx
-	if db == nil {
-		db = DB
 	}
 
 	// Snapshot ratio under no lock; per-grant snapshot is stored on the ledger row.
@@ -279,10 +280,6 @@ func GrantInviteTopupRebate(tx *gorm.DB, inviteeId int, topupQuota int, topUp *T
 			CreatedAt:   common.GetTimestamp(),
 		}
 		if err := inner.Create(row).Error; err != nil {
-			if isDuplicateKeyError(err) {
-				// already granted or permanently skipped for this topup
-				return nil
-			}
 			return err
 		}
 		// Only credit enabled inviter (re-check status under same tx when possible).
@@ -315,13 +312,11 @@ func GrantInviteTopupRebate(tx *gorm.DB, inviteeId int, topupQuota int, topUp *T
 		return nil
 	}
 
-	var err error
-	if tx != nil {
-		err = run(tx)
-	} else {
-		err = DB.Transaction(run)
-	}
-	if err != nil {
+	// Always open a transaction, including when the caller supplied one: GORM turns the
+	// inner call into a savepoint, so losing the unique topup_id race rolls back to that
+	// savepoint instead of aborting the caller's transaction. A duplicate means another
+	// settlement path already wrote the ledger row, so this call has nothing to credit.
+	if err := db.Transaction(run); err != nil && !isDuplicateKeyError(err) {
 		return err
 	}
 
@@ -471,7 +466,6 @@ func GetInviteRebateAdminSummary(inviterId int) (topupQuotaSum int64, rebateQuot
 	return
 }
 
-
 // creditedQuotaForTopUp estimates the quota actually added for a successful top-up,
 // matching the formulas used by each recharge path. Uses common.QuotaFromFloat so
 // conversion saturates at int32 MaxQuota instead of wrapping.
@@ -585,7 +579,6 @@ func BackfillMissingInviteTopupRebates(limit int) (scanned int, granted int, err
 	}
 	return scanned, granted, nil
 }
-
 
 // InviteRebateLeaderboardEntry is a public-safe leaderboard row.
 // Username/DisplayName are masked; no emails or raw aff codes.

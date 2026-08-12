@@ -41,7 +41,8 @@ function highlight(text: string, tokens: string[]): ReactNode {
 
 type QuickEntry = { path: string; title: string; groupTitle: string }
 
-const OPEN_EVENT = 'dx-docs-open-search'
+/** Opens the one mounted palette from anywhere (header trigger, not-found page). */
+export const SEARCH_OPEN_EVENT = 'dx-docs-open-search'
 const LISTBOX_ID = 'dx-docs-search-listbox'
 const optionId = (idx: number) => `dx-docs-search-opt-${idx}`
 
@@ -57,7 +58,7 @@ export function DocsSearchTrigger() {
       type="button"
       variant="ghost"
       size="icon-sm"
-      onClick={() => window.dispatchEvent(new CustomEvent(OPEN_EVENT))}
+      onClick={() => window.dispatchEvent(new CustomEvent(SEARCH_OPEN_EVENT))}
       aria-label={t('nav.search')}
     >
       <Search className="size-4" />
@@ -156,10 +157,10 @@ export function DocsSearch() {
     }
     const onOpen = () => setOpen(true)
     window.addEventListener('keydown', onKey)
-    window.addEventListener(OPEN_EVENT, onOpen)
+    window.addEventListener(SEARCH_OPEN_EVENT, onOpen)
     return () => {
       window.removeEventListener('keydown', onKey)
-      window.removeEventListener(OPEN_EVENT, onOpen)
+      window.removeEventListener(SEARCH_OPEN_EVENT, onOpen)
     }
   }, [])
 

@@ -10,7 +10,7 @@
     "typecheck": "tsc -b",
     "verify:prerender": "bun scripts/verify-prerender.ts",
     "dev": "bun scripts/gen-search-index.ts && bun scripts/gen-seo.ts && vite",
-    "build": "tsc -b && bun scripts/gen-search-index.ts && bun scripts/gen-seo.ts && vite build && bun scripts/prerender.ts",
+    "build": "tsc -b && bun scripts/gen-search-index.ts && bun scripts/gen-seo.ts && vite build && bun scripts/prerender.ts && bun scripts/verify-prerender.ts",
     "preview": "vite preview",
     "assistant:proxy": "bun server/assistant-proxy.ts",
     "assistant:tg": "bun server/telegram-bot.ts"

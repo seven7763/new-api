@@ -17,6 +17,21 @@ if (lang === DEFAULT_LANG && prefixed) {
   // canonical URL, and cannot loop: the target carries no language prefix.
   window.location.replace(docsHref(path) + window.location.search + window.location.hash)
 } else {
+  // splitLangPath folded the spellings the server had already folded when it
+  // picked the file (`…/index.html`, `//`, `%2F`, a trailing slash). The router
+  // reads window.location itself, so without writing the folded URL back it
+  // would still resolve `/guide/keys/index.html` — no nav entry, "not found"
+  // rendered over the article that was just hydrated. replaceState issues no
+  // request and leaves the history entry in place.
+  const canonical = docsHref(path, lang)
+  if (canonical !== window.location.pathname) {
+    window.history.replaceState(
+      window.history.state,
+      '',
+      canonical + window.location.search + window.location.hash
+    )
+  }
+
   const tree = (
     <StrictMode>
       <BrowserRouter basename={routerBasename(lang)}>

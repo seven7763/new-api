@@ -1,5 +1,4 @@
 User-agent: *
 Allow: /
-Disallow: /docs/app.html
 
 Sitemap: https://daoxe.com/docs/sitemap.xml

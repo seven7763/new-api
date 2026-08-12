@@ -253,9 +253,24 @@ function normalizeRoute(path: string) {
  * `prefixed` reports whether the URL carried an explicit language segment, so
  * callers can normalize `/docs/zh/x` (a valid spelling nobody should link to)
  * back onto the canonical `/docs/x`.
+ *
+ * The pathname is normalized the way the server already normalized it before
+ * picking a file: `%2F` decodes to a separator, repeated slashes collapse
+ * (nginx `merge_slashes`, on by default) and a trailing `index.html` names the
+ * directory it lives in. Without that, nginx answers
+ * `/docs/en/guide/keys/index.html` and `/docs//en/guide/keys` with the right
+ * prerendered page while this function reports a route that does not exist —
+ * main.tsx then sees a data-ssr mismatch, throws the correct article away and
+ * client-renders the welcome page over it. Only these three spellings are
+ * folded, and case-sensitively: they are exactly the ones nginx resolves to the
+ * same file, and normalizing anything it would not (`/INDEX.HTML`) would swap
+ * the mismatch for a wrong-page render.
  */
 export function splitLangPath(pathname: string): { lang: Lang; path: string; prefixed: boolean } {
   let rest = pathname
+    .replace(/%2f/gi, '/')
+    .replace(/\/{2,}/g, '/')
+    .replace(/\/index\.html$/, '/')
   if (basePath && rest.startsWith(basePath)) rest = rest.slice(basePath.length)
   if (!rest.startsWith('/')) rest = `/${rest}`
   const [, head, ...tail] = rest.split('/')

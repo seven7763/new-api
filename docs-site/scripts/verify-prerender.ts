@@ -8,9 +8,19 @@
  * Run after `bun run build`: bun run scripts/verify-prerender.ts
  */
 import { existsSync } from 'node:fs'
-import { readFile } from 'node:fs/promises'
-import { join } from 'node:path'
-import { docsUrl, flatNav, LANG_META, ROUTE_LANGS, siteConfig } from '../src/config'
+import { readdir, readFile } from 'node:fs/promises'
+import { join, relative } from 'node:path'
+import {
+  DEFAULT_LANG,
+  docsUrl,
+  flatNav,
+  groupEntryPath,
+  LANG_META,
+  nav,
+  ROUTE_LANGS,
+  siteConfig,
+} from '../src/config'
+import { translate } from '../src/i18n'
 import type { Lang } from '../src/i18n-nav'
 
 const distDir = join(import.meta.dir, '../dist')
@@ -59,12 +69,28 @@ for (const lang of ROUTE_LANGS) {
     if (!html.includes(`data-ssr="${lang}:${item.path}"`)) fail(`NOT PRERENDERED: ${url}`)
     if (!html.includes('<article')) fail(`NO ARTICLE: ${url}`)
 
-    const body = html.slice(html.indexOf('<article'))
-    const text = body
+    // Slice to the *end* of the article. Slicing to the end of the file instead
+    // folded the sidebar tail, TOC, footer and inline scripts into the count:
+    // its floor across all four languages was 372 chars, so a 200-char
+    // threshold could never fire and this check asserted nothing. Real article
+    // text runs 133 (zh /features/notice) to ~2000 chars, hence a floor of 100.
+    const start = html.indexOf('<article')
+    const end = html.indexOf('</article>', start)
+    if (end < 0) {
+      fail(`UNCLOSED ARTICLE: ${url}`)
+      continue
+    }
+    const text = html
+      .slice(start, end)
       .replace(/<[^>]+>/g, ' ')
       .replace(/\s+/g, ' ')
       .trim()
-    if (text.length < 200) fail(`THIN BODY: ${url} — ${text.length} chars`)
+    if (text.length < 100) fail(`THIN BODY: ${url} — ${text.length} chars`)
+    // Length alone would not catch the failure this check exists for: a page
+    // whose registry chunk was not awaited renders the spinner plus a full
+    // breadcrumb and pager, which clears any length floor.
+    const loading = translate(lang, 'common.loading')
+    if (text.includes(loading)) fail(`LOADING BODY: ${url} — contains "${loading}"`)
 
     const htmlLang = attr(html, /<html lang="([^"]+)"/)
     if (htmlLang !== LANG_META[lang].html) {
@@ -123,6 +149,13 @@ for (const page of pages) {
       fail(`DEAD hreflang: ${docsUrl(page.path, page.lang)} → ${href} (no file)`)
     }
   }
+  // x-default names the variant served to visitors no hreflang matched. Only
+  // its existence used to be checked, so it could have pointed at any language.
+  const xDefault = page.alternates.get('x-default')
+  const wantDefault = docsUrl(page.path, DEFAULT_LANG)
+  if (xDefault !== wantDefault) {
+    fail(`x-default on ${docsUrl(page.path, page.lang)} points at ${xDefault}, want ${wantDefault}`)
+  }
   for (const other of ROUTE_LANGS) {
     const declared = page.alternates.get(LANG_META[other].hreflang)
     const otherUrl = docsUrl(page.path, other)
@@ -138,6 +171,19 @@ for (const page of pages) {
   }
 }
 
+// Nothing in dist/ may answer a docs URL the nav tree does not know about. The
+// expectation set above comes from flatNav(), the same source prerender.ts
+// renders from, so on its own it can only ever report missing files — a page
+// left behind by a renamed or deleted route would survive every deploy,
+// outrank its replacement and never be noticed.
+const expectedFiles = new Set(pages.map((p) => p.file))
+for (const entry of await readdir(distDir, { recursive: true })) {
+  const name = String(entry)
+  if (!name.endsWith('index.html')) continue
+  const file = join(distDir, name)
+  if (!expectedFiles.has(file)) fail(`ORPHAN PAGE: dist/${relative(distDir, file)} matches no route`)
+}
+
 // The SPA shell must stay empty and unindexed, or the fallback would both
 // duplicate the docs index and force React to discard the markup it hydrated.
 const fallback = join(distDir, 'app.html')
@@ -147,6 +193,35 @@ if (!existsSync(fallback)) {
   const html = await readFile(fallback, 'utf8')
   if (!html.includes('<div id="root"></div>')) fail('app.html #root is not empty')
   if (!/<meta name="robots" content="noindex/.test(html)) fail('app.html is not noindex')
+  // nginx answers every unmatched /docs/… URL from this one file. A canonical
+  // or hreflang here would attach the docs index's identity to every typo,
+  // group prefix and retired asset path, and Google treats noindex plus
+  // canonical as contradictory — worst case the noindex propagates to the
+  // canonical target and takes the docs index out of the index with it.
+  if (/rel="canonical"/.test(html)) fail('app.html declares a canonical (noindex + canonical)')
+  if (/rel="alternate"/.test(html)) fail('app.html declares hreflang alternates')
+}
+
+// Sidebar group prefixes (/docs/guide) are not routes. Without a redirect the
+// history fallback answers them 200 with the SPA shell, so nginx has to send
+// them to the group's first page — which is groupEntryPath, in src/config.ts.
+// Checking the rule text here is what keeps the hand-written conf from drifting
+// when a group is renamed or its first item changes.
+const conf = await readFile(join(import.meta.dir, '../deploy/daoxe-docs.conf'), 'utf8')
+const confRules = conf.replace(/[ \t]+/g, ' ')
+const mount = siteConfig.docsPath.replace(/\/$/, '')
+const prefixLangs = ROUTE_LANGS.filter((l) => l !== DEFAULT_LANG).join('|')
+const routePaths = new Set(flatNav().map((i) => i.path))
+for (const group of nav) {
+  const head = `rewrite ^${mount}/((?:${prefixLangs})/)?${group.id}/?$`
+  if (routePaths.has(`/${group.id}`)) {
+    // `changelog` is both a group id and a real page. Redirecting it would
+    // bounce a canonical URL that every hreflang set already points at.
+    if (confRules.includes(head)) fail(`nginx: ${mount}/${group.id} is a route but is redirected`)
+    continue
+  }
+  const rule = `${head} ${mount}/$1${groupEntryPath(group.id).replace(/^\//, '')} permanent;`
+  if (!confRules.includes(rule)) fail(`nginx: deploy/daoxe-docs.conf is missing \`${rule}\``)
 }
 
 // Sitemap coverage: same URL set, and each entry is a real file.

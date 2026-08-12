@@ -48,12 +48,13 @@ await writeFile(join(outDir, 'sitemap.xml'), sitemap)
 // fallback for root-mounted deployments. Under /docs the site owner still has
 // to point https://<host>/robots.txt at the sitemap URL printed below.
 const docsRoot = `${siteConfig.siteUrl.replace(/\/$/, '')}${siteConfig.docsPath}`
+// The SPA shell (app.html) is deliberately NOT disallowed: it already carries
+// `noindex`, and a crawler that is forbidden to fetch it can never read that
+// directive — the documented way to end up with a Disallow'd URL indexed
+// anyway, from external links alone.
 const robots = [
   'User-agent: *',
   'Allow: /',
-  // The SPA shell behind the history fallback. It renders nothing without JS
-  // and duplicates no page; keeping it out of the index costs nothing.
-  `Disallow: ${siteConfig.docsPath}/app.html`,
   '',
   `Sitemap: ${docsRoot}/sitemap.xml`,
   '',

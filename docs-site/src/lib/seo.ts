@@ -22,6 +22,21 @@ export type SeoInput = {
   lang: Lang
   /** Localized site-level description for the WebSite node. */
   siteDescription: string
+  /**
+   * False when the URL matches no page. nginx answers those from the noindex
+   * SPA shell, so describing them with a canonical (which can only point at the
+   * docs index) would re-create the contradictory noindex + canonical pair the
+   * shell was stripped of — in the DOM a rendering crawler reads.
+   */
+  isPage: boolean
+  /**
+   * Site name. `siteConfig.brand` at build time; once /api/status answers, the
+   * operator's configured one. Every place the brand is spelled out reads it
+   * from here — a static page showing the build-time brand until the next build
+   * is inherent to prerendering, but within one document the title, the site
+   * name, the JSON-LD graph and the descriptions must not disagree.
+   */
+  brand: string
 }
 
 export type SeoHead = {
@@ -76,6 +91,8 @@ export function buildSeoInput({
       : [],
     lang,
     siteDescription,
+    brand,
+    isPage: Boolean(item),
   }
 }
 
@@ -87,7 +104,7 @@ function buildGraph(input: SeoInput, url: string, inLanguage: string): object[] 
     '@type': 'WebSite',
     '@id': `${home}#website`,
     url: home,
-    name: `${siteConfig.brand} Docs`,
+    name: `${input.brand} Docs`,
     description: input.siteDescription,
     inLanguage,
     publisher: { '@id': `${origin}#organization` },
@@ -104,7 +121,7 @@ function buildGraph(input: SeoInput, url: string, inLanguage: string): object[] 
   const organization = {
     '@type': 'Organization',
     '@id': `${origin}#organization`,
-    name: siteConfig.brand,
+    name: input.brand,
     url: origin,
     logo: siteConfig.logo,
   }
@@ -145,7 +162,7 @@ export function buildSeoHead(input: SeoInput): SeoHead {
   // them from the index, which is exactly what the language URLs exist to fix.
   const canonical = docsUrl(input.path, input.lang)
   return {
-    title: `${input.title} · ${siteConfig.brand} Docs`,
+    title: `${input.title} · ${input.brand} Docs`,
     description: input.description,
     canonical,
     htmlLang: meta.html,
@@ -197,9 +214,20 @@ export function applyDocumentSeo(input: SeoInput) {
 
   document.title = head.title
   upsertMeta('meta[name="description"]', 'name', 'description', head.description)
-  upsertCanonical(head.canonical)
-  replaceAlternates(head.alternates)
+  if (input.isPage) {
+    upsertCanonical(head.canonical)
+    replaceAlternates(head.alternates)
+  } else {
+    // Also clears what a previous route left behind: client-side navigation
+    // reuses the document, so a stale canonical would keep claiming this URL is
+    // the page the visitor came from.
+    document.head.querySelector('link[rel="canonical"]')?.remove()
+    replaceAlternates([])
+  }
 
+  // index.html ships the build-time site name; leaving it there would caption
+  // every card with a different brand than the title next to it.
+  upsertMeta('meta[property="og:site_name"]', 'property', 'og:site_name', `${input.brand} Docs`)
   upsertMeta('meta[property="og:title"]', 'property', 'og:title', head.title)
   upsertMeta('meta[property="og:description"]', 'property', 'og:description', head.description)
   upsertMeta('meta[property="og:url"]', 'property', 'og:url', head.canonical)

@@ -784,7 +784,11 @@ export function PagerBar() {
   const location = useLocation()
   const { lang, t } = useI18n()
   const list = flatNav()
-  const idx = list.findIndex((it) => it.path === (findNavByPath(location.pathname)?.path || '/'))
+  const item = findNavByPath(location.pathname)
+  // No pager on a URL that is not a page: falling back to the index put a
+  // "next: quickstart" card under the not-found notice, as if the visitor were
+  // reading the first page of the docs.
+  const idx = item ? list.findIndex((it) => it.path === item.path) : -1
   if (idx < 0) return null
   const prev = list[idx - 1]
   const next = list[idx + 1]

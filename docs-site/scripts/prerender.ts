@@ -51,11 +51,20 @@ function esc(s: string) {
     .replace(/"/g, '&quot;')
 }
 
-/** Replace exactly once, and fail loudly if index.html stopped matching. */
+/**
+ * Replace exactly once, and fail loudly if index.html stopped matching or
+ * started matching twice — a second occurrence would leave a stale copy of the
+ * tag behind (two canonicals, two robots directives) that no later check sees.
+ * `join` inserts the replacement literally, so `$&` in a description is safe.
+ */
 function swap(html: string, pattern: string | RegExp, replacement: string) {
-  const found = typeof pattern === 'string' ? html.includes(pattern) : pattern.test(html)
-  if (!found) throw new Error(`prerender: index.html no longer contains ${pattern}`)
-  return html.replace(pattern, () => replacement)
+  const parts = html.split(pattern)
+  if (parts.length !== 2) {
+    throw new Error(
+      `prerender: index.html matches ${pattern} ${parts.length - 1} time(s), want exactly 1`
+    )
+  }
+  return parts.join(replacement)
 }
 
 const SEO_BLOCK = /<!-- seo:start[\s\S]*?seo:end -->/
@@ -133,10 +142,17 @@ for (const lang of ROUTE_LANGS) {
 // It keeps an empty #root so React client-renders — hydrating a "not found"
 // route against the docs index would be a guaranteed mismatch — and it is
 // noindex because it is a shell, not a page.
-await writeFile(
-  join(distDir, 'app.html'),
-  swap(template, ROBOTS, '<meta name="robots" content="noindex, follow" />')
-)
+//
+// The whole per-page SEO block goes with the robots line. nginx answers every
+// unmatched /docs/… URL from this one file, and there are plenty of real ones
+// (group prefixes, retired _legacy_html asset paths, typos), so leaving the
+// block in place would hand the docs index's canonical and hreflang set to all
+// of them — while the page also says noindex. Google documents those two as
+// contradictory signals whose worst case is the noindex propagating to the
+// canonical target, i.e. dropping the docs index itself from the index.
+let shell = swap(template, SEO_BLOCK, `<title>${esc(siteConfig.brand)} Docs</title>`)
+shell = swap(shell, ROBOTS, '<meta name="robots" content="noindex, follow" />')
+await writeFile(join(distDir, 'app.html'), shell)
 
 console.log(
   `prerender: ${pages} pages (${ROUTE_LANGS.length} langs x ${pages / ROUTE_LANGS.length}) — ` +

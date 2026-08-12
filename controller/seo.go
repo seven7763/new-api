@@ -52,6 +52,11 @@ func RobotsTxt(c *gin.Context) {
 			b.WriteString("Sitemap: ")
 			b.WriteString(site)
 			b.WriteString("/sitemap.xml\n")
+			// Crawlers only read robots.txt from the origin root, so the docs
+			// site's own /docs/robots.txt is never fetched and its sitemap —
+			// the index of every prerendered documentation page — has to be
+			// announced here to be discovered at all.
+			b.WriteString("Sitemap: " + site + "/docs/sitemap.xml\n")
 		}
 	} else {
 		b.WriteString("Disallow: /\n")

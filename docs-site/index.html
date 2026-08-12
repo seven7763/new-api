@@ -7,24 +7,43 @@
       content="width=device-width, initial-scale=1.0, viewport-fit=cover"
     />
     <meta name="theme-color" content="#fff" />
-    <meta
-      name="description"
-      content="DaoXE 文档 — OpenAI / Anthropic / Gemini 兼容的 AI API 网关。快速开始、客户端接入、API 参考、计费说明与常见问题。"
-    />
     <meta name="robots" content="index, follow, max-image-preview:large" />
-    <link rel="canonical" href="https://daoxe.com/docs/" />
     <link
       rel="icon"
       type="image/png"
       href="https://pub-c7d601dad0a34aa5a4c2120181c189f9.r2.dev/logo.png"
     />
     <link rel="preconnect" href="https://daoxe.com" />
-    <title>DaoXE Docs — AI API 网关文档</title>
 
-    <!-- Open Graph / Twitter. The per-route values are refreshed at runtime by
-         src/lib/seo.ts; these are the crawler-visible defaults. -->
-    <meta property="og:type" content="website" />
+    <!-- Language- and page-independent card metadata. -->
     <meta property="og:site_name" content="DaoXE Docs" />
+    <meta
+      property="og:image"
+      content="https://pub-c7d601dad0a34aa5a4c2120181c189f9.r2.dev/logo.png"
+    />
+    <meta name="twitter:card" content="summary" />
+    <meta
+      name="twitter:image"
+      content="https://pub-c7d601dad0a34aa5a4c2120181c189f9.r2.dev/logo.png"
+    />
+
+    <!-- seo:start — everything between these markers is per page and per
+         language. scripts/prerender.ts replaces the whole block when it writes
+         a static page; src/lib/seo.ts refreshes the same tags in place on
+         client-side navigation. What is written here is the zh docs index,
+         which is what the SPA fallback (app.html) serves. -->
+    <title>DaoXE Docs — AI API 网关文档</title>
+    <meta
+      name="description"
+      content="DaoXE 文档 — OpenAI / Anthropic / Gemini 兼容的 AI API 网关。快速开始、客户端接入、API 参考、计费说明与常见问题。"
+    />
+    <link rel="canonical" href="https://daoxe.com/docs/" />
+    <link rel="alternate" hreflang="zh" href="https://daoxe.com/docs/" />
+    <link rel="alternate" hreflang="en" href="https://daoxe.com/docs/en/" />
+    <link rel="alternate" hreflang="ru" href="https://daoxe.com/docs/ru/" />
+    <link rel="alternate" hreflang="vi" href="https://daoxe.com/docs/vi/" />
+    <link rel="alternate" hreflang="x-default" href="https://daoxe.com/docs/" />
+    <meta property="og:type" content="website" />
     <meta property="og:title" content="DaoXE Docs — AI API 网关文档" />
     <meta
       property="og:description"
@@ -32,20 +51,13 @@
     />
     <meta property="og:url" content="https://daoxe.com/docs/" />
     <meta property="og:locale" content="zh_CN" />
-    <meta
-      property="og:image"
-      content="https://pub-c7d601dad0a34aa5a4c2120181c189f9.r2.dev/logo.png"
-    />
-    <meta name="twitter:card" content="summary" />
     <meta name="twitter:title" content="DaoXE Docs — AI API 网关文档" />
     <meta
       name="twitter:description"
       content="DaoXE 文档 — OpenAI / Anthropic / Gemini 兼容的 AI API 网关。快速开始、客户端接入、API 参考、计费说明与常见问题。"
     />
-    <meta
-      name="twitter:image"
-      content="https://pub-c7d601dad0a34aa5a4c2120181c189f9.r2.dev/logo.png"
-    />
+    <!-- seo:end -->
+
     <script>
       (function () {
         var t

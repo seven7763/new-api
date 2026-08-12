@@ -6,9 +6,11 @@
   "scripts": {
     "gen:search": "bun scripts/gen-search-index.ts",
     "gen:seo": "bun scripts/gen-seo.ts",
+    "prerender": "bun scripts/prerender.ts",
     "typecheck": "tsc -b",
+    "verify:prerender": "bun scripts/verify-prerender.ts",
     "dev": "bun scripts/gen-search-index.ts && bun scripts/gen-seo.ts && vite",
-    "build": "tsc -b && bun scripts/gen-search-index.ts && bun scripts/gen-seo.ts && vite build",
+    "build": "tsc -b && bun scripts/gen-search-index.ts && bun scripts/gen-seo.ts && vite build && bun scripts/prerender.ts",
     "preview": "vite preview",
     "assistant:proxy": "bun server/assistant-proxy.ts",
     "assistant:tg": "bun server/telegram-bot.ts"

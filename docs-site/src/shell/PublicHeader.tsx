@@ -18,9 +18,18 @@ import {
   Wallet,
   X,
 } from 'lucide-react'
-import { absSite, findNavByPath, flatNav, nav, siteConfig, type NavGroup } from '@/config'
+import {
+  absSite,
+  docsHref,
+  findNavByPath,
+  flatNav,
+  LANG_META,
+  nav,
+  siteConfig,
+  type NavGroup,
+} from '@/config'
 import { useShell } from './ShellContext'
-import { LANGS, useI18n } from '@/i18n'
+import { LANGS, rememberLang, useI18n } from '@/i18n'
 import { navTitle } from '@/i18n-nav'
 import { DocsSearch, DocsSearchTrigger } from '@/components/DocsSearch'
 import { cn } from '@/lib/utils'
@@ -135,7 +144,8 @@ function discStyle(name: string) {
 }
 
 export function PublicHeader() {
-  const { t, lang, setLang } = useI18n()
+  const { t, lang } = useI18n()
+  const location = useLocation()
   const {
     brand,
     logo,
@@ -281,10 +291,21 @@ export function PublicHeader() {
                 </Tooltip>
                 <DropdownMenuContent align="end" className="w-40">
                   <DropdownMenuLabel>{t('nav.lang')}</DropdownMenuLabel>
+                  {/* Real links, not state toggles: each language is its own URL,
+                      so crawlers can follow them and the target page arrives
+                      prerendered in that language. */}
                   {LANGS.map((l) => (
-                    <DropdownMenuItem key={l.id} onClick={() => setLang(l.id)}>
-                      {l.native}
-                      {lang === l.id ? <Check className="ml-auto size-4" /> : null}
+                    <DropdownMenuItem key={l.id} asChild>
+                      <a
+                        href={docsHref(location.pathname, l.id)}
+                        hrefLang={LANG_META[l.id].hreflang}
+                        lang={LANG_META[l.id].html}
+                        className="no-underline"
+                        onClick={() => rememberLang(l.id)}
+                      >
+                        {l.native}
+                        {lang === l.id ? <Check className="ml-auto size-4" /> : null}
+                      </a>
                     </DropdownMenuItem>
                   ))}
                 </DropdownMenuContent>
@@ -474,8 +495,16 @@ export function DocsSidebar() {
   const location = useLocation()
   const current = findNavByPath(location.pathname)
   const scrollRef = useRef<HTMLDivElement>(null)
-  const [openMap, setOpenMap] = useState<Record<string, boolean>>(() => loadOpenMap() || {})
+  // Remembered collapse state decides which groups render expanded, so it is
+  // adopted after mount instead of during the first render — the prerendered
+  // HTML cannot know it, and disagreeing about it would fail hydration.
+  const [openMap, setOpenMap] = useState<Record<string, boolean>>({})
   const [mobileOpen, setMobileOpen] = useState(false)
+
+  useEffect(() => {
+    const stored = loadOpenMap()
+    if (stored) setOpenMap(stored)
+  }, [])
 
   useEffect(() => {
     const onToggle = () => setMobileOpen((v) => !v)
@@ -713,7 +742,9 @@ export function DocsFooter() {
           </div>
         </div>
         <div className="border-border/70 text-muted-foreground mt-9 flex flex-col items-start justify-between gap-2 border-t pt-5 text-xs sm:flex-row sm:items-center">
-          <span>
+          {/* Prerendered at build time; a page viewed after New Year would
+              otherwise disagree with the static HTML during hydration. */}
+          <span suppressHydrationWarning>
             © {new Date().getFullYear()} {brand} · {t('footer.docs')}
           </span>
           <span className="text-muted-foreground/70">

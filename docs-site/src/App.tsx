@@ -1,6 +1,6 @@
 import { useLocation } from 'react-router-dom'
 import { Loader2 } from 'lucide-react'
-import { docsUrl, findNavByPath, groupEntryPath, siteConfig } from '@/config'
+import { findNavByPath } from '@/config'
 import {
   BreadcrumbBar,
   DocsFooter,
@@ -11,12 +11,13 @@ import {
 import { ShellProvider, useShell } from '@/shell/ShellContext'
 import { ArticleToc } from '@/components/ArticleToc'
 import { DocsAssistant } from '@/components/DocsAssistant'
+import { LangSuggest } from '@/components/LangSuggest'
 import { TableScrollFix } from '@/components/TableScrollFix'
-import { htmlLang, I18nProvider, useI18n } from '@/i18n'
-import { navTitle } from '@/i18n-nav'
+import { I18nProvider, useI18n } from '@/i18n'
+import { navTitle, type Lang } from '@/i18n-nav'
 import { recordRecentVisit } from '@/lib/recent'
-import { applyDocumentSeo } from '@/lib/seo'
-import { loadRegistries, resolveRender, type Registry } from '@/lib/registry'
+import { applyDocumentSeo, buildSeoInput } from '@/lib/seo'
+import { loadRegistries, peekRegistries, resolveRender, type Registry } from '@/lib/registry'
 import { useEffect, useState } from 'react'
 
 function Article() {
@@ -25,12 +26,14 @@ function Article() {
   const { brand } = useShell()
   const { lang, t } = useI18n()
   const id = item?.id || 'welcome'
-  // Content registries are loaded per language on demand (zh by default; other
-  // languages fetch their chunk on switch). The fallback chain — target → en →
-  // zh — is resolved by resolveRender, matching the previous inline
+  // Content registries are loaded per language on demand (the URL's language
+  // plus its fallback chain). The fallback chain — target → en → zh — is
+  // resolved by resolveRender, matching the previous inline
   // `registry[id] ?? contentEn[id] ?? content[id]` behavior. zh holds the
   // client guides + live-data pages, which render in the active language.
-  const [chain, setChain] = useState<Registry[] | null>(null)
+  // The initial value is the synchronous peek so a prerendered page hydrates
+  // against the same markup it was rendered with instead of a spinner.
+  const [chain, setChain] = useState<Registry[] | null>(() => peekRegistries(lang))
   useEffect(() => {
     let alive = true
     loadRegistries(lang).then((c) => {
@@ -46,23 +49,7 @@ function Article() {
 
   useEffect(() => {
     const group = item ? navTitle(item.groupId, lang, item.groupTitle) : ''
-    applyDocumentSeo({
-      title,
-      // Unique per page and derived from data we already have, so no page
-      // ships the generic site-wide description.
-      description: group
-        ? `${title} — ${brand} ${group}。${siteConfig.descriptionShort}`
-        : siteConfig.description,
-      path: item?.path || '/',
-      breadcrumbs: item
-        ? [
-            { name: t('crumb.docs'), url: docsUrl('/') },
-            { name: group, url: docsUrl(groupEntryPath(item.groupId)) },
-            { name: title, url: docsUrl(item.path) },
-          ]
-        : [],
-      locale: htmlLang(lang),
-    })
+    applyDocumentSeo(buildSeoInput({ item, title, group, brand, lang, t }))
     window.scrollTo({ top: 0, behavior: 'instant' as ScrollBehavior })
     if (item) recordRecentVisit(item.path)
   }, [location.pathname, title, brand, item, lang, t])
@@ -96,6 +83,7 @@ function Layout() {
       <div className="page-glow" aria-hidden />
       <PublicHeader />
       <div className="flex min-h-screen flex-col pt-16">
+        <LangSuggest />
         <div className="mx-auto flex w-full max-w-[1500px] flex-1">
           <DocsSidebar />
           <div className="flex min-w-0 flex-1 gap-8 px-4 py-7 sm:px-6 lg:px-8">
@@ -112,9 +100,10 @@ function Layout() {
   )
 }
 
-export function App() {
+/** `lang` comes from the URL (see splitLangPath) — never from storage. */
+export function App({ lang }: { lang: Lang }) {
   return (
-    <I18nProvider>
+    <I18nProvider lang={lang}>
       <ShellProvider>
         <Layout />
       </ShellProvider>

@@ -1,62 +1,1891 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url><loc>https://daoxe.com/docs/</loc></url>
-  <url><loc>https://daoxe.com/docs/start/quickstart</loc></url>
-  <url><loc>https://daoxe.com/docs/start/compliance</loc></url>
-  <url><loc>https://daoxe.com/docs/start/console</loc></url>
-  <url><loc>https://daoxe.com/docs/guide/register</loc></url>
-  <url><loc>https://daoxe.com/docs/guide/topup</loc></url>
-  <url><loc>https://daoxe.com/docs/guide/keys</loc></url>
-  <url><loc>https://daoxe.com/docs/guide/base-url</loc></url>
-  <url><loc>https://daoxe.com/docs/guide/models</loc></url>
-  <url><loc>https://daoxe.com/docs/guide/recommended-models</loc></url>
-  <url><loc>https://daoxe.com/docs/guide/clients</loc></url>
-  <url><loc>https://daoxe.com/docs/guide/deepchat</loc></url>
-  <url><loc>https://daoxe.com/docs/guide/claude-code</loc></url>
-  <url><loc>https://daoxe.com/docs/guide/cc-switch</loc></url>
-  <url><loc>https://daoxe.com/docs/guide/codex</loc></url>
-  <url><loc>https://daoxe.com/docs/guide/gemini-cli</loc></url>
-  <url><loc>https://daoxe.com/docs/guide/cline</loc></url>
-  <url><loc>https://daoxe.com/docs/guide/cursor</loc></url>
-  <url><loc>https://daoxe.com/docs/guide/opencode</loc></url>
-  <url><loc>https://daoxe.com/docs/guide/openclaw</loc></url>
-  <url><loc>https://daoxe.com/docs/guide/cherry-studio</loc></url>
-  <url><loc>https://daoxe.com/docs/guide/chatbox</loc></url>
-  <url><loc>https://daoxe.com/docs/guide/lobe-chat</loc></url>
-  <url><loc>https://daoxe.com/docs/guide/nextchat</loc></url>
-  <url><loc>https://daoxe.com/docs/guide/open-webui</loc></url>
-  <url><loc>https://daoxe.com/docs/guide/immersive-translate</loc></url>
-  <url><loc>https://daoxe.com/docs/guide/apps</loc></url>
-  <url><loc>https://daoxe.com/docs/guide/sdk</loc></url>
-  <url><loc>https://daoxe.com/docs/guide/multi-protocol</loc></url>
-  <url><loc>https://daoxe.com/docs/guide/verify</loc></url>
-  <url><loc>https://daoxe.com/docs/guide/errors</loc></url>
-  <url><loc>https://daoxe.com/docs/api/auth</loc></url>
-  <url><loc>https://daoxe.com/docs/api/routing</loc></url>
-  <url><loc>https://daoxe.com/docs/api/openai-chat</loc></url>
-  <url><loc>https://daoxe.com/docs/api/openai-responses</loc></url>
-  <url><loc>https://daoxe.com/docs/api/openai-embeddings</loc></url>
-  <url><loc>https://daoxe.com/docs/api/claude</loc></url>
-  <url><loc>https://daoxe.com/docs/api/gemini</loc></url>
-  <url><loc>https://daoxe.com/docs/api/models</loc></url>
-  <url><loc>https://daoxe.com/docs/api/errors</loc></url>
-  <url><loc>https://daoxe.com/docs/api/rate-limit</loc></url>
-  <url><loc>https://daoxe.com/docs/billing/rules</loc></url>
-  <url><loc>https://daoxe.com/docs/billing/logs</loc></url>
-  <url><loc>https://daoxe.com/docs/billing/pricing</loc></url>
-  <url><loc>https://daoxe.com/docs/billing/topup-issues</loc></url>
-  <url><loc>https://daoxe.com/docs/features/wallet</loc></url>
-  <url><loc>https://daoxe.com/docs/features/keys</loc></url>
-  <url><loc>https://daoxe.com/docs/features/pricing</loc></url>
-  <url><loc>https://daoxe.com/docs/features/invite</loc></url>
-  <url><loc>https://daoxe.com/docs/features/notice</loc></url>
-  <url><loc>https://daoxe.com/docs/support/faq</loc></url>
-  <url><loc>https://daoxe.com/docs/support/contact</loc></url>
-  <url><loc>https://daoxe.com/docs/support/network</loc></url>
-  <url><loc>https://daoxe.com/docs/legal/terms</loc></url>
-  <url><loc>https://daoxe.com/docs/legal/privacy</loc></url>
-  <url><loc>https://daoxe.com/docs/legal/abuse</loc></url>
-  <url><loc>https://daoxe.com/docs/changelog</loc></url>
-  <url><loc>https://daoxe.com/docs/changelog/glossary</loc></url>
-  <url><loc>https://daoxe.com/docs/changelog/install</loc></url>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  <url>
+    <loc>https://daoxe.com/docs/</loc>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://daoxe.com/docs/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daoxe.com/docs/en/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://daoxe.com/docs/ru/"/>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://daoxe.com/docs/vi/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://daoxe.com/docs/"/>
+  </url>
+  <url>
+    <loc>https://daoxe.com/docs/en/</loc>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://daoxe.com/docs/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daoxe.com/docs/en/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://daoxe.com/docs/ru/"/>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://daoxe.com/docs/vi/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://daoxe.com/docs/"/>
+  </url>
+  <url>
+    <loc>https://daoxe.com/docs/ru/</loc>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://daoxe.com/docs/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daoxe.com/docs/en/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://daoxe.com/docs/ru/"/>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://daoxe.com/docs/vi/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://daoxe.com/docs/"/>
+  </url>
+  <url>
+    <loc>https://daoxe.com/docs/vi/</loc>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://daoxe.com/docs/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daoxe.com/docs/en/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://daoxe.com/docs/ru/"/>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://daoxe.com/docs/vi/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://daoxe.com/docs/"/>
+  </url>
+  <url>
+    <loc>https://daoxe.com/docs/start/quickstart</loc>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://daoxe.com/docs/start/quickstart"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daoxe.com/docs/en/start/quickstart"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://daoxe.com/docs/ru/start/quickstart"/>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://daoxe.com/docs/vi/start/quickstart"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://daoxe.com/docs/start/quickstart"/>
+  </url>
+  <url>
+    <loc>https://daoxe.com/docs/en/start/quickstart</loc>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://daoxe.com/docs/start/quickstart"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daoxe.com/docs/en/start/quickstart"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://daoxe.com/docs/ru/start/quickstart"/>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://daoxe.com/docs/vi/start/quickstart"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://daoxe.com/docs/start/quickstart"/>
+  </url>
+  <url>
+    <loc>https://daoxe.com/docs/ru/start/quickstart</loc>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://daoxe.com/docs/start/quickstart"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daoxe.com/docs/en/start/quickstart"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://daoxe.com/docs/ru/start/quickstart"/>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://daoxe.com/docs/vi/start/quickstart"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://daoxe.com/docs/start/quickstart"/>
+  </url>
+  <url>
+    <loc>https://daoxe.com/docs/vi/start/quickstart</loc>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://daoxe.com/docs/start/quickstart"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daoxe.com/docs/en/start/quickstart"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://daoxe.com/docs/ru/start/quickstart"/>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://daoxe.com/docs/vi/start/quickstart"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://daoxe.com/docs/start/quickstart"/>
+  </url>
+  <url>
+    <loc>https://daoxe.com/docs/start/compliance</loc>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://daoxe.com/docs/start/compliance"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daoxe.com/docs/en/start/compliance"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://daoxe.com/docs/ru/start/compliance"/>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://daoxe.com/docs/vi/start/compliance"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://daoxe.com/docs/start/compliance"/>
+  </url>
+  <url>
+    <loc>https://daoxe.com/docs/en/start/compliance</loc>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://daoxe.com/docs/start/compliance"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daoxe.com/docs/en/start/compliance"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://daoxe.com/docs/ru/start/compliance"/>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://daoxe.com/docs/vi/start/compliance"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://daoxe.com/docs/start/compliance"/>
+  </url>
+  <url>
+    <loc>https://daoxe.com/docs/ru/start/compliance</loc>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://daoxe.com/docs/start/compliance"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daoxe.com/docs/en/start/compliance"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://daoxe.com/docs/ru/start/compliance"/>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://daoxe.com/docs/vi/start/compliance"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://daoxe.com/docs/start/compliance"/>
+  </url>
+  <url>
+    <loc>https://daoxe.com/docs/vi/start/compliance</loc>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://daoxe.com/docs/start/compliance"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daoxe.com/docs/en/start/compliance"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://daoxe.com/docs/ru/start/compliance"/>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://daoxe.com/docs/vi/start/compliance"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://daoxe.com/docs/start/compliance"/>
+  </url>
+  <url>
+    <loc>https://daoxe.com/docs/start/console</loc>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://daoxe.com/docs/start/console"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daoxe.com/docs/en/start/console"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://daoxe.com/docs/ru/start/console"/>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://daoxe.com/docs/vi/start/console"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://daoxe.com/docs/start/console"/>
+  </url>
+  <url>
+    <loc>https://daoxe.com/docs/en/start/console</loc>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://daoxe.com/docs/start/console"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daoxe.com/docs/en/start/console"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://daoxe.com/docs/ru/start/console"/>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://daoxe.com/docs/vi/start/console"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://daoxe.com/docs/start/console"/>
+  </url>
+  <url>
+    <loc>https://daoxe.com/docs/ru/start/console</loc>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://daoxe.com/docs/start/console"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daoxe.com/docs/en/start/console"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://daoxe.com/docs/ru/start/console"/>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://daoxe.com/docs/vi/start/console"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://daoxe.com/docs/start/console"/>
+  </url>
+  <url>
+    <loc>https://daoxe.com/docs/vi/start/console</loc>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://daoxe.com/docs/start/console"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daoxe.com/docs/en/start/console"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://daoxe.com/docs/ru/start/console"/>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://daoxe.com/docs/vi/start/console"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://daoxe.com/docs/start/console"/>
+  </url>
+  <url>
+    <loc>https://daoxe.com/docs/guide/register</loc>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://daoxe.com/docs/guide/register"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daoxe.com/docs/en/guide/register"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://daoxe.com/docs/ru/guide/register"/>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://daoxe.com/docs/vi/guide/register"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://daoxe.com/docs/guide/register"/>
+  </url>
+  <url>
+    <loc>https://daoxe.com/docs/en/guide/register</loc>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://daoxe.com/docs/guide/register"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daoxe.com/docs/en/guide/register"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://daoxe.com/docs/ru/guide/register"/>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://daoxe.com/docs/vi/guide/register"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://daoxe.com/docs/guide/register"/>
+  </url>
+  <url>
+    <loc>https://daoxe.com/docs/ru/guide/register</loc>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://daoxe.com/docs/guide/register"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daoxe.com/docs/en/guide/register"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://daoxe.com/docs/ru/guide/register"/>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://daoxe.com/docs/vi/guide/register"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://daoxe.com/docs/guide/register"/>
+  </url>
+  <url>
+    <loc>https://daoxe.com/docs/vi/guide/register</loc>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://daoxe.com/docs/guide/register"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daoxe.com/docs/en/guide/register"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://daoxe.com/docs/ru/guide/register"/>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://daoxe.com/docs/vi/guide/register"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://daoxe.com/docs/guide/register"/>
+  </url>
+  <url>
+    <loc>https://daoxe.com/docs/guide/topup</loc>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://daoxe.com/docs/guide/topup"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daoxe.com/docs/en/guide/topup"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://daoxe.com/docs/ru/guide/topup"/>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://daoxe.com/docs/vi/guide/topup"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://daoxe.com/docs/guide/topup"/>
+  </url>
+  <url>
+    <loc>https://daoxe.com/docs/en/guide/topup</loc>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://daoxe.com/docs/guide/topup"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daoxe.com/docs/en/guide/topup"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://daoxe.com/docs/ru/guide/topup"/>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://daoxe.com/docs/vi/guide/topup"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://daoxe.com/docs/guide/topup"/>
+  </url>
+  <url>
+    <loc>https://daoxe.com/docs/ru/guide/topup</loc>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://daoxe.com/docs/guide/topup"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daoxe.com/docs/en/guide/topup"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://daoxe.com/docs/ru/guide/topup"/>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://daoxe.com/docs/vi/guide/topup"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://daoxe.com/docs/guide/topup"/>
+  </url>
+  <url>
+    <loc>https://daoxe.com/docs/vi/guide/topup</loc>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://daoxe.com/docs/guide/topup"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daoxe.com/docs/en/guide/topup"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://daoxe.com/docs/ru/guide/topup"/>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://daoxe.com/docs/vi/guide/topup"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://daoxe.com/docs/guide/topup"/>
+  </url>
+  <url>
+    <loc>https://daoxe.com/docs/guide/keys</loc>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://daoxe.com/docs/guide/keys"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daoxe.com/docs/en/guide/keys"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://daoxe.com/docs/ru/guide/keys"/>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://daoxe.com/docs/vi/guide/keys"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://daoxe.com/docs/guide/keys"/>
+  </url>
+  <url>
+    <loc>https://daoxe.com/docs/en/guide/keys</loc>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://daoxe.com/docs/guide/keys"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daoxe.com/docs/en/guide/keys"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://daoxe.com/docs/ru/guide/keys"/>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://daoxe.com/docs/vi/guide/keys"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://daoxe.com/docs/guide/keys"/>
+  </url>
+  <url>
+    <loc>https://daoxe.com/docs/ru/guide/keys</loc>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://daoxe.com/docs/guide/keys"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daoxe.com/docs/en/guide/keys"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://daoxe.com/docs/ru/guide/keys"/>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://daoxe.com/docs/vi/guide/keys"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://daoxe.com/docs/guide/keys"/>
+  </url>
+  <url>
+    <loc>https://daoxe.com/docs/vi/guide/keys</loc>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://daoxe.com/docs/guide/keys"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daoxe.com/docs/en/guide/keys"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://daoxe.com/docs/ru/guide/keys"/>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://daoxe.com/docs/vi/guide/keys"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://daoxe.com/docs/guide/keys"/>
+  </url>
+  <url>
+    <loc>https://daoxe.com/docs/guide/base-url</loc>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://daoxe.com/docs/guide/base-url"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daoxe.com/docs/en/guide/base-url"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://daoxe.com/docs/ru/guide/base-url"/>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://daoxe.com/docs/vi/guide/base-url"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://daoxe.com/docs/guide/base-url"/>
+  </url>
+  <url>
+    <loc>https://daoxe.com/docs/en/guide/base-url</loc>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://daoxe.com/docs/guide/base-url"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daoxe.com/docs/en/guide/base-url"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://daoxe.com/docs/ru/guide/base-url"/>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://daoxe.com/docs/vi/guide/base-url"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://daoxe.com/docs/guide/base-url"/>
+  </url>
+  <url>
+    <loc>https://daoxe.com/docs/ru/guide/base-url</loc>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://daoxe.com/docs/guide/base-url"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daoxe.com/docs/en/guide/base-url"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://daoxe.com/docs/ru/guide/base-url"/>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://daoxe.com/docs/vi/guide/base-url"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://daoxe.com/docs/guide/base-url"/>
+  </url>
+  <url>
+    <loc>https://daoxe.com/docs/vi/guide/base-url</loc>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://daoxe.com/docs/guide/base-url"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daoxe.com/docs/en/guide/base-url"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://daoxe.com/docs/ru/guide/base-url"/>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://daoxe.com/docs/vi/guide/base-url"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://daoxe.com/docs/guide/base-url"/>
+  </url>
+  <url>
+    <loc>https://daoxe.com/docs/guide/models</loc>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://daoxe.com/docs/guide/models"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daoxe.com/docs/en/guide/models"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://daoxe.com/docs/ru/guide/models"/>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://daoxe.com/docs/vi/guide/models"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://daoxe.com/docs/guide/models"/>
+  </url>
+  <url>
+    <loc>https://daoxe.com/docs/en/guide/models</loc>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://daoxe.com/docs/guide/models"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daoxe.com/docs/en/guide/models"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://daoxe.com/docs/ru/guide/models"/>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://daoxe.com/docs/vi/guide/models"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://daoxe.com/docs/guide/models"/>
+  </url>
+  <url>
+    <loc>https://daoxe.com/docs/ru/guide/models</loc>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://daoxe.com/docs/guide/models"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daoxe.com/docs/en/guide/models"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://daoxe.com/docs/ru/guide/models"/>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://daoxe.com/docs/vi/guide/models"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://daoxe.com/docs/guide/models"/>
+  </url>
+  <url>
+    <loc>https://daoxe.com/docs/vi/guide/models</loc>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://daoxe.com/docs/guide/models"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daoxe.com/docs/en/guide/models"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://daoxe.com/docs/ru/guide/models"/>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://daoxe.com/docs/vi/guide/models"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://daoxe.com/docs/guide/models"/>
+  </url>
+  <url>
+    <loc>https://daoxe.com/docs/guide/recommended-models</loc>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://daoxe.com/docs/guide/recommended-models"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daoxe.com/docs/en/guide/recommended-models"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://daoxe.com/docs/ru/guide/recommended-models"/>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://daoxe.com/docs/vi/guide/recommended-models"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://daoxe.com/docs/guide/recommended-models"/>
+  </url>
+  <url>
+    <loc>https://daoxe.com/docs/en/guide/recommended-models</loc>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://daoxe.com/docs/guide/recommended-models"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daoxe.com/docs/en/guide/recommended-models"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://daoxe.com/docs/ru/guide/recommended-models"/>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://daoxe.com/docs/vi/guide/recommended-models"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://daoxe.com/docs/guide/recommended-models"/>
+  </url>
+  <url>
+    <loc>https://daoxe.com/docs/ru/guide/recommended-models</loc>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://daoxe.com/docs/guide/recommended-models"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daoxe.com/docs/en/guide/recommended-models"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://daoxe.com/docs/ru/guide/recommended-models"/>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://daoxe.com/docs/vi/guide/recommended-models"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://daoxe.com/docs/guide/recommended-models"/>
+  </url>
+  <url>
+    <loc>https://daoxe.com/docs/vi/guide/recommended-models</loc>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://daoxe.com/docs/guide/recommended-models"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daoxe.com/docs/en/guide/recommended-models"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://daoxe.com/docs/ru/guide/recommended-models"/>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://daoxe.com/docs/vi/guide/recommended-models"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://daoxe.com/docs/guide/recommended-models"/>
+  </url>
+  <url>
+    <loc>https://daoxe.com/docs/guide/clients</loc>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://daoxe.com/docs/guide/clients"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daoxe.com/docs/en/guide/clients"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://daoxe.com/docs/ru/guide/clients"/>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://daoxe.com/docs/vi/guide/clients"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://daoxe.com/docs/guide/clients"/>
+  </url>
+  <url>
+    <loc>https://daoxe.com/docs/en/guide/clients</loc>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://daoxe.com/docs/guide/clients"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daoxe.com/docs/en/guide/clients"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://daoxe.com/docs/ru/guide/clients"/>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://daoxe.com/docs/vi/guide/clients"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://daoxe.com/docs/guide/clients"/>
+  </url>
+  <url>
+    <loc>https://daoxe.com/docs/ru/guide/clients</loc>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://daoxe.com/docs/guide/clients"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daoxe.com/docs/en/guide/clients"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://daoxe.com/docs/ru/guide/clients"/>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://daoxe.com/docs/vi/guide/clients"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://daoxe.com/docs/guide/clients"/>
+  </url>
+  <url>
+    <loc>https://daoxe.com/docs/vi/guide/clients</loc>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://daoxe.com/docs/guide/clients"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daoxe.com/docs/en/guide/clients"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://daoxe.com/docs/ru/guide/clients"/>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://daoxe.com/docs/vi/guide/clients"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://daoxe.com/docs/guide/clients"/>
+  </url>
+  <url>
+    <loc>https://daoxe.com/docs/guide/deepchat</loc>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://daoxe.com/docs/guide/deepchat"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daoxe.com/docs/en/guide/deepchat"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://daoxe.com/docs/ru/guide/deepchat"/>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://daoxe.com/docs/vi/guide/deepchat"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://daoxe.com/docs/guide/deepchat"/>
+  </url>
+  <url>
+    <loc>https://daoxe.com/docs/en/guide/deepchat</loc>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://daoxe.com/docs/guide/deepchat"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daoxe.com/docs/en/guide/deepchat"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://daoxe.com/docs/ru/guide/deepchat"/>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://daoxe.com/docs/vi/guide/deepchat"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://daoxe.com/docs/guide/deepchat"/>
+  </url>
+  <url>
+    <loc>https://daoxe.com/docs/ru/guide/deepchat</loc>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://daoxe.com/docs/guide/deepchat"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daoxe.com/docs/en/guide/deepchat"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://daoxe.com/docs/ru/guide/deepchat"/>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://daoxe.com/docs/vi/guide/deepchat"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://daoxe.com/docs/guide/deepchat"/>
+  </url>
+  <url>
+    <loc>https://daoxe.com/docs/vi/guide/deepchat</loc>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://daoxe.com/docs/guide/deepchat"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daoxe.com/docs/en/guide/deepchat"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://daoxe.com/docs/ru/guide/deepchat"/>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://daoxe.com/docs/vi/guide/deepchat"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://daoxe.com/docs/guide/deepchat"/>
+  </url>
+  <url>
+    <loc>https://daoxe.com/docs/guide/claude-code</loc>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://daoxe.com/docs/guide/claude-code"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daoxe.com/docs/en/guide/claude-code"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://daoxe.com/docs/ru/guide/claude-code"/>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://daoxe.com/docs/vi/guide/claude-code"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://daoxe.com/docs/guide/claude-code"/>
+  </url>
+  <url>
+    <loc>https://daoxe.com/docs/en/guide/claude-code</loc>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://daoxe.com/docs/guide/claude-code"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daoxe.com/docs/en/guide/claude-code"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://daoxe.com/docs/ru/guide/claude-code"/>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://daoxe.com/docs/vi/guide/claude-code"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://daoxe.com/docs/guide/claude-code"/>
+  </url>
+  <url>
+    <loc>https://daoxe.com/docs/ru/guide/claude-code</loc>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://daoxe.com/docs/guide/claude-code"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daoxe.com/docs/en/guide/claude-code"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://daoxe.com/docs/ru/guide/claude-code"/>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://daoxe.com/docs/vi/guide/claude-code"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://daoxe.com/docs/guide/claude-code"/>
+  </url>
+  <url>
+    <loc>https://daoxe.com/docs/vi/guide/claude-code</loc>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://daoxe.com/docs/guide/claude-code"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daoxe.com/docs/en/guide/claude-code"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://daoxe.com/docs/ru/guide/claude-code"/>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://daoxe.com/docs/vi/guide/claude-code"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://daoxe.com/docs/guide/claude-code"/>
+  </url>
+  <url>
+    <loc>https://daoxe.com/docs/guide/cc-switch</loc>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://daoxe.com/docs/guide/cc-switch"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daoxe.com/docs/en/guide/cc-switch"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://daoxe.com/docs/ru/guide/cc-switch"/>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://daoxe.com/docs/vi/guide/cc-switch"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://daoxe.com/docs/guide/cc-switch"/>
+  </url>
+  <url>
+    <loc>https://daoxe.com/docs/en/guide/cc-switch</loc>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://daoxe.com/docs/guide/cc-switch"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daoxe.com/docs/en/guide/cc-switch"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://daoxe.com/docs/ru/guide/cc-switch"/>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://daoxe.com/docs/vi/guide/cc-switch"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://daoxe.com/docs/guide/cc-switch"/>
+  </url>
+  <url>
+    <loc>https://daoxe.com/docs/ru/guide/cc-switch</loc>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://daoxe.com/docs/guide/cc-switch"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daoxe.com/docs/en/guide/cc-switch"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://daoxe.com/docs/ru/guide/cc-switch"/>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://daoxe.com/docs/vi/guide/cc-switch"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://daoxe.com/docs/guide/cc-switch"/>
+  </url>
+  <url>
+    <loc>https://daoxe.com/docs/vi/guide/cc-switch</loc>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://daoxe.com/docs/guide/cc-switch"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daoxe.com/docs/en/guide/cc-switch"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://daoxe.com/docs/ru/guide/cc-switch"/>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://daoxe.com/docs/vi/guide/cc-switch"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://daoxe.com/docs/guide/cc-switch"/>
+  </url>
+  <url>
+    <loc>https://daoxe.com/docs/guide/codex</loc>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://daoxe.com/docs/guide/codex"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daoxe.com/docs/en/guide/codex"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://daoxe.com/docs/ru/guide/codex"/>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://daoxe.com/docs/vi/guide/codex"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://daoxe.com/docs/guide/codex"/>
+  </url>
+  <url>
+    <loc>https://daoxe.com/docs/en/guide/codex</loc>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://daoxe.com/docs/guide/codex"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daoxe.com/docs/en/guide/codex"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://daoxe.com/docs/ru/guide/codex"/>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://daoxe.com/docs/vi/guide/codex"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://daoxe.com/docs/guide/codex"/>
+  </url>
+  <url>
+    <loc>https://daoxe.com/docs/ru/guide/codex</loc>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://daoxe.com/docs/guide/codex"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daoxe.com/docs/en/guide/codex"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://daoxe.com/docs/ru/guide/codex"/>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://daoxe.com/docs/vi/guide/codex"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://daoxe.com/docs/guide/codex"/>
+  </url>
+  <url>
+    <loc>https://daoxe.com/docs/vi/guide/codex</loc>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://daoxe.com/docs/guide/codex"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daoxe.com/docs/en/guide/codex"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://daoxe.com/docs/ru/guide/codex"/>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://daoxe.com/docs/vi/guide/codex"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://daoxe.com/docs/guide/codex"/>
+  </url>
+  <url>
+    <loc>https://daoxe.com/docs/guide/gemini-cli</loc>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://daoxe.com/docs/guide/gemini-cli"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daoxe.com/docs/en/guide/gemini-cli"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://daoxe.com/docs/ru/guide/gemini-cli"/>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://daoxe.com/docs/vi/guide/gemini-cli"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://daoxe.com/docs/guide/gemini-cli"/>
+  </url>
+  <url>
+    <loc>https://daoxe.com/docs/en/guide/gemini-cli</loc>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://daoxe.com/docs/guide/gemini-cli"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daoxe.com/docs/en/guide/gemini-cli"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://daoxe.com/docs/ru/guide/gemini-cli"/>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://daoxe.com/docs/vi/guide/gemini-cli"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://daoxe.com/docs/guide/gemini-cli"/>
+  </url>
+  <url>
+    <loc>https://daoxe.com/docs/ru/guide/gemini-cli</loc>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://daoxe.com/docs/guide/gemini-cli"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daoxe.com/docs/en/guide/gemini-cli"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://daoxe.com/docs/ru/guide/gemini-cli"/>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://daoxe.com/docs/vi/guide/gemini-cli"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://daoxe.com/docs/guide/gemini-cli"/>
+  </url>
+  <url>
+    <loc>https://daoxe.com/docs/vi/guide/gemini-cli</loc>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://daoxe.com/docs/guide/gemini-cli"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daoxe.com/docs/en/guide/gemini-cli"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://daoxe.com/docs/ru/guide/gemini-cli"/>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://daoxe.com/docs/vi/guide/gemini-cli"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://daoxe.com/docs/guide/gemini-cli"/>
+  </url>
+  <url>
+    <loc>https://daoxe.com/docs/guide/cline</loc>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://daoxe.com/docs/guide/cline"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daoxe.com/docs/en/guide/cline"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://daoxe.com/docs/ru/guide/cline"/>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://daoxe.com/docs/vi/guide/cline"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://daoxe.com/docs/guide/cline"/>
+  </url>
+  <url>
+    <loc>https://daoxe.com/docs/en/guide/cline</loc>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://daoxe.com/docs/guide/cline"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daoxe.com/docs/en/guide/cline"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://daoxe.com/docs/ru/guide/cline"/>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://daoxe.com/docs/vi/guide/cline"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://daoxe.com/docs/guide/cline"/>
+  </url>
+  <url>
+    <loc>https://daoxe.com/docs/ru/guide/cline</loc>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://daoxe.com/docs/guide/cline"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daoxe.com/docs/en/guide/cline"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://daoxe.com/docs/ru/guide/cline"/>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://daoxe.com/docs/vi/guide/cline"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://daoxe.com/docs/guide/cline"/>
+  </url>
+  <url>
+    <loc>https://daoxe.com/docs/vi/guide/cline</loc>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://daoxe.com/docs/guide/cline"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daoxe.com/docs/en/guide/cline"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://daoxe.com/docs/ru/guide/cline"/>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://daoxe.com/docs/vi/guide/cline"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://daoxe.com/docs/guide/cline"/>
+  </url>
+  <url>
+    <loc>https://daoxe.com/docs/guide/cursor</loc>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://daoxe.com/docs/guide/cursor"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daoxe.com/docs/en/guide/cursor"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://daoxe.com/docs/ru/guide/cursor"/>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://daoxe.com/docs/vi/guide/cursor"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://daoxe.com/docs/guide/cursor"/>
+  </url>
+  <url>
+    <loc>https://daoxe.com/docs/en/guide/cursor</loc>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://daoxe.com/docs/guide/cursor"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daoxe.com/docs/en/guide/cursor"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://daoxe.com/docs/ru/guide/cursor"/>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://daoxe.com/docs/vi/guide/cursor"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://daoxe.com/docs/guide/cursor"/>
+  </url>
+  <url>
+    <loc>https://daoxe.com/docs/ru/guide/cursor</loc>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://daoxe.com/docs/guide/cursor"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daoxe.com/docs/en/guide/cursor"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://daoxe.com/docs/ru/guide/cursor"/>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://daoxe.com/docs/vi/guide/cursor"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://daoxe.com/docs/guide/cursor"/>
+  </url>
+  <url>
+    <loc>https://daoxe.com/docs/vi/guide/cursor</loc>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://daoxe.com/docs/guide/cursor"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daoxe.com/docs/en/guide/cursor"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://daoxe.com/docs/ru/guide/cursor"/>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://daoxe.com/docs/vi/guide/cursor"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://daoxe.com/docs/guide/cursor"/>
+  </url>
+  <url>
+    <loc>https://daoxe.com/docs/guide/opencode</loc>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://daoxe.com/docs/guide/opencode"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daoxe.com/docs/en/guide/opencode"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://daoxe.com/docs/ru/guide/opencode"/>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://daoxe.com/docs/vi/guide/opencode"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://daoxe.com/docs/guide/opencode"/>
+  </url>
+  <url>
+    <loc>https://daoxe.com/docs/en/guide/opencode</loc>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://daoxe.com/docs/guide/opencode"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daoxe.com/docs/en/guide/opencode"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://daoxe.com/docs/ru/guide/opencode"/>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://daoxe.com/docs/vi/guide/opencode"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://daoxe.com/docs/guide/opencode"/>
+  </url>
+  <url>
+    <loc>https://daoxe.com/docs/ru/guide/opencode</loc>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://daoxe.com/docs/guide/opencode"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daoxe.com/docs/en/guide/opencode"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://daoxe.com/docs/ru/guide/opencode"/>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://daoxe.com/docs/vi/guide/opencode"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://daoxe.com/docs/guide/opencode"/>
+  </url>
+  <url>
+    <loc>https://daoxe.com/docs/vi/guide/opencode</loc>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://daoxe.com/docs/guide/opencode"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daoxe.com/docs/en/guide/opencode"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://daoxe.com/docs/ru/guide/opencode"/>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://daoxe.com/docs/vi/guide/opencode"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://daoxe.com/docs/guide/opencode"/>
+  </url>
+  <url>
+    <loc>https://daoxe.com/docs/guide/openclaw</loc>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://daoxe.com/docs/guide/openclaw"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daoxe.com/docs/en/guide/openclaw"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://daoxe.com/docs/ru/guide/openclaw"/>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://daoxe.com/docs/vi/guide/openclaw"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://daoxe.com/docs/guide/openclaw"/>
+  </url>
+  <url>
+    <loc>https://daoxe.com/docs/en/guide/openclaw</loc>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://daoxe.com/docs/guide/openclaw"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daoxe.com/docs/en/guide/openclaw"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://daoxe.com/docs/ru/guide/openclaw"/>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://daoxe.com/docs/vi/guide/openclaw"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://daoxe.com/docs/guide/openclaw"/>
+  </url>
+  <url>
+    <loc>https://daoxe.com/docs/ru/guide/openclaw</loc>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://daoxe.com/docs/guide/openclaw"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daoxe.com/docs/en/guide/openclaw"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://daoxe.com/docs/ru/guide/openclaw"/>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://daoxe.com/docs/vi/guide/openclaw"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://daoxe.com/docs/guide/openclaw"/>
+  </url>
+  <url>
+    <loc>https://daoxe.com/docs/vi/guide/openclaw</loc>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://daoxe.com/docs/guide/openclaw"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daoxe.com/docs/en/guide/openclaw"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://daoxe.com/docs/ru/guide/openclaw"/>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://daoxe.com/docs/vi/guide/openclaw"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://daoxe.com/docs/guide/openclaw"/>
+  </url>
+  <url>
+    <loc>https://daoxe.com/docs/guide/cherry-studio</loc>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://daoxe.com/docs/guide/cherry-studio"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daoxe.com/docs/en/guide/cherry-studio"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://daoxe.com/docs/ru/guide/cherry-studio"/>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://daoxe.com/docs/vi/guide/cherry-studio"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://daoxe.com/docs/guide/cherry-studio"/>
+  </url>
+  <url>
+    <loc>https://daoxe.com/docs/en/guide/cherry-studio</loc>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://daoxe.com/docs/guide/cherry-studio"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daoxe.com/docs/en/guide/cherry-studio"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://daoxe.com/docs/ru/guide/cherry-studio"/>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://daoxe.com/docs/vi/guide/cherry-studio"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://daoxe.com/docs/guide/cherry-studio"/>
+  </url>
+  <url>
+    <loc>https://daoxe.com/docs/ru/guide/cherry-studio</loc>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://daoxe.com/docs/guide/cherry-studio"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daoxe.com/docs/en/guide/cherry-studio"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://daoxe.com/docs/ru/guide/cherry-studio"/>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://daoxe.com/docs/vi/guide/cherry-studio"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://daoxe.com/docs/guide/cherry-studio"/>
+  </url>
+  <url>
+    <loc>https://daoxe.com/docs/vi/guide/cherry-studio</loc>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://daoxe.com/docs/guide/cherry-studio"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daoxe.com/docs/en/guide/cherry-studio"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://daoxe.com/docs/ru/guide/cherry-studio"/>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://daoxe.com/docs/vi/guide/cherry-studio"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://daoxe.com/docs/guide/cherry-studio"/>
+  </url>
+  <url>
+    <loc>https://daoxe.com/docs/guide/chatbox</loc>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://daoxe.com/docs/guide/chatbox"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daoxe.com/docs/en/guide/chatbox"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://daoxe.com/docs/ru/guide/chatbox"/>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://daoxe.com/docs/vi/guide/chatbox"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://daoxe.com/docs/guide/chatbox"/>
+  </url>
+  <url>
+    <loc>https://daoxe.com/docs/en/guide/chatbox</loc>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://daoxe.com/docs/guide/chatbox"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daoxe.com/docs/en/guide/chatbox"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://daoxe.com/docs/ru/guide/chatbox"/>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://daoxe.com/docs/vi/guide/chatbox"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://daoxe.com/docs/guide/chatbox"/>
+  </url>
+  <url>
+    <loc>https://daoxe.com/docs/ru/guide/chatbox</loc>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://daoxe.com/docs/guide/chatbox"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daoxe.com/docs/en/guide/chatbox"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://daoxe.com/docs/ru/guide/chatbox"/>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://daoxe.com/docs/vi/guide/chatbox"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://daoxe.com/docs/guide/chatbox"/>
+  </url>
+  <url>
+    <loc>https://daoxe.com/docs/vi/guide/chatbox</loc>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://daoxe.com/docs/guide/chatbox"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daoxe.com/docs/en/guide/chatbox"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://daoxe.com/docs/ru/guide/chatbox"/>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://daoxe.com/docs/vi/guide/chatbox"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://daoxe.com/docs/guide/chatbox"/>
+  </url>
+  <url>
+    <loc>https://daoxe.com/docs/guide/lobe-chat</loc>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://daoxe.com/docs/guide/lobe-chat"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daoxe.com/docs/en/guide/lobe-chat"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://daoxe.com/docs/ru/guide/lobe-chat"/>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://daoxe.com/docs/vi/guide/lobe-chat"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://daoxe.com/docs/guide/lobe-chat"/>
+  </url>
+  <url>
+    <loc>https://daoxe.com/docs/en/guide/lobe-chat</loc>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://daoxe.com/docs/guide/lobe-chat"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daoxe.com/docs/en/guide/lobe-chat"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://daoxe.com/docs/ru/guide/lobe-chat"/>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://daoxe.com/docs/vi/guide/lobe-chat"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://daoxe.com/docs/guide/lobe-chat"/>
+  </url>
+  <url>
+    <loc>https://daoxe.com/docs/ru/guide/lobe-chat</loc>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://daoxe.com/docs/guide/lobe-chat"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daoxe.com/docs/en/guide/lobe-chat"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://daoxe.com/docs/ru/guide/lobe-chat"/>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://daoxe.com/docs/vi/guide/lobe-chat"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://daoxe.com/docs/guide/lobe-chat"/>
+  </url>
+  <url>
+    <loc>https://daoxe.com/docs/vi/guide/lobe-chat</loc>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://daoxe.com/docs/guide/lobe-chat"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daoxe.com/docs/en/guide/lobe-chat"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://daoxe.com/docs/ru/guide/lobe-chat"/>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://daoxe.com/docs/vi/guide/lobe-chat"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://daoxe.com/docs/guide/lobe-chat"/>
+  </url>
+  <url>
+    <loc>https://daoxe.com/docs/guide/nextchat</loc>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://daoxe.com/docs/guide/nextchat"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daoxe.com/docs/en/guide/nextchat"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://daoxe.com/docs/ru/guide/nextchat"/>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://daoxe.com/docs/vi/guide/nextchat"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://daoxe.com/docs/guide/nextchat"/>
+  </url>
+  <url>
+    <loc>https://daoxe.com/docs/en/guide/nextchat</loc>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://daoxe.com/docs/guide/nextchat"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daoxe.com/docs/en/guide/nextchat"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://daoxe.com/docs/ru/guide/nextchat"/>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://daoxe.com/docs/vi/guide/nextchat"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://daoxe.com/docs/guide/nextchat"/>
+  </url>
+  <url>
+    <loc>https://daoxe.com/docs/ru/guide/nextchat</loc>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://daoxe.com/docs/guide/nextchat"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daoxe.com/docs/en/guide/nextchat"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://daoxe.com/docs/ru/guide/nextchat"/>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://daoxe.com/docs/vi/guide/nextchat"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://daoxe.com/docs/guide/nextchat"/>
+  </url>
+  <url>
+    <loc>https://daoxe.com/docs/vi/guide/nextchat</loc>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://daoxe.com/docs/guide/nextchat"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daoxe.com/docs/en/guide/nextchat"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://daoxe.com/docs/ru/guide/nextchat"/>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://daoxe.com/docs/vi/guide/nextchat"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://daoxe.com/docs/guide/nextchat"/>
+  </url>
+  <url>
+    <loc>https://daoxe.com/docs/guide/open-webui</loc>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://daoxe.com/docs/guide/open-webui"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daoxe.com/docs/en/guide/open-webui"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://daoxe.com/docs/ru/guide/open-webui"/>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://daoxe.com/docs/vi/guide/open-webui"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://daoxe.com/docs/guide/open-webui"/>
+  </url>
+  <url>
+    <loc>https://daoxe.com/docs/en/guide/open-webui</loc>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://daoxe.com/docs/guide/open-webui"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daoxe.com/docs/en/guide/open-webui"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://daoxe.com/docs/ru/guide/open-webui"/>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://daoxe.com/docs/vi/guide/open-webui"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://daoxe.com/docs/guide/open-webui"/>
+  </url>
+  <url>
+    <loc>https://daoxe.com/docs/ru/guide/open-webui</loc>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://daoxe.com/docs/guide/open-webui"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daoxe.com/docs/en/guide/open-webui"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://daoxe.com/docs/ru/guide/open-webui"/>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://daoxe.com/docs/vi/guide/open-webui"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://daoxe.com/docs/guide/open-webui"/>
+  </url>
+  <url>
+    <loc>https://daoxe.com/docs/vi/guide/open-webui</loc>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://daoxe.com/docs/guide/open-webui"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daoxe.com/docs/en/guide/open-webui"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://daoxe.com/docs/ru/guide/open-webui"/>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://daoxe.com/docs/vi/guide/open-webui"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://daoxe.com/docs/guide/open-webui"/>
+  </url>
+  <url>
+    <loc>https://daoxe.com/docs/guide/immersive-translate</loc>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://daoxe.com/docs/guide/immersive-translate"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daoxe.com/docs/en/guide/immersive-translate"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://daoxe.com/docs/ru/guide/immersive-translate"/>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://daoxe.com/docs/vi/guide/immersive-translate"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://daoxe.com/docs/guide/immersive-translate"/>
+  </url>
+  <url>
+    <loc>https://daoxe.com/docs/en/guide/immersive-translate</loc>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://daoxe.com/docs/guide/immersive-translate"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daoxe.com/docs/en/guide/immersive-translate"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://daoxe.com/docs/ru/guide/immersive-translate"/>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://daoxe.com/docs/vi/guide/immersive-translate"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://daoxe.com/docs/guide/immersive-translate"/>
+  </url>
+  <url>
+    <loc>https://daoxe.com/docs/ru/guide/immersive-translate</loc>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://daoxe.com/docs/guide/immersive-translate"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daoxe.com/docs/en/guide/immersive-translate"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://daoxe.com/docs/ru/guide/immersive-translate"/>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://daoxe.com/docs/vi/guide/immersive-translate"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://daoxe.com/docs/guide/immersive-translate"/>
+  </url>
+  <url>
+    <loc>https://daoxe.com/docs/vi/guide/immersive-translate</loc>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://daoxe.com/docs/guide/immersive-translate"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daoxe.com/docs/en/guide/immersive-translate"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://daoxe.com/docs/ru/guide/immersive-translate"/>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://daoxe.com/docs/vi/guide/immersive-translate"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://daoxe.com/docs/guide/immersive-translate"/>
+  </url>
+  <url>
+    <loc>https://daoxe.com/docs/guide/apps</loc>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://daoxe.com/docs/guide/apps"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daoxe.com/docs/en/guide/apps"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://daoxe.com/docs/ru/guide/apps"/>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://daoxe.com/docs/vi/guide/apps"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://daoxe.com/docs/guide/apps"/>
+  </url>
+  <url>
+    <loc>https://daoxe.com/docs/en/guide/apps</loc>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://daoxe.com/docs/guide/apps"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daoxe.com/docs/en/guide/apps"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://daoxe.com/docs/ru/guide/apps"/>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://daoxe.com/docs/vi/guide/apps"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://daoxe.com/docs/guide/apps"/>
+  </url>
+  <url>
+    <loc>https://daoxe.com/docs/ru/guide/apps</loc>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://daoxe.com/docs/guide/apps"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daoxe.com/docs/en/guide/apps"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://daoxe.com/docs/ru/guide/apps"/>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://daoxe.com/docs/vi/guide/apps"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://daoxe.com/docs/guide/apps"/>
+  </url>
+  <url>
+    <loc>https://daoxe.com/docs/vi/guide/apps</loc>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://daoxe.com/docs/guide/apps"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daoxe.com/docs/en/guide/apps"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://daoxe.com/docs/ru/guide/apps"/>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://daoxe.com/docs/vi/guide/apps"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://daoxe.com/docs/guide/apps"/>
+  </url>
+  <url>
+    <loc>https://daoxe.com/docs/guide/sdk</loc>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://daoxe.com/docs/guide/sdk"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daoxe.com/docs/en/guide/sdk"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://daoxe.com/docs/ru/guide/sdk"/>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://daoxe.com/docs/vi/guide/sdk"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://daoxe.com/docs/guide/sdk"/>
+  </url>
+  <url>
+    <loc>https://daoxe.com/docs/en/guide/sdk</loc>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://daoxe.com/docs/guide/sdk"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daoxe.com/docs/en/guide/sdk"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://daoxe.com/docs/ru/guide/sdk"/>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://daoxe.com/docs/vi/guide/sdk"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://daoxe.com/docs/guide/sdk"/>
+  </url>
+  <url>
+    <loc>https://daoxe.com/docs/ru/guide/sdk</loc>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://daoxe.com/docs/guide/sdk"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daoxe.com/docs/en/guide/sdk"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://daoxe.com/docs/ru/guide/sdk"/>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://daoxe.com/docs/vi/guide/sdk"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://daoxe.com/docs/guide/sdk"/>
+  </url>
+  <url>
+    <loc>https://daoxe.com/docs/vi/guide/sdk</loc>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://daoxe.com/docs/guide/sdk"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daoxe.com/docs/en/guide/sdk"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://daoxe.com/docs/ru/guide/sdk"/>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://daoxe.com/docs/vi/guide/sdk"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://daoxe.com/docs/guide/sdk"/>
+  </url>
+  <url>
+    <loc>https://daoxe.com/docs/guide/multi-protocol</loc>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://daoxe.com/docs/guide/multi-protocol"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daoxe.com/docs/en/guide/multi-protocol"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://daoxe.com/docs/ru/guide/multi-protocol"/>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://daoxe.com/docs/vi/guide/multi-protocol"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://daoxe.com/docs/guide/multi-protocol"/>
+  </url>
+  <url>
+    <loc>https://daoxe.com/docs/en/guide/multi-protocol</loc>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://daoxe.com/docs/guide/multi-protocol"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daoxe.com/docs/en/guide/multi-protocol"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://daoxe.com/docs/ru/guide/multi-protocol"/>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://daoxe.com/docs/vi/guide/multi-protocol"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://daoxe.com/docs/guide/multi-protocol"/>
+  </url>
+  <url>
+    <loc>https://daoxe.com/docs/ru/guide/multi-protocol</loc>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://daoxe.com/docs/guide/multi-protocol"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daoxe.com/docs/en/guide/multi-protocol"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://daoxe.com/docs/ru/guide/multi-protocol"/>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://daoxe.com/docs/vi/guide/multi-protocol"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://daoxe.com/docs/guide/multi-protocol"/>
+  </url>
+  <url>
+    <loc>https://daoxe.com/docs/vi/guide/multi-protocol</loc>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://daoxe.com/docs/guide/multi-protocol"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daoxe.com/docs/en/guide/multi-protocol"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://daoxe.com/docs/ru/guide/multi-protocol"/>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://daoxe.com/docs/vi/guide/multi-protocol"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://daoxe.com/docs/guide/multi-protocol"/>
+  </url>
+  <url>
+    <loc>https://daoxe.com/docs/guide/verify</loc>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://daoxe.com/docs/guide/verify"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daoxe.com/docs/en/guide/verify"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://daoxe.com/docs/ru/guide/verify"/>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://daoxe.com/docs/vi/guide/verify"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://daoxe.com/docs/guide/verify"/>
+  </url>
+  <url>
+    <loc>https://daoxe.com/docs/en/guide/verify</loc>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://daoxe.com/docs/guide/verify"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daoxe.com/docs/en/guide/verify"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://daoxe.com/docs/ru/guide/verify"/>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://daoxe.com/docs/vi/guide/verify"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://daoxe.com/docs/guide/verify"/>
+  </url>
+  <url>
+    <loc>https://daoxe.com/docs/ru/guide/verify</loc>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://daoxe.com/docs/guide/verify"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daoxe.com/docs/en/guide/verify"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://daoxe.com/docs/ru/guide/verify"/>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://daoxe.com/docs/vi/guide/verify"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://daoxe.com/docs/guide/verify"/>
+  </url>
+  <url>
+    <loc>https://daoxe.com/docs/vi/guide/verify</loc>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://daoxe.com/docs/guide/verify"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daoxe.com/docs/en/guide/verify"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://daoxe.com/docs/ru/guide/verify"/>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://daoxe.com/docs/vi/guide/verify"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://daoxe.com/docs/guide/verify"/>
+  </url>
+  <url>
+    <loc>https://daoxe.com/docs/guide/errors</loc>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://daoxe.com/docs/guide/errors"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daoxe.com/docs/en/guide/errors"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://daoxe.com/docs/ru/guide/errors"/>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://daoxe.com/docs/vi/guide/errors"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://daoxe.com/docs/guide/errors"/>
+  </url>
+  <url>
+    <loc>https://daoxe.com/docs/en/guide/errors</loc>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://daoxe.com/docs/guide/errors"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daoxe.com/docs/en/guide/errors"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://daoxe.com/docs/ru/guide/errors"/>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://daoxe.com/docs/vi/guide/errors"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://daoxe.com/docs/guide/errors"/>
+  </url>
+  <url>
+    <loc>https://daoxe.com/docs/ru/guide/errors</loc>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://daoxe.com/docs/guide/errors"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daoxe.com/docs/en/guide/errors"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://daoxe.com/docs/ru/guide/errors"/>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://daoxe.com/docs/vi/guide/errors"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://daoxe.com/docs/guide/errors"/>
+  </url>
+  <url>
+    <loc>https://daoxe.com/docs/vi/guide/errors</loc>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://daoxe.com/docs/guide/errors"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daoxe.com/docs/en/guide/errors"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://daoxe.com/docs/ru/guide/errors"/>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://daoxe.com/docs/vi/guide/errors"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://daoxe.com/docs/guide/errors"/>
+  </url>
+  <url>
+    <loc>https://daoxe.com/docs/api/auth</loc>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://daoxe.com/docs/api/auth"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daoxe.com/docs/en/api/auth"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://daoxe.com/docs/ru/api/auth"/>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://daoxe.com/docs/vi/api/auth"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://daoxe.com/docs/api/auth"/>
+  </url>
+  <url>
+    <loc>https://daoxe.com/docs/en/api/auth</loc>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://daoxe.com/docs/api/auth"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daoxe.com/docs/en/api/auth"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://daoxe.com/docs/ru/api/auth"/>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://daoxe.com/docs/vi/api/auth"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://daoxe.com/docs/api/auth"/>
+  </url>
+  <url>
+    <loc>https://daoxe.com/docs/ru/api/auth</loc>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://daoxe.com/docs/api/auth"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daoxe.com/docs/en/api/auth"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://daoxe.com/docs/ru/api/auth"/>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://daoxe.com/docs/vi/api/auth"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://daoxe.com/docs/api/auth"/>
+  </url>
+  <url>
+    <loc>https://daoxe.com/docs/vi/api/auth</loc>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://daoxe.com/docs/api/auth"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daoxe.com/docs/en/api/auth"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://daoxe.com/docs/ru/api/auth"/>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://daoxe.com/docs/vi/api/auth"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://daoxe.com/docs/api/auth"/>
+  </url>
+  <url>
+    <loc>https://daoxe.com/docs/api/routing</loc>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://daoxe.com/docs/api/routing"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daoxe.com/docs/en/api/routing"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://daoxe.com/docs/ru/api/routing"/>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://daoxe.com/docs/vi/api/routing"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://daoxe.com/docs/api/routing"/>
+  </url>
+  <url>
+    <loc>https://daoxe.com/docs/en/api/routing</loc>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://daoxe.com/docs/api/routing"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daoxe.com/docs/en/api/routing"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://daoxe.com/docs/ru/api/routing"/>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://daoxe.com/docs/vi/api/routing"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://daoxe.com/docs/api/routing"/>
+  </url>
+  <url>
+    <loc>https://daoxe.com/docs/ru/api/routing</loc>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://daoxe.com/docs/api/routing"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daoxe.com/docs/en/api/routing"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://daoxe.com/docs/ru/api/routing"/>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://daoxe.com/docs/vi/api/routing"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://daoxe.com/docs/api/routing"/>
+  </url>
+  <url>
+    <loc>https://daoxe.com/docs/vi/api/routing</loc>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://daoxe.com/docs/api/routing"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daoxe.com/docs/en/api/routing"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://daoxe.com/docs/ru/api/routing"/>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://daoxe.com/docs/vi/api/routing"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://daoxe.com/docs/api/routing"/>
+  </url>
+  <url>
+    <loc>https://daoxe.com/docs/api/openai-chat</loc>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://daoxe.com/docs/api/openai-chat"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daoxe.com/docs/en/api/openai-chat"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://daoxe.com/docs/ru/api/openai-chat"/>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://daoxe.com/docs/vi/api/openai-chat"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://daoxe.com/docs/api/openai-chat"/>
+  </url>
+  <url>
+    <loc>https://daoxe.com/docs/en/api/openai-chat</loc>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://daoxe.com/docs/api/openai-chat"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daoxe.com/docs/en/api/openai-chat"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://daoxe.com/docs/ru/api/openai-chat"/>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://daoxe.com/docs/vi/api/openai-chat"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://daoxe.com/docs/api/openai-chat"/>
+  </url>
+  <url>
+    <loc>https://daoxe.com/docs/ru/api/openai-chat</loc>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://daoxe.com/docs/api/openai-chat"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daoxe.com/docs/en/api/openai-chat"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://daoxe.com/docs/ru/api/openai-chat"/>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://daoxe.com/docs/vi/api/openai-chat"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://daoxe.com/docs/api/openai-chat"/>
+  </url>
+  <url>
+    <loc>https://daoxe.com/docs/vi/api/openai-chat</loc>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://daoxe.com/docs/api/openai-chat"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daoxe.com/docs/en/api/openai-chat"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://daoxe.com/docs/ru/api/openai-chat"/>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://daoxe.com/docs/vi/api/openai-chat"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://daoxe.com/docs/api/openai-chat"/>
+  </url>
+  <url>
+    <loc>https://daoxe.com/docs/api/openai-responses</loc>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://daoxe.com/docs/api/openai-responses"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daoxe.com/docs/en/api/openai-responses"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://daoxe.com/docs/ru/api/openai-responses"/>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://daoxe.com/docs/vi/api/openai-responses"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://daoxe.com/docs/api/openai-responses"/>
+  </url>
+  <url>
+    <loc>https://daoxe.com/docs/en/api/openai-responses</loc>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://daoxe.com/docs/api/openai-responses"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daoxe.com/docs/en/api/openai-responses"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://daoxe.com/docs/ru/api/openai-responses"/>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://daoxe.com/docs/vi/api/openai-responses"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://daoxe.com/docs/api/openai-responses"/>
+  </url>
+  <url>
+    <loc>https://daoxe.com/docs/ru/api/openai-responses</loc>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://daoxe.com/docs/api/openai-responses"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daoxe.com/docs/en/api/openai-responses"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://daoxe.com/docs/ru/api/openai-responses"/>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://daoxe.com/docs/vi/api/openai-responses"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://daoxe.com/docs/api/openai-responses"/>
+  </url>
+  <url>
+    <loc>https://daoxe.com/docs/vi/api/openai-responses</loc>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://daoxe.com/docs/api/openai-responses"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daoxe.com/docs/en/api/openai-responses"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://daoxe.com/docs/ru/api/openai-responses"/>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://daoxe.com/docs/vi/api/openai-responses"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://daoxe.com/docs/api/openai-responses"/>
+  </url>
+  <url>
+    <loc>https://daoxe.com/docs/api/openai-embeddings</loc>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://daoxe.com/docs/api/openai-embeddings"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daoxe.com/docs/en/api/openai-embeddings"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://daoxe.com/docs/ru/api/openai-embeddings"/>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://daoxe.com/docs/vi/api/openai-embeddings"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://daoxe.com/docs/api/openai-embeddings"/>
+  </url>
+  <url>
+    <loc>https://daoxe.com/docs/en/api/openai-embeddings</loc>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://daoxe.com/docs/api/openai-embeddings"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daoxe.com/docs/en/api/openai-embeddings"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://daoxe.com/docs/ru/api/openai-embeddings"/>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://daoxe.com/docs/vi/api/openai-embeddings"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://daoxe.com/docs/api/openai-embeddings"/>
+  </url>
+  <url>
+    <loc>https://daoxe.com/docs/ru/api/openai-embeddings</loc>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://daoxe.com/docs/api/openai-embeddings"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daoxe.com/docs/en/api/openai-embeddings"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://daoxe.com/docs/ru/api/openai-embeddings"/>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://daoxe.com/docs/vi/api/openai-embeddings"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://daoxe.com/docs/api/openai-embeddings"/>
+  </url>
+  <url>
+    <loc>https://daoxe.com/docs/vi/api/openai-embeddings</loc>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://daoxe.com/docs/api/openai-embeddings"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daoxe.com/docs/en/api/openai-embeddings"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://daoxe.com/docs/ru/api/openai-embeddings"/>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://daoxe.com/docs/vi/api/openai-embeddings"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://daoxe.com/docs/api/openai-embeddings"/>
+  </url>
+  <url>
+    <loc>https://daoxe.com/docs/api/claude</loc>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://daoxe.com/docs/api/claude"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daoxe.com/docs/en/api/claude"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://daoxe.com/docs/ru/api/claude"/>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://daoxe.com/docs/vi/api/claude"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://daoxe.com/docs/api/claude"/>
+  </url>
+  <url>
+    <loc>https://daoxe.com/docs/en/api/claude</loc>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://daoxe.com/docs/api/claude"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daoxe.com/docs/en/api/claude"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://daoxe.com/docs/ru/api/claude"/>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://daoxe.com/docs/vi/api/claude"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://daoxe.com/docs/api/claude"/>
+  </url>
+  <url>
+    <loc>https://daoxe.com/docs/ru/api/claude</loc>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://daoxe.com/docs/api/claude"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daoxe.com/docs/en/api/claude"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://daoxe.com/docs/ru/api/claude"/>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://daoxe.com/docs/vi/api/claude"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://daoxe.com/docs/api/claude"/>
+  </url>
+  <url>
+    <loc>https://daoxe.com/docs/vi/api/claude</loc>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://daoxe.com/docs/api/claude"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daoxe.com/docs/en/api/claude"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://daoxe.com/docs/ru/api/claude"/>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://daoxe.com/docs/vi/api/claude"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://daoxe.com/docs/api/claude"/>
+  </url>
+  <url>
+    <loc>https://daoxe.com/docs/api/gemini</loc>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://daoxe.com/docs/api/gemini"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daoxe.com/docs/en/api/gemini"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://daoxe.com/docs/ru/api/gemini"/>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://daoxe.com/docs/vi/api/gemini"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://daoxe.com/docs/api/gemini"/>
+  </url>
+  <url>
+    <loc>https://daoxe.com/docs/en/api/gemini</loc>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://daoxe.com/docs/api/gemini"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daoxe.com/docs/en/api/gemini"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://daoxe.com/docs/ru/api/gemini"/>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://daoxe.com/docs/vi/api/gemini"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://daoxe.com/docs/api/gemini"/>
+  </url>
+  <url>
+    <loc>https://daoxe.com/docs/ru/api/gemini</loc>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://daoxe.com/docs/api/gemini"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daoxe.com/docs/en/api/gemini"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://daoxe.com/docs/ru/api/gemini"/>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://daoxe.com/docs/vi/api/gemini"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://daoxe.com/docs/api/gemini"/>
+  </url>
+  <url>
+    <loc>https://daoxe.com/docs/vi/api/gemini</loc>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://daoxe.com/docs/api/gemini"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daoxe.com/docs/en/api/gemini"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://daoxe.com/docs/ru/api/gemini"/>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://daoxe.com/docs/vi/api/gemini"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://daoxe.com/docs/api/gemini"/>
+  </url>
+  <url>
+    <loc>https://daoxe.com/docs/api/models</loc>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://daoxe.com/docs/api/models"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daoxe.com/docs/en/api/models"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://daoxe.com/docs/ru/api/models"/>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://daoxe.com/docs/vi/api/models"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://daoxe.com/docs/api/models"/>
+  </url>
+  <url>
+    <loc>https://daoxe.com/docs/en/api/models</loc>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://daoxe.com/docs/api/models"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daoxe.com/docs/en/api/models"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://daoxe.com/docs/ru/api/models"/>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://daoxe.com/docs/vi/api/models"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://daoxe.com/docs/api/models"/>
+  </url>
+  <url>
+    <loc>https://daoxe.com/docs/ru/api/models</loc>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://daoxe.com/docs/api/models"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daoxe.com/docs/en/api/models"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://daoxe.com/docs/ru/api/models"/>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://daoxe.com/docs/vi/api/models"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://daoxe.com/docs/api/models"/>
+  </url>
+  <url>
+    <loc>https://daoxe.com/docs/vi/api/models</loc>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://daoxe.com/docs/api/models"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daoxe.com/docs/en/api/models"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://daoxe.com/docs/ru/api/models"/>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://daoxe.com/docs/vi/api/models"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://daoxe.com/docs/api/models"/>
+  </url>
+  <url>
+    <loc>https://daoxe.com/docs/api/errors</loc>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://daoxe.com/docs/api/errors"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daoxe.com/docs/en/api/errors"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://daoxe.com/docs/ru/api/errors"/>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://daoxe.com/docs/vi/api/errors"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://daoxe.com/docs/api/errors"/>
+  </url>
+  <url>
+    <loc>https://daoxe.com/docs/en/api/errors</loc>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://daoxe.com/docs/api/errors"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daoxe.com/docs/en/api/errors"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://daoxe.com/docs/ru/api/errors"/>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://daoxe.com/docs/vi/api/errors"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://daoxe.com/docs/api/errors"/>
+  </url>
+  <url>
+    <loc>https://daoxe.com/docs/ru/api/errors</loc>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://daoxe.com/docs/api/errors"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daoxe.com/docs/en/api/errors"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://daoxe.com/docs/ru/api/errors"/>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://daoxe.com/docs/vi/api/errors"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://daoxe.com/docs/api/errors"/>
+  </url>
+  <url>
+    <loc>https://daoxe.com/docs/vi/api/errors</loc>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://daoxe.com/docs/api/errors"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daoxe.com/docs/en/api/errors"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://daoxe.com/docs/ru/api/errors"/>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://daoxe.com/docs/vi/api/errors"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://daoxe.com/docs/api/errors"/>
+  </url>
+  <url>
+    <loc>https://daoxe.com/docs/api/rate-limit</loc>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://daoxe.com/docs/api/rate-limit"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daoxe.com/docs/en/api/rate-limit"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://daoxe.com/docs/ru/api/rate-limit"/>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://daoxe.com/docs/vi/api/rate-limit"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://daoxe.com/docs/api/rate-limit"/>
+  </url>
+  <url>
+    <loc>https://daoxe.com/docs/en/api/rate-limit</loc>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://daoxe.com/docs/api/rate-limit"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daoxe.com/docs/en/api/rate-limit"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://daoxe.com/docs/ru/api/rate-limit"/>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://daoxe.com/docs/vi/api/rate-limit"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://daoxe.com/docs/api/rate-limit"/>
+  </url>
+  <url>
+    <loc>https://daoxe.com/docs/ru/api/rate-limit</loc>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://daoxe.com/docs/api/rate-limit"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daoxe.com/docs/en/api/rate-limit"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://daoxe.com/docs/ru/api/rate-limit"/>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://daoxe.com/docs/vi/api/rate-limit"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://daoxe.com/docs/api/rate-limit"/>
+  </url>
+  <url>
+    <loc>https://daoxe.com/docs/vi/api/rate-limit</loc>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://daoxe.com/docs/api/rate-limit"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daoxe.com/docs/en/api/rate-limit"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://daoxe.com/docs/ru/api/rate-limit"/>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://daoxe.com/docs/vi/api/rate-limit"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://daoxe.com/docs/api/rate-limit"/>
+  </url>
+  <url>
+    <loc>https://daoxe.com/docs/billing/rules</loc>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://daoxe.com/docs/billing/rules"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daoxe.com/docs/en/billing/rules"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://daoxe.com/docs/ru/billing/rules"/>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://daoxe.com/docs/vi/billing/rules"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://daoxe.com/docs/billing/rules"/>
+  </url>
+  <url>
+    <loc>https://daoxe.com/docs/en/billing/rules</loc>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://daoxe.com/docs/billing/rules"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daoxe.com/docs/en/billing/rules"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://daoxe.com/docs/ru/billing/rules"/>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://daoxe.com/docs/vi/billing/rules"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://daoxe.com/docs/billing/rules"/>
+  </url>
+  <url>
+    <loc>https://daoxe.com/docs/ru/billing/rules</loc>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://daoxe.com/docs/billing/rules"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daoxe.com/docs/en/billing/rules"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://daoxe.com/docs/ru/billing/rules"/>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://daoxe.com/docs/vi/billing/rules"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://daoxe.com/docs/billing/rules"/>
+  </url>
+  <url>
+    <loc>https://daoxe.com/docs/vi/billing/rules</loc>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://daoxe.com/docs/billing/rules"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daoxe.com/docs/en/billing/rules"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://daoxe.com/docs/ru/billing/rules"/>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://daoxe.com/docs/vi/billing/rules"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://daoxe.com/docs/billing/rules"/>
+  </url>
+  <url>
+    <loc>https://daoxe.com/docs/billing/logs</loc>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://daoxe.com/docs/billing/logs"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daoxe.com/docs/en/billing/logs"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://daoxe.com/docs/ru/billing/logs"/>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://daoxe.com/docs/vi/billing/logs"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://daoxe.com/docs/billing/logs"/>
+  </url>
+  <url>
+    <loc>https://daoxe.com/docs/en/billing/logs</loc>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://daoxe.com/docs/billing/logs"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daoxe.com/docs/en/billing/logs"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://daoxe.com/docs/ru/billing/logs"/>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://daoxe.com/docs/vi/billing/logs"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://daoxe.com/docs/billing/logs"/>
+  </url>
+  <url>
+    <loc>https://daoxe.com/docs/ru/billing/logs</loc>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://daoxe.com/docs/billing/logs"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daoxe.com/docs/en/billing/logs"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://daoxe.com/docs/ru/billing/logs"/>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://daoxe.com/docs/vi/billing/logs"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://daoxe.com/docs/billing/logs"/>
+  </url>
+  <url>
+    <loc>https://daoxe.com/docs/vi/billing/logs</loc>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://daoxe.com/docs/billing/logs"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daoxe.com/docs/en/billing/logs"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://daoxe.com/docs/ru/billing/logs"/>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://daoxe.com/docs/vi/billing/logs"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://daoxe.com/docs/billing/logs"/>
+  </url>
+  <url>
+    <loc>https://daoxe.com/docs/billing/pricing</loc>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://daoxe.com/docs/billing/pricing"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daoxe.com/docs/en/billing/pricing"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://daoxe.com/docs/ru/billing/pricing"/>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://daoxe.com/docs/vi/billing/pricing"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://daoxe.com/docs/billing/pricing"/>
+  </url>
+  <url>
+    <loc>https://daoxe.com/docs/en/billing/pricing</loc>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://daoxe.com/docs/billing/pricing"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daoxe.com/docs/en/billing/pricing"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://daoxe.com/docs/ru/billing/pricing"/>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://daoxe.com/docs/vi/billing/pricing"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://daoxe.com/docs/billing/pricing"/>
+  </url>
+  <url>
+    <loc>https://daoxe.com/docs/ru/billing/pricing</loc>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://daoxe.com/docs/billing/pricing"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daoxe.com/docs/en/billing/pricing"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://daoxe.com/docs/ru/billing/pricing"/>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://daoxe.com/docs/vi/billing/pricing"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://daoxe.com/docs/billing/pricing"/>
+  </url>
+  <url>
+    <loc>https://daoxe.com/docs/vi/billing/pricing</loc>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://daoxe.com/docs/billing/pricing"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daoxe.com/docs/en/billing/pricing"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://daoxe.com/docs/ru/billing/pricing"/>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://daoxe.com/docs/vi/billing/pricing"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://daoxe.com/docs/billing/pricing"/>
+  </url>
+  <url>
+    <loc>https://daoxe.com/docs/billing/topup-issues</loc>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://daoxe.com/docs/billing/topup-issues"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daoxe.com/docs/en/billing/topup-issues"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://daoxe.com/docs/ru/billing/topup-issues"/>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://daoxe.com/docs/vi/billing/topup-issues"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://daoxe.com/docs/billing/topup-issues"/>
+  </url>
+  <url>
+    <loc>https://daoxe.com/docs/en/billing/topup-issues</loc>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://daoxe.com/docs/billing/topup-issues"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daoxe.com/docs/en/billing/topup-issues"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://daoxe.com/docs/ru/billing/topup-issues"/>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://daoxe.com/docs/vi/billing/topup-issues"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://daoxe.com/docs/billing/topup-issues"/>
+  </url>
+  <url>
+    <loc>https://daoxe.com/docs/ru/billing/topup-issues</loc>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://daoxe.com/docs/billing/topup-issues"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daoxe.com/docs/en/billing/topup-issues"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://daoxe.com/docs/ru/billing/topup-issues"/>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://daoxe.com/docs/vi/billing/topup-issues"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://daoxe.com/docs/billing/topup-issues"/>
+  </url>
+  <url>
+    <loc>https://daoxe.com/docs/vi/billing/topup-issues</loc>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://daoxe.com/docs/billing/topup-issues"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daoxe.com/docs/en/billing/topup-issues"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://daoxe.com/docs/ru/billing/topup-issues"/>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://daoxe.com/docs/vi/billing/topup-issues"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://daoxe.com/docs/billing/topup-issues"/>
+  </url>
+  <url>
+    <loc>https://daoxe.com/docs/features/wallet</loc>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://daoxe.com/docs/features/wallet"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daoxe.com/docs/en/features/wallet"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://daoxe.com/docs/ru/features/wallet"/>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://daoxe.com/docs/vi/features/wallet"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://daoxe.com/docs/features/wallet"/>
+  </url>
+  <url>
+    <loc>https://daoxe.com/docs/en/features/wallet</loc>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://daoxe.com/docs/features/wallet"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daoxe.com/docs/en/features/wallet"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://daoxe.com/docs/ru/features/wallet"/>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://daoxe.com/docs/vi/features/wallet"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://daoxe.com/docs/features/wallet"/>
+  </url>
+  <url>
+    <loc>https://daoxe.com/docs/ru/features/wallet</loc>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://daoxe.com/docs/features/wallet"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daoxe.com/docs/en/features/wallet"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://daoxe.com/docs/ru/features/wallet"/>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://daoxe.com/docs/vi/features/wallet"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://daoxe.com/docs/features/wallet"/>
+  </url>
+  <url>
+    <loc>https://daoxe.com/docs/vi/features/wallet</loc>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://daoxe.com/docs/features/wallet"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daoxe.com/docs/en/features/wallet"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://daoxe.com/docs/ru/features/wallet"/>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://daoxe.com/docs/vi/features/wallet"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://daoxe.com/docs/features/wallet"/>
+  </url>
+  <url>
+    <loc>https://daoxe.com/docs/features/keys</loc>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://daoxe.com/docs/features/keys"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daoxe.com/docs/en/features/keys"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://daoxe.com/docs/ru/features/keys"/>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://daoxe.com/docs/vi/features/keys"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://daoxe.com/docs/features/keys"/>
+  </url>
+  <url>
+    <loc>https://daoxe.com/docs/en/features/keys</loc>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://daoxe.com/docs/features/keys"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daoxe.com/docs/en/features/keys"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://daoxe.com/docs/ru/features/keys"/>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://daoxe.com/docs/vi/features/keys"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://daoxe.com/docs/features/keys"/>
+  </url>
+  <url>
+    <loc>https://daoxe.com/docs/ru/features/keys</loc>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://daoxe.com/docs/features/keys"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daoxe.com/docs/en/features/keys"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://daoxe.com/docs/ru/features/keys"/>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://daoxe.com/docs/vi/features/keys"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://daoxe.com/docs/features/keys"/>
+  </url>
+  <url>
+    <loc>https://daoxe.com/docs/vi/features/keys</loc>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://daoxe.com/docs/features/keys"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daoxe.com/docs/en/features/keys"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://daoxe.com/docs/ru/features/keys"/>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://daoxe.com/docs/vi/features/keys"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://daoxe.com/docs/features/keys"/>
+  </url>
+  <url>
+    <loc>https://daoxe.com/docs/features/pricing</loc>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://daoxe.com/docs/features/pricing"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daoxe.com/docs/en/features/pricing"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://daoxe.com/docs/ru/features/pricing"/>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://daoxe.com/docs/vi/features/pricing"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://daoxe.com/docs/features/pricing"/>
+  </url>
+  <url>
+    <loc>https://daoxe.com/docs/en/features/pricing</loc>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://daoxe.com/docs/features/pricing"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daoxe.com/docs/en/features/pricing"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://daoxe.com/docs/ru/features/pricing"/>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://daoxe.com/docs/vi/features/pricing"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://daoxe.com/docs/features/pricing"/>
+  </url>
+  <url>
+    <loc>https://daoxe.com/docs/ru/features/pricing</loc>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://daoxe.com/docs/features/pricing"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daoxe.com/docs/en/features/pricing"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://daoxe.com/docs/ru/features/pricing"/>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://daoxe.com/docs/vi/features/pricing"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://daoxe.com/docs/features/pricing"/>
+  </url>
+  <url>
+    <loc>https://daoxe.com/docs/vi/features/pricing</loc>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://daoxe.com/docs/features/pricing"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daoxe.com/docs/en/features/pricing"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://daoxe.com/docs/ru/features/pricing"/>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://daoxe.com/docs/vi/features/pricing"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://daoxe.com/docs/features/pricing"/>
+  </url>
+  <url>
+    <loc>https://daoxe.com/docs/features/invite</loc>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://daoxe.com/docs/features/invite"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daoxe.com/docs/en/features/invite"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://daoxe.com/docs/ru/features/invite"/>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://daoxe.com/docs/vi/features/invite"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://daoxe.com/docs/features/invite"/>
+  </url>
+  <url>
+    <loc>https://daoxe.com/docs/en/features/invite</loc>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://daoxe.com/docs/features/invite"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daoxe.com/docs/en/features/invite"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://daoxe.com/docs/ru/features/invite"/>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://daoxe.com/docs/vi/features/invite"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://daoxe.com/docs/features/invite"/>
+  </url>
+  <url>
+    <loc>https://daoxe.com/docs/ru/features/invite</loc>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://daoxe.com/docs/features/invite"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daoxe.com/docs/en/features/invite"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://daoxe.com/docs/ru/features/invite"/>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://daoxe.com/docs/vi/features/invite"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://daoxe.com/docs/features/invite"/>
+  </url>
+  <url>
+    <loc>https://daoxe.com/docs/vi/features/invite</loc>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://daoxe.com/docs/features/invite"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daoxe.com/docs/en/features/invite"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://daoxe.com/docs/ru/features/invite"/>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://daoxe.com/docs/vi/features/invite"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://daoxe.com/docs/features/invite"/>
+  </url>
+  <url>
+    <loc>https://daoxe.com/docs/features/notice</loc>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://daoxe.com/docs/features/notice"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daoxe.com/docs/en/features/notice"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://daoxe.com/docs/ru/features/notice"/>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://daoxe.com/docs/vi/features/notice"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://daoxe.com/docs/features/notice"/>
+  </url>
+  <url>
+    <loc>https://daoxe.com/docs/en/features/notice</loc>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://daoxe.com/docs/features/notice"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daoxe.com/docs/en/features/notice"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://daoxe.com/docs/ru/features/notice"/>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://daoxe.com/docs/vi/features/notice"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://daoxe.com/docs/features/notice"/>
+  </url>
+  <url>
+    <loc>https://daoxe.com/docs/ru/features/notice</loc>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://daoxe.com/docs/features/notice"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daoxe.com/docs/en/features/notice"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://daoxe.com/docs/ru/features/notice"/>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://daoxe.com/docs/vi/features/notice"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://daoxe.com/docs/features/notice"/>
+  </url>
+  <url>
+    <loc>https://daoxe.com/docs/vi/features/notice</loc>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://daoxe.com/docs/features/notice"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daoxe.com/docs/en/features/notice"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://daoxe.com/docs/ru/features/notice"/>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://daoxe.com/docs/vi/features/notice"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://daoxe.com/docs/features/notice"/>
+  </url>
+  <url>
+    <loc>https://daoxe.com/docs/support/faq</loc>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://daoxe.com/docs/support/faq"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daoxe.com/docs/en/support/faq"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://daoxe.com/docs/ru/support/faq"/>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://daoxe.com/docs/vi/support/faq"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://daoxe.com/docs/support/faq"/>
+  </url>
+  <url>
+    <loc>https://daoxe.com/docs/en/support/faq</loc>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://daoxe.com/docs/support/faq"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daoxe.com/docs/en/support/faq"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://daoxe.com/docs/ru/support/faq"/>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://daoxe.com/docs/vi/support/faq"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://daoxe.com/docs/support/faq"/>
+  </url>
+  <url>
+    <loc>https://daoxe.com/docs/ru/support/faq</loc>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://daoxe.com/docs/support/faq"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daoxe.com/docs/en/support/faq"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://daoxe.com/docs/ru/support/faq"/>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://daoxe.com/docs/vi/support/faq"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://daoxe.com/docs/support/faq"/>
+  </url>
+  <url>
+    <loc>https://daoxe.com/docs/vi/support/faq</loc>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://daoxe.com/docs/support/faq"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daoxe.com/docs/en/support/faq"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://daoxe.com/docs/ru/support/faq"/>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://daoxe.com/docs/vi/support/faq"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://daoxe.com/docs/support/faq"/>
+  </url>
+  <url>
+    <loc>https://daoxe.com/docs/support/contact</loc>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://daoxe.com/docs/support/contact"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daoxe.com/docs/en/support/contact"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://daoxe.com/docs/ru/support/contact"/>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://daoxe.com/docs/vi/support/contact"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://daoxe.com/docs/support/contact"/>
+  </url>
+  <url>
+    <loc>https://daoxe.com/docs/en/support/contact</loc>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://daoxe.com/docs/support/contact"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daoxe.com/docs/en/support/contact"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://daoxe.com/docs/ru/support/contact"/>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://daoxe.com/docs/vi/support/contact"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://daoxe.com/docs/support/contact"/>
+  </url>
+  <url>
+    <loc>https://daoxe.com/docs/ru/support/contact</loc>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://daoxe.com/docs/support/contact"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daoxe.com/docs/en/support/contact"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://daoxe.com/docs/ru/support/contact"/>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://daoxe.com/docs/vi/support/contact"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://daoxe.com/docs/support/contact"/>
+  </url>
+  <url>
+    <loc>https://daoxe.com/docs/vi/support/contact</loc>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://daoxe.com/docs/support/contact"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daoxe.com/docs/en/support/contact"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://daoxe.com/docs/ru/support/contact"/>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://daoxe.com/docs/vi/support/contact"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://daoxe.com/docs/support/contact"/>
+  </url>
+  <url>
+    <loc>https://daoxe.com/docs/support/network</loc>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://daoxe.com/docs/support/network"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daoxe.com/docs/en/support/network"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://daoxe.com/docs/ru/support/network"/>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://daoxe.com/docs/vi/support/network"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://daoxe.com/docs/support/network"/>
+  </url>
+  <url>
+    <loc>https://daoxe.com/docs/en/support/network</loc>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://daoxe.com/docs/support/network"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daoxe.com/docs/en/support/network"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://daoxe.com/docs/ru/support/network"/>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://daoxe.com/docs/vi/support/network"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://daoxe.com/docs/support/network"/>
+  </url>
+  <url>
+    <loc>https://daoxe.com/docs/ru/support/network</loc>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://daoxe.com/docs/support/network"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daoxe.com/docs/en/support/network"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://daoxe.com/docs/ru/support/network"/>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://daoxe.com/docs/vi/support/network"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://daoxe.com/docs/support/network"/>
+  </url>
+  <url>
+    <loc>https://daoxe.com/docs/vi/support/network</loc>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://daoxe.com/docs/support/network"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daoxe.com/docs/en/support/network"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://daoxe.com/docs/ru/support/network"/>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://daoxe.com/docs/vi/support/network"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://daoxe.com/docs/support/network"/>
+  </url>
+  <url>
+    <loc>https://daoxe.com/docs/legal/terms</loc>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://daoxe.com/docs/legal/terms"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daoxe.com/docs/en/legal/terms"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://daoxe.com/docs/ru/legal/terms"/>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://daoxe.com/docs/vi/legal/terms"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://daoxe.com/docs/legal/terms"/>
+  </url>
+  <url>
+    <loc>https://daoxe.com/docs/en/legal/terms</loc>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://daoxe.com/docs/legal/terms"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daoxe.com/docs/en/legal/terms"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://daoxe.com/docs/ru/legal/terms"/>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://daoxe.com/docs/vi/legal/terms"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://daoxe.com/docs/legal/terms"/>
+  </url>
+  <url>
+    <loc>https://daoxe.com/docs/ru/legal/terms</loc>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://daoxe.com/docs/legal/terms"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daoxe.com/docs/en/legal/terms"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://daoxe.com/docs/ru/legal/terms"/>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://daoxe.com/docs/vi/legal/terms"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://daoxe.com/docs/legal/terms"/>
+  </url>
+  <url>
+    <loc>https://daoxe.com/docs/vi/legal/terms</loc>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://daoxe.com/docs/legal/terms"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daoxe.com/docs/en/legal/terms"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://daoxe.com/docs/ru/legal/terms"/>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://daoxe.com/docs/vi/legal/terms"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://daoxe.com/docs/legal/terms"/>
+  </url>
+  <url>
+    <loc>https://daoxe.com/docs/legal/privacy</loc>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://daoxe.com/docs/legal/privacy"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daoxe.com/docs/en/legal/privacy"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://daoxe.com/docs/ru/legal/privacy"/>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://daoxe.com/docs/vi/legal/privacy"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://daoxe.com/docs/legal/privacy"/>
+  </url>
+  <url>
+    <loc>https://daoxe.com/docs/en/legal/privacy</loc>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://daoxe.com/docs/legal/privacy"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daoxe.com/docs/en/legal/privacy"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://daoxe.com/docs/ru/legal/privacy"/>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://daoxe.com/docs/vi/legal/privacy"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://daoxe.com/docs/legal/privacy"/>
+  </url>
+  <url>
+    <loc>https://daoxe.com/docs/ru/legal/privacy</loc>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://daoxe.com/docs/legal/privacy"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daoxe.com/docs/en/legal/privacy"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://daoxe.com/docs/ru/legal/privacy"/>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://daoxe.com/docs/vi/legal/privacy"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://daoxe.com/docs/legal/privacy"/>
+  </url>
+  <url>
+    <loc>https://daoxe.com/docs/vi/legal/privacy</loc>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://daoxe.com/docs/legal/privacy"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daoxe.com/docs/en/legal/privacy"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://daoxe.com/docs/ru/legal/privacy"/>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://daoxe.com/docs/vi/legal/privacy"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://daoxe.com/docs/legal/privacy"/>
+  </url>
+  <url>
+    <loc>https://daoxe.com/docs/legal/abuse</loc>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://daoxe.com/docs/legal/abuse"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daoxe.com/docs/en/legal/abuse"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://daoxe.com/docs/ru/legal/abuse"/>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://daoxe.com/docs/vi/legal/abuse"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://daoxe.com/docs/legal/abuse"/>
+  </url>
+  <url>
+    <loc>https://daoxe.com/docs/en/legal/abuse</loc>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://daoxe.com/docs/legal/abuse"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daoxe.com/docs/en/legal/abuse"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://daoxe.com/docs/ru/legal/abuse"/>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://daoxe.com/docs/vi/legal/abuse"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://daoxe.com/docs/legal/abuse"/>
+  </url>
+  <url>
+    <loc>https://daoxe.com/docs/ru/legal/abuse</loc>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://daoxe.com/docs/legal/abuse"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daoxe.com/docs/en/legal/abuse"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://daoxe.com/docs/ru/legal/abuse"/>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://daoxe.com/docs/vi/legal/abuse"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://daoxe.com/docs/legal/abuse"/>
+  </url>
+  <url>
+    <loc>https://daoxe.com/docs/vi/legal/abuse</loc>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://daoxe.com/docs/legal/abuse"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daoxe.com/docs/en/legal/abuse"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://daoxe.com/docs/ru/legal/abuse"/>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://daoxe.com/docs/vi/legal/abuse"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://daoxe.com/docs/legal/abuse"/>
+  </url>
+  <url>
+    <loc>https://daoxe.com/docs/changelog</loc>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://daoxe.com/docs/changelog"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daoxe.com/docs/en/changelog"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://daoxe.com/docs/ru/changelog"/>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://daoxe.com/docs/vi/changelog"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://daoxe.com/docs/changelog"/>
+  </url>
+  <url>
+    <loc>https://daoxe.com/docs/en/changelog</loc>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://daoxe.com/docs/changelog"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daoxe.com/docs/en/changelog"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://daoxe.com/docs/ru/changelog"/>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://daoxe.com/docs/vi/changelog"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://daoxe.com/docs/changelog"/>
+  </url>
+  <url>
+    <loc>https://daoxe.com/docs/ru/changelog</loc>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://daoxe.com/docs/changelog"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daoxe.com/docs/en/changelog"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://daoxe.com/docs/ru/changelog"/>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://daoxe.com/docs/vi/changelog"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://daoxe.com/docs/changelog"/>
+  </url>
+  <url>
+    <loc>https://daoxe.com/docs/vi/changelog</loc>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://daoxe.com/docs/changelog"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daoxe.com/docs/en/changelog"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://daoxe.com/docs/ru/changelog"/>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://daoxe.com/docs/vi/changelog"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://daoxe.com/docs/changelog"/>
+  </url>
+  <url>
+    <loc>https://daoxe.com/docs/changelog/glossary</loc>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://daoxe.com/docs/changelog/glossary"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daoxe.com/docs/en/changelog/glossary"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://daoxe.com/docs/ru/changelog/glossary"/>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://daoxe.com/docs/vi/changelog/glossary"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://daoxe.com/docs/changelog/glossary"/>
+  </url>
+  <url>
+    <loc>https://daoxe.com/docs/en/changelog/glossary</loc>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://daoxe.com/docs/changelog/glossary"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daoxe.com/docs/en/changelog/glossary"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://daoxe.com/docs/ru/changelog/glossary"/>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://daoxe.com/docs/vi/changelog/glossary"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://daoxe.com/docs/changelog/glossary"/>
+  </url>
+  <url>
+    <loc>https://daoxe.com/docs/ru/changelog/glossary</loc>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://daoxe.com/docs/changelog/glossary"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daoxe.com/docs/en/changelog/glossary"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://daoxe.com/docs/ru/changelog/glossary"/>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://daoxe.com/docs/vi/changelog/glossary"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://daoxe.com/docs/changelog/glossary"/>
+  </url>
+  <url>
+    <loc>https://daoxe.com/docs/vi/changelog/glossary</loc>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://daoxe.com/docs/changelog/glossary"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daoxe.com/docs/en/changelog/glossary"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://daoxe.com/docs/ru/changelog/glossary"/>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://daoxe.com/docs/vi/changelog/glossary"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://daoxe.com/docs/changelog/glossary"/>
+  </url>
+  <url>
+    <loc>https://daoxe.com/docs/changelog/install</loc>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://daoxe.com/docs/changelog/install"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daoxe.com/docs/en/changelog/install"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://daoxe.com/docs/ru/changelog/install"/>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://daoxe.com/docs/vi/changelog/install"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://daoxe.com/docs/changelog/install"/>
+  </url>
+  <url>
+    <loc>https://daoxe.com/docs/en/changelog/install</loc>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://daoxe.com/docs/changelog/install"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daoxe.com/docs/en/changelog/install"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://daoxe.com/docs/ru/changelog/install"/>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://daoxe.com/docs/vi/changelog/install"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://daoxe.com/docs/changelog/install"/>
+  </url>
+  <url>
+    <loc>https://daoxe.com/docs/ru/changelog/install</loc>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://daoxe.com/docs/changelog/install"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daoxe.com/docs/en/changelog/install"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://daoxe.com/docs/ru/changelog/install"/>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://daoxe.com/docs/vi/changelog/install"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://daoxe.com/docs/changelog/install"/>
+  </url>
+  <url>
+    <loc>https://daoxe.com/docs/vi/changelog/install</loc>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://daoxe.com/docs/changelog/install"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://daoxe.com/docs/en/changelog/install"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://daoxe.com/docs/ru/changelog/install"/>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://daoxe.com/docs/vi/changelog/install"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://daoxe.com/docs/changelog/install"/>
+  </url>
 </urlset>

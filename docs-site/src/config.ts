@@ -1,3 +1,5 @@
+import type { Lang } from './i18n-nav'
+
 /** Site config — edit freely. No new-api source changes required. */
 export const siteConfig = {
   brand: 'DaoXE',
@@ -210,17 +212,103 @@ export function apiUrl(path: string) {
 }
 
 /**
- * Absolute public URL of a docs route (`/guide/keys` →
- * `https://daoxe.com/docs/guide/keys`). Used for canonical links, Open Graph
- * URLs and the sitemap, all of which must agree on one spelling per page.
+ * Where the bundle is mounted, without the trailing slash (`/docs` in prod, ''
+ * at the site root). Comes from Vite's `base`; the prerender script sets the
+ * same value through `BASE_URL` so build-time and browser URLs agree.
  */
-export function docsUrl(path: string) {
+export const basePath = (import.meta.env.BASE_URL || '/').replace(/\/+$/, '')
+
+/** Languages that get their own URL space. */
+export const ROUTE_LANGS = ['zh', 'en', 'ru', 'vi'] as const satisfies readonly Lang[]
+
+/**
+ * The default language keeps the historical prefix-free URLs
+ * (`/docs/guide/keys`). Those are the ones search engines already indexed and
+ * external pages already link to, so giving them a `/zh/` prefix would put 59
+ * live URLs behind a redirect for no ranking gain. The other three languages —
+ * which had no URLs of their own at all — live under `/docs/<lang>/…`.
+ */
+export const DEFAULT_LANG: Lang = 'zh'
+
+/** Per-language document metadata. One source for the app and the SEO scripts. */
+export const LANG_META: Record<Lang, { html: string; hreflang: string; ogLocale: string }> = {
+  zh: { html: 'zh-CN', hreflang: 'zh', ogLocale: 'zh_CN' },
+  en: { html: 'en', hreflang: 'en', ogLocale: 'en_US' },
+  ru: { html: 'ru', hreflang: 'ru', ogLocale: 'ru_RU' },
+  vi: { html: 'vi', hreflang: 'vi', ogLocale: 'vi_VN' },
+}
+
+/** URL segment for a language — empty for the default one. */
+export function langPrefix(lang: Lang) {
+  return lang === DEFAULT_LANG ? '' : `/${lang}`
+}
+
+function normalizeRoute(path: string) {
+  if (!path || path === '/') return ''
+  return (path.startsWith('/') ? path : `/${path}`).replace(/\/$/, '')
+}
+
+/**
+ * Split a browser pathname into the docs language and the in-app route.
+ * `prefixed` reports whether the URL carried an explicit language segment, so
+ * callers can normalize `/docs/zh/x` (a valid spelling nobody should link to)
+ * back onto the canonical `/docs/x`.
+ */
+export function splitLangPath(pathname: string): { lang: Lang; path: string; prefixed: boolean } {
+  let rest = pathname
+  if (basePath && rest.startsWith(basePath)) rest = rest.slice(basePath.length)
+  if (!rest.startsWith('/')) rest = `/${rest}`
+  const [, head, ...tail] = rest.split('/')
+  const match = ROUTE_LANGS.find((l) => l === head)
+  if (!match) return { lang: DEFAULT_LANG, path: normalizeRoute(rest) || '/', prefixed: false }
+  return { lang: match, path: normalizeRoute(`/${tail.join('/')}`) || '/', prefixed: true }
+}
+
+/** Router basename for a language: `/docs` for zh, `/docs/en` for English. */
+export function routerBasename(lang: Lang) {
+  return `${basePath}${langPrefix(lang)}` || '/'
+}
+
+/**
+ * Root-relative href of a docs route in a given language, for plain anchors
+ * (the language switcher and the suggestion banner). React Router `<Link to>`
+ * must NOT use this — the router's basename already carries the prefix.
+ */
+export function docsHref(path: string, lang: Lang = DEFAULT_LANG) {
+  const route = normalizeRoute(path)
+  const head = `${basePath}${langPrefix(lang)}`
+  return route ? `${head}${route}` : `${head}/`
+}
+
+/**
+ * Absolute public URL of a docs route (`/guide/keys` →
+ * `https://daoxe.com/docs/guide/keys`, or `…/docs/en/guide/keys`). Used for
+ * canonical links, hreflang, Open Graph URLs and the sitemap, all of which must
+ * agree on one spelling per page and language.
+ */
+export function docsUrl(path: string, lang: Lang = DEFAULT_LANG) {
   const origin = siteConfig.siteUrl.replace(/\/$/, '')
   const mount = siteConfig.docsPath.replace(/\/$/, '')
+  const head = `${origin}${mount}${langPrefix(lang)}`
+  const route = normalizeRoute(path)
   // The bare mount point 301s to the trailing-slash form (see deploy/*.conf),
   // so the index must advertise the post-redirect spelling.
-  if (!path || path === '/') return `${origin}${mount}/`
-  return `${origin}${mount}${path.replace(/\/$/, '')}`
+  return route ? `${head}${route}` : `${head}/`
+}
+
+/**
+ * hreflang set for one docs route: every language variant plus `x-default`.
+ * Search engines only honour hreflang when the declaration is reciprocal, so
+ * this single helper feeds the rendered <link> tags, the prerendered HTML and
+ * the sitemap — they cannot drift apart.
+ */
+export function langAlternates(path: string) {
+  const list = ROUTE_LANGS.map((lang) => ({
+    hreflang: LANG_META[lang].hreflang,
+    href: docsUrl(path, lang),
+  }))
+  list.push({ hreflang: 'x-default', href: docsUrl(path, DEFAULT_LANG) })
+  return list
 }
 
 /**
@@ -229,9 +317,9 @@ export function docsUrl(path: string) {
  * from `/docs/images/x.png`; at the site root it stays `/images/x.png`. Absolute
  * URLs and data URIs pass through untouched. Note: backend API calls use
  * `apiUrl` (absolute host), NOT this — they must never gain the /docs prefix.
+ * Language prefixes are deliberately absent: assets are shared by all four.
  */
 export function asset(path: string) {
   if (!path || /^(https?:|data:|\/\/)/i.test(path)) return path
-  const base = (import.meta.env.BASE_URL || '/').replace(/\/$/, '')
-  return path.startsWith('/') ? base + path : path
+  return path.startsWith('/') ? basePath + path : path
 }

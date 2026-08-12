@@ -19,11 +19,16 @@ const loaders: Record<Lang, () => Promise<Registry>> = {
 }
 
 const cache = new Map<Lang, Promise<Registry>>()
+const settled = new Map<Lang, Registry>()
+const chains = new Map<Lang, Registry[]>()
 
 function loadOne(lang: Lang): Promise<Registry> {
   let p = cache.get(lang)
   if (!p) {
-    p = loaders[lang]()
+    p = loaders[lang]().then((reg) => {
+      settled.set(lang, reg)
+      return reg
+    })
     cache.set(lang, p)
   }
   return p
@@ -42,9 +47,27 @@ function fallbackChain(lang: Lang): Lang[] {
   return [lang, 'en', 'zh']
 }
 
+/**
+ * The already-resolved chain for `lang`, or null while a chunk is still in
+ * flight. Lets the first render draw real content instead of a spinner, which
+ * is what makes the prerendered HTML and the hydrating client agree — the entry
+ * awaits `loadRegistries` before mounting (see main.tsx). The array identity is
+ * stable per language so adopting it again is a no-op re-render.
+ */
+export function peekRegistries(lang: Lang): Registry[] | null {
+  const cached = chains.get(lang)
+  if (cached) return cached
+  const parts = fallbackChain(lang).map((l) => settled.get(l))
+  if (parts.some((p) => !p)) return null
+  const chain = parts as Registry[]
+  chains.set(lang, chain)
+  return chain
+}
+
 /** Load exactly the registries needed to render + fall back for `lang`. */
-export function loadRegistries(lang: Lang): Promise<Registry[]> {
-  return Promise.all(fallbackChain(lang).map(loadOne))
+export async function loadRegistries(lang: Lang): Promise<Registry[]> {
+  await Promise.all(fallbackChain(lang).map(loadOne))
+  return peekRegistries(lang) as Registry[]
 }
 
 /** First registry in the fallback chain that has a renderer for `id`. */

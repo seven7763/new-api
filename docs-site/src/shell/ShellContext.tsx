@@ -78,6 +78,15 @@ function applyTheme(theme: ThemeMode) {
   if (meta) meta.setAttribute('content', dark ? '#020817' : '#fff')
 }
 
+function readCached<T>(key: string): T | null {
+  try {
+    const parsed = JSON.parse(localStorage.getItem(key) || 'null')
+    return parsed && typeof parsed === 'object' ? (parsed as T) : null
+  } catch {
+    return null
+  }
+}
+
 function hashOf(s: string) {
   let h = 5381
   for (let i = 0; i < s.length; i++) h = ((h << 5) + h + s.charCodeAt(i)) >>> 0
@@ -88,23 +97,20 @@ export function ShellProvider({ children }: { children: ReactNode }) {
   const [theme, setThemeState] = useState<ThemeMode>(() =>
     typeof window === 'undefined' ? 'system' : readTheme()
   )
-  const [status, setStatus] = useState<StatusData | null>(() => {
-    try {
-      return JSON.parse(localStorage.getItem('status') || 'null')
-    } catch {
-      return null
-    }
-  })
-  const [user, setUser] = useState<UserData | null>(() => {
-    try {
-      return JSON.parse(localStorage.getItem('user') || 'null')
-    } catch {
-      return null
-    }
-  })
+  // The cached status/user snapshots drive visible markup (brand, logo, header
+  // modules, avatar), so they are adopted in an effect rather than in a lazy
+  // initializer: the first client render has to match the prerendered HTML,
+  // which was produced without access to this browser's localStorage.
+  const [status, setStatus] = useState<StatusData | null>(null)
+  const [user, setUser] = useState<UserData | null>(null)
   const [noticeHtml, setNoticeHtml] = useState('')
   const [noticeHash, setNoticeHash] = useState('')
   const [noticeUnread, setNoticeUnread] = useState(false)
+
+  useEffect(() => {
+    setStatus((prev) => prev ?? readCached<StatusData>('status'))
+    setUser((prev) => prev ?? readCached<UserData>('user'))
+  }, [])
 
   useEffect(() => {
     applyTheme(theme)
@@ -170,13 +176,7 @@ export function ShellProvider({ children }: { children: ReactNode }) {
     setNoticeUnread(false)
   }
 
-  const refreshUser = () => {
-    try {
-      setUser(JSON.parse(localStorage.getItem('user') || 'null'))
-    } catch {
-      setUser(null)
-    }
-  }
+  const refreshUser = () => setUser(readCached<UserData>('user'))
 
   const refreshStatus = async () => {
     try {

@@ -1,10 +1,34 @@
-import { defineConfig, loadEnv } from 'vite'
+import { defineConfig, loadEnv, type Plugin } from 'vite'
 import react from '@vitejs/plugin-react'
 import tailwindcss from '@tailwindcss/vite'
+import { existsSync } from 'node:fs'
 import path from 'node:path'
 // Plugin is excluded from the browser tsconfig; Vite still loads it at runtime.
 // @ts-expect-error — Node middleware plugin, not part of the client typecheck graph
 import { docsAssistantProxyPlugin } from './src/vite-plugin-assistant-proxy.ts'
+
+/**
+ * `vite preview` otherwise answers every unknown path with dist/index.html,
+ * which since prerendering is the zh docs index — so previewing /docs/en/… would
+ * show the wrong page and hydrate mismatched markup. nginx resolves these from
+ * <route>/index.html (see deploy/daoxe-docs.conf); this makes preview agree.
+ */
+function prerenderedRoutesPlugin(): Plugin {
+  const dist = path.resolve(__dirname, 'dist')
+  return {
+    name: 'docs-prerendered-routes',
+    configurePreviewServer(server) {
+      server.middlewares.use((req, _res, next) => {
+        const [pathname] = (req.url || '/').split('?')
+        const rel = pathname.replace(/^\/docs\//, '').replace(/\/+$/, '')
+        if (rel && existsSync(path.join(dist, rel, 'index.html'))) {
+          req.url = `/docs/${rel}/index.html`
+        }
+        next()
+      })
+    },
+  }
+}
 
 export default defineConfig(({ mode }) => {
   // Load server-only vars (no VITE_ prefix) into process.env for the proxy plugin.
@@ -25,7 +49,7 @@ export default defineConfig(({ mode }) => {
   }
 
   return {
-    plugins: [react(), tailwindcss(), docsAssistantProxyPlugin()],
+    plugins: [react(), tailwindcss(), docsAssistantProxyPlugin(), prerenderedRoutesPlugin()],
     resolve: {
       alias: {
         '@': path.resolve(__dirname, 'src'),

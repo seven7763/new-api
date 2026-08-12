@@ -1,12 +1,5 @@
-import {
-  createContext,
-  useCallback,
-  useContext,
-  useEffect,
-  useMemo,
-  useState,
-  type ReactNode,
-} from 'react'
+import { createContext, useCallback, useContext, useEffect, useMemo, type ReactNode } from 'react'
+import { LANG_META } from '@/config'
 
 /** UI languages for shell + nav */
 export type Lang = 'zh' | 'en' | 'ru' | 'vi'
@@ -130,6 +123,13 @@ const zh: Dict = {
   'assistant.suggest.baseurl': 'Base URL 怎么填？',
   'assistant.suggest.keys': '如何创建 API 密钥？',
   'assistant.suggest.errors': '401 / 模型不存在怎么排查？',
+  'seo.siteDescription':
+    '{brand} 文档 — OpenAI / Anthropic / Gemini 兼容的 AI API 网关。快速开始、客户端接入、API 参考、计费说明与常见问题。',
+  'seo.pageDescription':
+    '{title} — {brand} {group}。OpenAI / Anthropic / Gemini 兼容的 AI API 网关文档。',
+  'lang.suggest.text': '本页也有中文版本。',
+  'lang.suggest.action': '切换到中文',
+  'lang.suggest.dismiss': '不用了',
 }
 
 const en: Dict = {
@@ -244,6 +244,13 @@ const en: Dict = {
   'assistant.suggest.baseurl': 'What Base URL should I use?',
   'assistant.suggest.keys': 'How do I create an API key?',
   'assistant.suggest.errors': 'How do I debug 401 / model_not_found?',
+  'seo.siteDescription':
+    '{brand} docs — an OpenAI / Anthropic / Gemini compatible AI API gateway. Quick start, client setup, API reference, billing and FAQ.',
+  'seo.pageDescription':
+    '{title} — {brand} {group}. Docs for an OpenAI / Anthropic / Gemini compatible AI API gateway.',
+  'lang.suggest.text': 'This page is also available in English.',
+  'lang.suggest.action': 'Switch to English',
+  'lang.suggest.dismiss': 'No thanks',
 }
 
 const ru: Dict = {
@@ -358,6 +365,13 @@ const ru: Dict = {
   'assistant.suggest.baseurl': 'Какой Base URL указать?',
   'assistant.suggest.keys': 'Как создать API-ключ?',
   'assistant.suggest.errors': 'Как разбирать 401 / model_not_found?',
+  'seo.siteDescription':
+    'Документация {brand} — шлюз AI API, совместимый с OpenAI / Anthropic / Gemini. Быстрый старт, подключение клиентов, справочник API, тарифы и частые вопросы.',
+  'seo.pageDescription':
+    '{title} — {brand} {group}. Документация шлюза AI API, совместимого с OpenAI / Anthropic / Gemini.',
+  'lang.suggest.text': 'Эта страница доступна на русском.',
+  'lang.suggest.action': 'Открыть на русском',
+  'lang.suggest.dismiss': 'Не нужно',
 }
 
 const vi: Dict = {
@@ -472,6 +486,13 @@ const vi: Dict = {
   'assistant.suggest.baseurl': 'Điền Base URL ra sao?',
   'assistant.suggest.keys': 'Tạo API key thế nào?',
   'assistant.suggest.errors': 'Gỡ lỗi 401 / model_not_found?',
+  'seo.siteDescription':
+    'Tài liệu {brand} — cổng AI API tương thích OpenAI / Anthropic / Gemini. Bắt đầu nhanh, kết nối client, tham chiếu API, cách tính phí và câu hỏi thường gặp.',
+  'seo.pageDescription':
+    '{title} — {brand} {group}. Tài liệu cổng AI API tương thích OpenAI / Anthropic / Gemini.',
+  'lang.suggest.text': 'Trang này cũng có bản tiếng Việt.',
+  'lang.suggest.action': 'Chuyển sang tiếng Việt',
+  'lang.suggest.dismiss': 'Không cần',
 }
 
 const dicts: Record<Lang, Dict> = { zh, en, ru, vi }
@@ -492,68 +513,77 @@ export function pickLang<T>(lang: Lang, m: { zh: T; en: T; ru?: T; vi?: T }): T 
 
 type I18nCtx = {
   lang: Lang
-  setLang: (l: Lang) => void
   t: (key: string) => string
 }
 
 const Ctx = createContext<I18nCtx | null>(null)
 const LANG_KEY = 'dx_docs_lang'
 
-function readLang(): Lang {
+function isLang(v: unknown): v is Lang {
+  return v === 'zh' || v === 'en' || v === 'ru' || v === 'vi'
+}
+
+/** Look a key up in an explicit language — for copy aimed at speakers of *another* language. */
+export function translate(lang: Lang, key: string) {
+  return dicts[lang][key] ?? dicts.zh[key] ?? key
+}
+
+/**
+ * The language the visitor would probably rather read, from their last explicit
+ * choice and then from `Accept-Language` (as exposed by `navigator`). It never
+ * decides what a page renders — the URL does that — so it cannot desync
+ * hydration; it only powers the "also available in …" hint. Returns null
+ * outside the browser or when nothing usable is stored.
+ */
+export function preferredLang(): Lang | null {
   try {
-    const v = localStorage.getItem(LANG_KEY)
-    if (v === 'en' || v === 'zh' || v === 'ru' || v === 'vi') return v
+    const stored = localStorage.getItem(LANG_KEY)
+    if (isLang(stored)) return stored
   } catch {
     /* ignore */
   }
   try {
-    const nav = (navigator.language || '').toLowerCase()
-    if (nav.startsWith('zh')) return 'zh'
-    if (nav.startsWith('ru')) return 'ru'
-    if (nav.startsWith('vi')) return 'vi'
-    if (nav.startsWith('en')) return 'en'
+    const tags = navigator.languages?.length ? navigator.languages : [navigator.language]
+    for (const raw of tags) {
+      const tag = (raw || '').toLowerCase()
+      if (tag.startsWith('zh')) return 'zh'
+      if (tag.startsWith('ru')) return 'ru'
+      if (tag.startsWith('vi')) return 'vi'
+      if (tag.startsWith('en')) return 'en'
+    }
   } catch {
     /* ignore */
   }
-  return 'zh'
+  return null
+}
+
+/** Persist an explicit language choice before navigating to that language's URL. */
+export function rememberLang(lang: Lang) {
+  try {
+    localStorage.setItem(LANG_KEY, lang)
+  } catch {
+    /* ignore */
+  }
 }
 
 export function htmlLang(l: Lang) {
-  return ({ zh: 'zh-CN', en: 'en', ru: 'ru', vi: 'vi' } as const)[l]
+  return LANG_META[l].html
 }
 
-export function I18nProvider({
-  children,
-  forceLang,
-}: {
-  children?: ReactNode
-  /** pin the language (used by the search indexer's static renders) */
-  forceLang?: Lang
-}) {
-  const [lang, setLangState] = useState<Lang>(() =>
-    forceLang ?? (typeof window === 'undefined' ? 'zh' : readLang())
-  )
-
-  const setLang = useCallback((l: Lang) => {
-    setLangState(l)
-    try {
-      localStorage.setItem(LANG_KEY, l)
-    } catch {
-      /* ignore */
-    }
-    document.documentElement.lang = htmlLang(l)
-  }, [])
-
+/**
+ * The active language is a property of the URL (see `splitLangPath`), which is
+ * why it arrives as a prop instead of being read from storage during render:
+ * a stored preference would make the first client render disagree with the
+ * prerendered HTML. Switching languages is a navigation, not a state update.
+ */
+export function I18nProvider({ children, lang }: { children?: ReactNode; lang: Lang }) {
   useEffect(() => {
     document.documentElement.lang = htmlLang(lang)
   }, [lang])
 
-  const t = useCallback(
-    (key: string) => dicts[lang][key] ?? dicts.zh[key] ?? key,
-    [lang]
-  )
+  const t = useCallback((key: string) => translate(lang, key), [lang])
 
-  const value = useMemo(() => ({ lang, setLang, t }), [lang, setLang, t])
+  const value = useMemo(() => ({ lang, t }), [lang, t])
   return <Ctx.Provider value={value}>{children}</Ctx.Provider>
 }
 

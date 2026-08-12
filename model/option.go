@@ -239,6 +239,11 @@ const (
 // The persisted option row is the source of truth, not common.InviteTopupRebateEnabledAt:
 // while loadOptionsFromDatabase replays the stored rows the in-memory value is still the
 // Go zero value, so deciding from memory restamps the cutoff on every process start.
+//
+// The write goes through UpdateOptionsBulk rather than UpdateOption because UpdateOption
+// ignores the result of its DB.Save. A silently dropped stamp looks healthy until the
+// next restart, after which the cutoff reads as zero and every later top-up is judged
+// against a cutoff that does not exist.
 func stampInviteTopupRebateEnabledCutoff() error {
 	var existing Option
 	err := DB.Where(&Option{Key: inviteTopupRebateEnabledAtKey}).First(&existing).Error
@@ -251,7 +256,9 @@ func stampInviteTopupRebateEnabledCutoff() error {
 	} else if !errors.Is(err, gorm.ErrRecordNotFound) {
 		return err
 	}
-	return UpdateOption(inviteTopupRebateEnabledAtKey, strconv.FormatInt(common.GetTimestamp(), 10))
+	return UpdateOptionsBulk(map[string]string{
+		inviteTopupRebateEnabledAtKey: strconv.FormatInt(common.GetTimestamp(), 10),
+	})
 }
 
 func UpdateOption(key string, value string) error {
@@ -269,14 +276,16 @@ func UpdateOption(key string, value string) error {
 	// If save value does not contain primary key, it will execute Create,
 	// otherwise it will execute Update (with all fields).
 	DB.Save(&option)
-	// Update OptionMap
-	if err := updateOptionMap(key, value); err != nil {
-		return err
-	}
+	// Stamp the rebate cutoff before updateOptionMap flips the in-memory switch: a
+	// top-up settling in between would see the feature enabled with no cutoff, and
+	// GrantInviteTopupRebate can only defer such an order, never pay it.
 	if key == inviteTopupRebateEnabledKey && value == "true" {
-		return stampInviteTopupRebateEnabledCutoff()
+		if err := stampInviteTopupRebateEnabledCutoff(); err != nil {
+			return err
+		}
 	}
-	return nil
+	// Update OptionMap
+	return updateOptionMap(key, value)
 }
 
 // UpdateOptionsBulk persists multiple key/value pairs in a single database
@@ -309,13 +318,17 @@ func UpdateOptionsBulk(values map[string]string) error {
 	if err != nil {
 		return err
 	}
+	// Same ordering rule as UpdateOption: the cutoff must be durable before the
+	// in-memory feature switch flips.
+	if values[inviteTopupRebateEnabledKey] == "true" {
+		if err := stampInviteTopupRebateEnabledCutoff(); err != nil {
+			return err
+		}
+	}
 	for k, v := range values {
 		if err := updateOptionMap(k, v); err != nil {
 			return err
 		}
-	}
-	if values[inviteTopupRebateEnabledKey] == "true" {
-		return stampInviteTopupRebateEnabledCutoff()
 	}
 	return nil
 }

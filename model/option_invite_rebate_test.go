@@ -1,6 +1,7 @@
 package model
 
 import (
+	"errors"
 	"strconv"
 	"testing"
 
@@ -114,6 +115,32 @@ func TestUpdateOptionKeepsInviteRebateCutoffAcrossToggle(t *testing.T) {
 	require.NoError(t, UpdateOption(inviteTopupRebateEnabledKey, "true"))
 
 	assert.Equal(t, persisted, requireStoredOption(t, db, inviteTopupRebateEnabledAtKey))
+}
+
+// The cutoff is a second option row written after the enable row, and UpdateOption
+// discards the result of its own DB.Save. A lost stamp is invisible until the next
+// restart, after which the feature comes back enabled with a zero cutoff and every
+// later top-up is judged against a cutoff that does not exist. So the enable must fail
+// as a whole: the administrator sees the error and the in-memory switch stays off.
+func TestUpdateOptionRefusesToEnableInviteRebateWhenCutoffCannotBeStamped(t *testing.T) {
+	db := useFreshOptionStore(t)
+	rejectStampWrite := func(tx *gorm.DB) {
+		if option, ok := tx.Statement.Dest.(*Option); ok && option.Key == inviteTopupRebateEnabledAtKey {
+			tx.AddError(errors.New("injected option write failure"))
+		}
+	}
+	require.NoError(t, db.Callback().Create().Before("gorm:create").Register("test:reject_stamp_create", rejectStampWrite))
+	require.NoError(t, db.Callback().Update().Before("gorm:update").Register("test:reject_stamp_update", rejectStampWrite))
+
+	require.Error(t, UpdateOption(inviteTopupRebateEnabledKey, "true"))
+
+	assert.False(t, common.InviteTopupRebateEnabled)
+	assert.Zero(t, common.InviteTopupRebateEnabledAt)
+	assert.NotContains(t, common.OptionMap, inviteTopupRebateEnabledKey)
+
+	var stamps []Option
+	require.NoError(t, db.Where(&Option{Key: inviteTopupRebateEnabledAtKey}).Find(&stamps).Error)
+	assert.Empty(t, stamps)
 }
 
 func TestUpdateOptionsBulkStampsInviteRebateCutoff(t *testing.T) {

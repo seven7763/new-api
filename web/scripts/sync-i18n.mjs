@@ -29,6 +29,19 @@ const OBFUSCATED_KEYS = [
   },
 ]
 
+// JSON.stringify writes these keys with the escape resolved, so stableStringify
+// restores the escaped spelling afterwards. Reject any entry that is not
+// actually an escaped spelling of its runtime key before a file is rewritten.
+for (const key of OBFUSCATED_KEYS) {
+  const decoded = Object.keys(JSON.parse(`{"${key.serialized}":0}`))[0]
+  if (decoded !== key.runtime || key.serialized === key.runtime) {
+    throw new Error(
+      `OBFUSCATED_KEYS entry for "${key.runtime}" is not a JSON-escaped spelling of that key. ` +
+        `Writing it literally would strip the project attribution protection.`
+    )
+  }
+}
+
 const BRAND_AND_LITERAL_KEYS = new Set([
   'AI Proxy',
   'AIGC2D',
@@ -272,6 +285,7 @@ async function main() {
     locales: {},
   }
 
+  const obfuscatedKeysOnDisk = new Set()
   const extrasDir = path.join(LOCALES_DIR, '_extras')
   const reportsDir = path.join(LOCALES_DIR, '_reports')
   await fs.mkdir(extrasDir, { recursive: true })
@@ -336,7 +350,22 @@ async function main() {
     }
 
     // Rewrite locale file in base order (even for en to normalize formatting)
-    await fs.writeFile(full, stableStringify(fixed), 'utf8')
+    const serialized = stableStringify(fixed)
+    for (const key of OBFUSCATED_KEYS) {
+      if (serialized.includes(`"${key.serialized}":`)) {
+        obfuscatedKeysOnDisk.add(key.runtime)
+      }
+    }
+    await fs.writeFile(full, serialized, 'utf8')
+  }
+
+  for (const key of OBFUSCATED_KEYS) {
+    if (!obfuscatedKeysOnDisk.has(key.runtime)) {
+      throw new Error(
+        `Protected key "${key.runtime}" was not written to any locale file. ` +
+          `Restore it (escaped as "${key.serialized}") before syncing.`
+      )
+    }
   }
 
   await fs.writeFile(

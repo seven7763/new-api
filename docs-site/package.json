@@ -5,8 +5,10 @@
   "type": "module",
   "scripts": {
     "gen:search": "bun scripts/gen-search-index.ts",
-    "dev": "bun scripts/gen-search-index.ts && vite",
-    "build": "tsc -b && bun scripts/gen-search-index.ts && vite build",
+    "gen:seo": "bun scripts/gen-seo.ts",
+    "typecheck": "tsc -b",
+    "dev": "bun scripts/gen-search-index.ts && bun scripts/gen-seo.ts && vite",
+    "build": "tsc -b && bun scripts/gen-search-index.ts && bun scripts/gen-seo.ts && vite build",
     "preview": "vite preview",
     "assistant:proxy": "bun server/assistant-proxy.ts",
     "assistant:tg": "bun server/telegram-bot.ts"
@@ -27,10 +29,14 @@
     "lucide-react": "^1.25.0",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
-    "react-router-dom": "^7.6.2",
+    "react-router-dom": "^7.18.2",
     "shiki": "^4.3.1",
     "tailwind-merge": "^3.6.0",
     "tw-animate-css": "^1.4.0"
+  },
+  "overrides": {
+    "postcss": "^8.5.26",
+    "nanoid": "^3.3.17"
   },
   "devDependencies": {
     "@tailwindcss/vite": "^4.3.3",

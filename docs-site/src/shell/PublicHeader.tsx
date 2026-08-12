@@ -54,6 +54,7 @@ import {
 } from '@/components/ui/tooltip'
 import { Badge } from '@/components/ui/badge'
 import { simpleMarkdownToHtml } from '@/lib/markdown'
+import { sanitizeHtml } from '@/lib/sanitize-html'
 
 function parseBool(raw: unknown, fallback: boolean) {
   if (typeof raw === 'boolean') return raw
@@ -442,7 +443,9 @@ export function PublicHeader() {
             <div
               className="prose prose-sm dark:prose-invert text-sm leading-relaxed [&_a]:text-primary [&_a]:underline [&_h1]:text-lg [&_h1]:font-bold [&_h1]:mb-3 [&_h2]:text-base [&_h2]:font-semibold [&_h2]:mb-2 [&_p]:mb-2.5 [&_strong]:font-semibold"
               dangerouslySetInnerHTML={{
-                __html: simpleMarkdownToHtml(noticeHtml) || `<p class="text-muted-foreground">${t('nav.noticeEmpty')}</p>`,
+                __html:
+                  sanitizeHtml(simpleMarkdownToHtml(noticeHtml)) ||
+                  `<p class="text-muted-foreground">${t('nav.noticeEmpty')}</p>`,
               }}
             />
           </ScrollArea>

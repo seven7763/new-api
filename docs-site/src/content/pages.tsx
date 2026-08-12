@@ -165,12 +165,12 @@ export const content: Record<string, () => ReactNode> = {
   console: () => (
     <Page title="控制台导览" lead="登录后的常用入口（以站内实际菜单为准）。">
       <Shot
-        src="/images/guide/daoxe/04-console.png"
+        src="/images/guide/daoxe/04-console.webp"
         alt="控制台概览"
         caption="控制台概览（请用登录后实拍替换）"
       />
       <Shot
-        src="/images/guide/daoxe/06-onboarding.png"
+        src="/images/guide/daoxe/06-onboarding.webp"
         alt="新手引导 / 开始使用步骤"
         caption="概览页引导或「开始使用」步骤区（请登录后实拍）"
       />
@@ -239,10 +239,10 @@ export const content: Record<string, () => ReactNode> = {
           </>,
         ]}
       />
-      <Shot src="/images/guide/daoxe/01-home.png" alt="首页" caption="DaoXE 首页（实拍）" />
-      <Shot src="/images/guide/daoxe/03-login.png" alt="登录页" caption="登录页（实拍）" />
-      <Shot src="/images/guide/daoxe/03b-signup.png" alt="注册页" caption="注册页（实拍）" />
-      <Shot src="/images/guide/daoxe/02-pricing.png" alt="模型广场" caption="模型广场（公开页实拍）" />
+      <Shot src="/images/guide/daoxe/01-home.webp" alt="首页" caption="DaoXE 首页（实拍）" />
+      <Shot src="/images/guide/daoxe/03-login.webp" alt="登录页" caption="登录页（实拍）" />
+      <Shot src="/images/guide/daoxe/03b-signup.webp" alt="注册页" caption="注册页（实拍）" />
+      <Shot src="/images/guide/daoxe/02-pricing.webp" alt="模型广场" caption="模型广场（公开页实拍）" />
       <CardGrid>
         <Card href={absSite('/sign-in')} title="登录 ↗" desc="daoxe.com/sign-in" />
         <Card href={absSite('/sign-up')} title="注册 ↗" desc="daoxe.com/sign-up" />
@@ -262,7 +262,7 @@ export const content: Record<string, () => ReactNode> = {
         ]}
       />
       <Shot
-        src="/images/guide/daoxe/05-wallet.png"
+        src="/images/guide/daoxe/05-wallet.webp"
         alt="钱包"
         caption="钱包页：充值 / 订阅 / 兑换（请登录后实拍）"
       />
@@ -292,7 +292,7 @@ export const content: Record<string, () => ReactNode> = {
         ]}
       />
       <Shot
-        src="/images/guide/daoxe/07-create-key.png"
+        src="/images/guide/daoxe/07-create-key.webp"
         alt="创建密钥"
         caption="创建 API 密钥表单（请登录后实拍，打码密钥）"
       />
@@ -309,7 +309,7 @@ export const content: Record<string, () => ReactNode> = {
     <Page title="线路与 Base URL" lead="主机与协议以公开接口为准；下列线路来自 status.api_info（实时）。">
       <LiveRoutesBlock />
       <Shot
-        src="/images/guide/daoxe/10-api-routes.png"
+        src="/images/guide/daoxe/10-api-routes.webp"
         alt="控制台 API 信息卡片：已配置路由和延迟检测"
         caption="控制台「API 信息」卡片 · 已配置线路与延迟检测，与上方实时列表同源（实拍）"
       />
@@ -1157,7 +1157,7 @@ for attempt in range(5):
   'billing-logs': () => (
     <Page title="余额与日志" lead="对账与异常扣费第一现场。">
       <Shot
-        src="/images/guide/daoxe/08-logs.png"
+        src="/images/guide/daoxe/08-logs.webp"
         alt="用量日志"
         caption="用量日志列表（实拍）"
       />
@@ -1171,7 +1171,7 @@ for attempt in range(5):
         控制台「概览」页汇总近 24 小时消耗、总消耗、成功率、平均延迟与流量最高的模型——排查扣费或稳定性问题时先看这里，再进日志逐条核对。
       </p>
       <Shot
-        src="/images/guide/daoxe/09-dashboard.png"
+        src="/images/guide/daoxe/09-dashboard.webp"
         alt="控制台数据看板"
         caption="控制台概览 · 消耗曲线与用量统计（实拍）"
       />
@@ -1190,7 +1190,7 @@ for attempt in range(5):
       lead="最终价格 = 模型基础价 × 分组倍率。价格与分组均为实时数据，以接口与模型广场为准。"
     >
       <Shot
-        src="/images/guide/daoxe/02-pricing.png"
+        src="/images/guide/daoxe/02-pricing.webp"
         alt="模型广场"
         caption="模型广场公开页实拍"
       />
@@ -1243,7 +1243,7 @@ for attempt in range(5):
   wallet: () => (
     <Page title="钱包与订单" lead="钱包页集中了余额、充值、订阅与订单记录，是所有资金操作的入口。">
       <Shot
-        src="/images/guide/daoxe/05-wallet.png"
+        src="/images/guide/daoxe/05-wallet.webp"
         alt="钱包"
         caption="钱包页（与充值专章同一实拍）"
       />
@@ -1301,7 +1301,7 @@ for attempt in range(5):
       lead="模型广场是全量价目与分组信息的权威入口；文档内的推荐模型表是它的实时抽样视图。"
     >
       <Shot
-        src="/images/guide/daoxe/02-pricing.png"
+        src="/images/guide/daoxe/02-pricing.webp"
         alt="模型广场"
         caption="模型广场（公开页实拍）"
       />

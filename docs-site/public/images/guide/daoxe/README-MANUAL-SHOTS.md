@@ -21,6 +21,21 @@
 ### 建议
 - 窗口约 1440×900
 - 打码余额、邮箱、完整密钥
-- PNG 丢进本目录即可，刷新文档站
 
-文档里对应 Shot 已写好路径；缺文件会显示加载失败。
+### 存成 WebP（本目录已全量转换）
+截好的 PNG 先转 WebP 再放进来，文件名保持表格里的名字、后缀改 `.webp`：
+
+```bash
+cwebp -q 82 -m 6 04-console.png -o 04-console.webp
+```
+
+文档里对应 Shot 已写好路径；缺文件会显示「加载失败」占位块（不会报错）。
+
+## 还缺的客户端截图
+
+`src/content/client-guides/` 里以下 7 张仍指向不存在的文件，页面上会显示占位块。
+补图时放到 `public/images/guide/clients/` 并把引用改成 `.webp`：
+
+`cherry-studio-provider` · `chatbox-provider` · `lobe-chat-provider` ·
+`nextchat-endpoint` · `open-webui-connection` · `immersive-translate` ·
+`gemini-cli-auth`

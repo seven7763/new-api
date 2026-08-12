@@ -165,12 +165,12 @@ export const contentEn: Record<string, () => ReactNode> = {
   console: () => (
     <Page title="Console tour" lead="Common entries after signing in (the live console menu prevails).">
       <Shot
-        src="/images/guide/daoxe/04-console.png"
+        src="/images/guide/daoxe/04-console.webp"
         alt="Console overview"
         caption="Console overview"
       />
       <Shot
-        src="/images/guide/daoxe/06-onboarding.png"
+        src="/images/guide/daoxe/06-onboarding.webp"
         alt="Onboarding guide"
         caption="Overview page onboarding / “Get started” steps"
       />
@@ -236,10 +236,10 @@ export const contentEn: Record<string, () => ReactNode> = {
           </>,
         ]}
       />
-      <Shot src="/images/guide/daoxe/01-home.png" alt="Home page" caption="DaoXE home page" />
-      <Shot src="/images/guide/daoxe/03-login.png" alt="Sign-in page" caption="Sign-in page" />
-      <Shot src="/images/guide/daoxe/03b-signup.png" alt="Sign-up page" caption="Sign-up page" />
-      <Shot src="/images/guide/daoxe/02-pricing.png" alt="Model marketplace" caption="Model Marketplace (public page)" />
+      <Shot src="/images/guide/daoxe/01-home.webp" alt="Home page" caption="DaoXE home page" />
+      <Shot src="/images/guide/daoxe/03-login.webp" alt="Sign-in page" caption="Sign-in page" />
+      <Shot src="/images/guide/daoxe/03b-signup.webp" alt="Sign-up page" caption="Sign-up page" />
+      <Shot src="/images/guide/daoxe/02-pricing.webp" alt="Model marketplace" caption="Model Marketplace (public page)" />
       <CardGrid>
         <Card href={absSite('/sign-in')} title="Sign in ↗" desc="daoxe.com/sign-in" />
         <Card href={absSite('/sign-up')} title="Sign up ↗" desc="daoxe.com/sign-up" />
@@ -259,7 +259,7 @@ export const contentEn: Record<string, () => ReactNode> = {
         ]}
       />
       <Shot
-        src="/images/guide/daoxe/05-wallet.png"
+        src="/images/guide/daoxe/05-wallet.webp"
         alt="Wallet"
         caption="Wallet page: top-up / subscription / redeem"
       />
@@ -289,7 +289,7 @@ export const contentEn: Record<string, () => ReactNode> = {
         ]}
       />
       <Shot
-        src="/images/guide/daoxe/07-create-key.png"
+        src="/images/guide/daoxe/07-create-key.webp"
         alt="Create key"
         caption="Create API key form (key masked)"
       />
@@ -304,7 +304,7 @@ export const contentEn: Record<string, () => ReactNode> = {
     <Page title="Routes & Base URL" lead="Hosts and protocols follow the public API; the routes below come live from status.api_info.">
       <LiveRoutesBlock />
       <Shot
-        src="/images/guide/daoxe/10-api-routes.png"
+        src="/images/guide/daoxe/10-api-routes.webp"
         alt="Console API info card with configured routes and latency checks"
         caption="Console “API info” card — configured routes with latency checks, same source as the live list above"
       />
@@ -1157,7 +1157,7 @@ for attempt in range(5):
   'billing-logs': () => (
     <Page title="Balance & logs" lead="The first place to look for reconciliation and unexpected charges.">
       <Shot
-        src="/images/guide/daoxe/08-logs.png"
+        src="/images/guide/daoxe/08-logs.webp"
         alt="Usage logs"
         caption="Usage log list"
       />
@@ -1172,7 +1172,7 @@ for attempt in range(5):
         start here for billing or stability issues, then drill into the logs.
       </p>
       <Shot
-        src="/images/guide/daoxe/09-dashboard.png"
+        src="/images/guide/daoxe/09-dashboard.webp"
         alt="Console dashboard"
         caption="Console overview · spend curves and usage stats"
       />
@@ -1191,7 +1191,7 @@ for attempt in range(5):
       lead="Final price = model base price × group ratio. Both are live data — the API and Model Marketplace prevail."
     >
       <Shot
-        src="/images/guide/daoxe/02-pricing.png"
+        src="/images/guide/daoxe/02-pricing.webp"
         alt="Model marketplace"
         caption="Model Marketplace (public page)"
       />
@@ -1243,7 +1243,7 @@ for attempt in range(5):
   wallet: () => (
     <Page title="Wallet & orders" lead="The wallet page gathers balance, top-ups, subscriptions and order history — the hub for money operations.">
       <Shot
-        src="/images/guide/daoxe/05-wallet.png"
+        src="/images/guide/daoxe/05-wallet.webp"
         alt="Wallet"
         caption="Wallet page (same screenshot as the top-up chapter)"
       />
@@ -1304,7 +1304,7 @@ for attempt in range(5):
       lead="The marketplace is the authoritative source for full prices and groups; the docs' recommended table is a live sample of it."
     >
       <Shot
-        src="/images/guide/daoxe/02-pricing.png"
+        src="/images/guide/daoxe/02-pricing.webp"
         alt="Model marketplace"
         caption="Model Marketplace (public page)"
       />

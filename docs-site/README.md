@@ -89,4 +89,13 @@ bun run assistant:tg
 
 登录 / 注册 / 协议全文 → 跳转 `daoxe.com`。本地不同源看不到登录头像；挂到同源 `/docs` 后共享 `localStorage.user`。
 
-旧版多页 HTML 备份在 `_legacy_html/`（可删）。
+旧版多页 HTML 备份在 `_legacy_html/`。**请勿删除**：它不参与构建（Vite 只拷贝 `public/`，产物里没有它），
+但 `deploy/daoxe-docs.conf` 里的 301 规则是照着它的目录结构写的 —— 老地址
+`/docs/pages/<组>/<页>.html` 会跳到对应 SPA 路由。删掉它就没有依据再核对这批重定向了。
+
+## SEO
+
+- `scripts/gen-seo.ts` 在 `dev` / `build` 时按 `src/config.ts` 的 nav 生成 `public/sitemap.xml`（59 条）和 `public/robots.txt`，新增页面不会漏。
+- `index.html` 里是给不执行 JS 的爬虫看的静态 meta / OG / Twitter / canonical 默认值；`src/lib/seo.ts` 在路由切换时刷新它们，并写入 JSON-LD（`Organization` + `WebSite`(SearchAction) + `BreadcrumbList` + `TechArticle`）。
+- **爬虫只认站点根目录的 robots.txt。** 本站挂在 `/docs/` 下，所以还需要在 `https://daoxe.com/robots.txt` 里加一行
+  `Sitemap: https://daoxe.com/docs/sitemap.xml`——那个文件属于主站，不在本目录内。

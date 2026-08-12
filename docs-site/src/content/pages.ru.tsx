@@ -165,12 +165,12 @@ export const contentRu: Record<string, () => ReactNode> = {
   console: () => (
     <Page title="Обзор консоли" lead="Основные разделы после входа (приоритет — актуальное меню консоли).">
       <Shot
-        src="/images/guide/daoxe/04-console.png"
+        src="/images/guide/daoxe/04-console.webp"
         alt="Обзор консоли"
         caption="Обзор консоли"
       />
       <Shot
-        src="/images/guide/daoxe/06-onboarding.png"
+        src="/images/guide/daoxe/06-onboarding.webp"
         alt="Гид для новичков"
         caption="Онбординг на странице обзора / шаги «Начать работу»"
       />
@@ -236,10 +236,10 @@ export const contentRu: Record<string, () => ReactNode> = {
           </>,
         ]}
       />
-      <Shot src="/images/guide/daoxe/01-home.png" alt="Главная страница" caption="Главная страница DaoXE" />
-      <Shot src="/images/guide/daoxe/03-login.png" alt="Страница входа" caption="Страница входа" />
-      <Shot src="/images/guide/daoxe/03b-signup.png" alt="Страница регистрации" caption="Страница регистрации" />
-      <Shot src="/images/guide/daoxe/02-pricing.png" alt="Витрина моделей" caption="Витрина моделей (публичная страница)" />
+      <Shot src="/images/guide/daoxe/01-home.webp" alt="Главная страница" caption="Главная страница DaoXE" />
+      <Shot src="/images/guide/daoxe/03-login.webp" alt="Страница входа" caption="Страница входа" />
+      <Shot src="/images/guide/daoxe/03b-signup.webp" alt="Страница регистрации" caption="Страница регистрации" />
+      <Shot src="/images/guide/daoxe/02-pricing.webp" alt="Витрина моделей" caption="Витрина моделей (публичная страница)" />
       <CardGrid>
         <Card href={absSite('/sign-in')} title="Войти ↗" desc="daoxe.com/sign-in" />
         <Card href={absSite('/sign-up')} title="Регистрация ↗" desc="daoxe.com/sign-up" />
@@ -259,7 +259,7 @@ export const contentRu: Record<string, () => ReactNode> = {
         ]}
       />
       <Shot
-        src="/images/guide/daoxe/05-wallet.png"
+        src="/images/guide/daoxe/05-wallet.webp"
         alt="Кошелёк"
         caption="Страница кошелька: пополнение / подписка / промокоды"
       />
@@ -289,7 +289,7 @@ export const contentRu: Record<string, () => ReactNode> = {
         ]}
       />
       <Shot
-        src="/images/guide/daoxe/07-create-key.png"
+        src="/images/guide/daoxe/07-create-key.webp"
         alt="Создание ключа"
         caption="Форма создания API-ключа (ключ замазан)"
       />
@@ -304,7 +304,7 @@ export const contentRu: Record<string, () => ReactNode> = {
     <Page title="Маршруты и Base URL" lead="Хосты и протоколы следуют публичному API; маршруты ниже приходят из status.api_info в реальном времени.">
       <LiveRoutesBlock />
       <Shot
-        src="/images/guide/daoxe/10-api-routes.png"
+        src="/images/guide/daoxe/10-api-routes.webp"
         alt="Карточка API info в консоли с настроенными маршрутами и проверкой задержки"
         caption="Карточка «API info» в консоли — настроенные маршруты с проверкой задержки, тот же источник, что и live-список выше"
       />
@@ -1158,7 +1158,7 @@ for attempt in range(5):
   'billing-logs': () => (
     <Page title="Баланс и логи" lead="Первое место для сверки и разбора неожиданных списаний.">
       <Shot
-        src="/images/guide/daoxe/08-logs.png"
+        src="/images/guide/daoxe/08-logs.webp"
         alt="Логи использования"
         caption="Список логов использования"
       />
@@ -1173,7 +1173,7 @@ for attempt in range(5):
         моделей — начинайте отсюда при проблемах с оплатой или стабильностью, затем углубляйтесь в логи.
       </p>
       <Shot
-        src="/images/guide/daoxe/09-dashboard.png"
+        src="/images/guide/daoxe/09-dashboard.webp"
         alt="Панель консоли"
         caption="Обзор консоли · кривые расхода и статистика использования"
       />
@@ -1192,7 +1192,7 @@ for attempt in range(5):
       lead="Итоговая цена = базовая цена модели × коэффициент группы. Оба значения — live-данные; приоритет у API и витрины моделей."
     >
       <Shot
-        src="/images/guide/daoxe/02-pricing.png"
+        src="/images/guide/daoxe/02-pricing.webp"
         alt="Витрина моделей"
         caption="Витрина моделей (публичная страница)"
       />
@@ -1244,7 +1244,7 @@ for attempt in range(5):
   wallet: () => (
     <Page title="Кошелёк и заказы" lead="Страница кошелька собирает баланс, пополнения, подписки и историю заказов — центр всех операций с деньгами.">
       <Shot
-        src="/images/guide/daoxe/05-wallet.png"
+        src="/images/guide/daoxe/05-wallet.webp"
         alt="Кошелёк"
         caption="Страница кошелька (тот же скриншот, что в главе о пополнении)"
       />
@@ -1305,7 +1305,7 @@ for attempt in range(5):
       lead="Витрина — авторитетный источник полных цен и групп; каталог в документации — её live-выборка."
     >
       <Shot
-        src="/images/guide/daoxe/02-pricing.png"
+        src="/images/guide/daoxe/02-pricing.webp"
         alt="Витрина моделей"
         caption="Витрина моделей (публичная страница)"
       />

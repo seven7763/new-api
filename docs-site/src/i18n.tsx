@@ -518,7 +518,7 @@ function readLang(): Lang {
   return 'zh'
 }
 
-function htmlLang(l: Lang) {
+export function htmlLang(l: Lang) {
   return ({ zh: 'zh-CN', en: 'en', ru: 'ru', vi: 'vi' } as const)[l]
 }
 

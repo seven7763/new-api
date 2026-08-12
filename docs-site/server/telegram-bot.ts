@@ -67,11 +67,14 @@ const DOCS_BASE = env('DOCS_TG_DOCS_BASE', 'https://daoxe.com/docs').replace(/\/
 const REQUIRE_MENTION = !['0', 'false', 'no'].includes(
   env('DOCS_TG_REQUIRE_MENTION', '1').toLowerCase()
 )
-const COOLDOWN_MS = Number(env('DOCS_TG_COOLDOWN_MS', '4000')) || 4000
+const COOLDOWN_MS = Math.max(0, Number(env('DOCS_TG_COOLDOWN_MS', '4000')) || 4000)
 const MAX_REPLY = 3500
 const ALLOW_PRIVATE = !['0', 'false', 'no'].includes(
   env('DOCS_TG_ALLOW_PRIVATE', '1').toLowerCase()
 )
+// Cap simultaneous LLM calls: a busy group must not fan out into unbounded
+// upstream spend, and each answer already costs seconds of wall time.
+const MAX_CONCURRENT = Math.max(1, Number(env('DOCS_TG_MAX_CONCURRENT', '4')) || 4)
 
 if (!TOKEN) {
   console.error('[tg-bot] missing DOCS_TG_BOT_TOKEN')
@@ -87,6 +90,17 @@ if (!assistantServerConfig().enabled) {
 }
 
 const API = `https://api.telegram.org/bot${TOKEN}`
+
+/**
+ * Telegram embeds the bot token in the request path, so any error string that
+ * quotes a URL leaks it. Scrub the token and API-key shapes before logging.
+ */
+function redact(text: string): string {
+  return text
+    .split(TOKEN)
+    .join('[redacted-token]')
+    .replace(/\bsk-[A-Za-z0-9_-]{8,}/g, 'sk-[redacted]')
+}
 
 type TgUser = {
   id: number
@@ -126,6 +140,19 @@ let me: Me | null = null
 let offset = 0
 const recentUserAt = new Map<number, number>() // userId -> last answered
 const inflight = new Set<string>() // chatId:msgId
+let active = 0 // in-flight upstream answers
+
+/**
+ * Drop cooldown entries that can no longer block anyone. Without this the map
+ * keeps one entry per user seen since boot, which never stops growing in a
+ * process meant to run for weeks.
+ */
+function pruneCooldowns(now: number) {
+  if (recentUserAt.size < 1000) return
+  for (const [id, at] of recentUserAt) {
+    if (now - at > COOLDOWN_MS) recentUserAt.delete(id)
+  }
+}
 
 async function tg<T>(
   method: string,
@@ -156,7 +183,8 @@ function allowedChat(msg: TgMessage): boolean {
 function stripMentions(text: string, botUsername?: string): string {
   let out = text
   if (botUsername) {
-    out = out.replace(new RegExp(`@${botUsername}\\b`, 'gi'), ' ')
+    const escaped = botUsername.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
+    out = out.replace(new RegExp(`@${escaped}\\b`, 'gi'), ' ')
   }
   // drop bare /ask style commands prefix
   out = out.replace(/^\/(?:ask|help|start|docs)(?:@\w+)?\s*/i, '')
@@ -324,11 +352,17 @@ async function handleMessage(msg: TgMessage) {
     console.log('[tg-bot] skip: cooldown')
     return
   }
+  pruneCooldowns(now)
   recentUserAt.set(userId, now)
 
   const key = `${msg.chat.id}:${msg.message_id}`
   if (inflight.has(key)) return
+  if (active >= MAX_CONCURRENT) {
+    console.log(`[tg-bot] skip: busy active=${active}`)
+    return
+  }
   inflight.add(key)
+  active++
 
   try {
     await sendChatAction(msg.chat.id)
@@ -367,11 +401,13 @@ async function handleMessage(msg: TgMessage) {
     )
   } catch (err) {
     const msgErr = err instanceof Error ? err.message : String(err)
-    console.error(`[tg-bot] error: ${msgErr}`)
+    console.error(`[tg-bot] error: ${redact(msgErr)}`)
+    // Upstream error bodies can carry internal hosts, request ids or key
+    // fragments. Keep the detail in the server log, not in a public group.
     try {
       await replyTo(
         msg.chat.id,
-        `暂时无法回答（${msgErr.slice(0, 80)}）。请稍后再试，或直接看文档：${DOCS_BASE}`,
+        `暂时无法回答，请稍后再试，或直接看文档：${DOCS_BASE}`,
         msg.message_id
       )
     } catch {
@@ -379,6 +415,7 @@ async function handleMessage(msg: TgMessage) {
     }
   } finally {
     inflight.delete(key)
+    active--
   }
 }
 
@@ -419,20 +456,27 @@ async function pollLoop() {
           // fire-and-forget so one slow LLM doesn't block the poll
           void handleMessage(msg).catch((err) => {
             console.error(
-              `[tg-bot] handle crash: ${err instanceof Error ? err.message : String(err)}`
+              `[tg-bot] handle crash: ${redact(err instanceof Error ? err.message : String(err))}`
             )
           })
         }
       }
     } catch (err) {
       const m = err instanceof Error ? err.message : String(err)
-      console.error(`[tg-bot] poll error: ${m}`)
+      console.error(`[tg-bot] poll error: ${redact(m)}`)
       await Bun.sleep(2000)
     }
   }
 }
 
+// A rejected promise anywhere else must not take the long-poll loop down.
+process.on('unhandledRejection', (reason) => {
+  console.error(
+    `[tg-bot] unhandled rejection: ${redact(reason instanceof Error ? reason.message : String(reason))}`
+  )
+})
+
 pollLoop().catch((err) => {
-  console.error(err)
+  console.error(redact(err instanceof Error ? err.message : String(err)))
   process.exit(1)
 })

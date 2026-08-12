@@ -12,6 +12,7 @@ import {
 } from 'lucide-react'
 import { apiUrl } from '@/config'
 import { pickLang, useI18n } from '@/i18n'
+import { sanitizeHtml } from '@/lib/sanitize-html'
 import { useShell } from '@/shell/ShellContext'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
@@ -566,7 +567,7 @@ export function LiveContactBlock() {
       {footer ? (
         <details className="border-border bg-card rounded-xl border p-3 text-xs">
           <summary className="cursor-pointer font-semibold">{t('live.footerRaw')}</summary>
-          <div className="mt-2" dangerouslySetInnerHTML={{ __html: footer }} />
+          <div className="mt-2" dangerouslySetInnerHTML={{ __html: sanitizeHtml(footer) }} />
         </details>
       ) : null}
     </div>

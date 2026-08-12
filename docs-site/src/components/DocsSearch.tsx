@@ -136,6 +136,16 @@ export function DocsSearch() {
   )
   const navigable = query ? hits.map((h) => h.path) : quickList.map((e) => e.path)
 
+  // `?q=` deep link: opens the palette pre-filled so search results are
+  // shareable, and so the WebSite/SearchAction entry in the JSON-LD graph
+  // points at a target that actually resolves.
+  useEffect(() => {
+    const initial = new URLSearchParams(window.location.search).get('q')?.trim()
+    if (!initial) return
+    setQ(initial.slice(0, 120))
+    setOpen(true)
+  }, [])
+
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
       if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'k') {

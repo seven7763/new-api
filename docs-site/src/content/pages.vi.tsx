@@ -165,12 +165,12 @@ export const contentVi: Record<string, () => ReactNode> = {
   console: () => (
     <Page title="Tour bảng điều khiển" lead="Các mục thường dùng sau khi đăng nhập (ưu tiên menu console thực tế).">
       <Shot
-        src="/images/guide/daoxe/04-console.png"
+        src="/images/guide/daoxe/04-console.webp"
         alt="Tổng quan console"
         caption="Tổng quan console"
       />
       <Shot
-        src="/images/guide/daoxe/06-onboarding.png"
+        src="/images/guide/daoxe/06-onboarding.webp"
         alt="Hướng dẫn cho người mới"
         caption="Onboarding trên trang tổng quan / các bước «Bắt đầu»"
       />
@@ -236,10 +236,10 @@ export const contentVi: Record<string, () => ReactNode> = {
           </>,
         ]}
       />
-      <Shot src="/images/guide/daoxe/01-home.png" alt="Trang chủ" caption="Trang chủ DaoXE" />
-      <Shot src="/images/guide/daoxe/03-login.png" alt="Trang đăng nhập" caption="Trang đăng nhập" />
-      <Shot src="/images/guide/daoxe/03b-signup.png" alt="Trang đăng ký" caption="Trang đăng ký" />
-      <Shot src="/images/guide/daoxe/02-pricing.png" alt="Sàn mô hình" caption="Sàn mô hình (trang công khai)" />
+      <Shot src="/images/guide/daoxe/01-home.webp" alt="Trang chủ" caption="Trang chủ DaoXE" />
+      <Shot src="/images/guide/daoxe/03-login.webp" alt="Trang đăng nhập" caption="Trang đăng nhập" />
+      <Shot src="/images/guide/daoxe/03b-signup.webp" alt="Trang đăng ký" caption="Trang đăng ký" />
+      <Shot src="/images/guide/daoxe/02-pricing.webp" alt="Sàn mô hình" caption="Sàn mô hình (trang công khai)" />
       <CardGrid>
         <Card href={absSite('/sign-in')} title="Đăng nhập ↗" desc="daoxe.com/sign-in" />
         <Card href={absSite('/sign-up')} title="Đăng ký ↗" desc="daoxe.com/sign-up" />
@@ -259,7 +259,7 @@ export const contentVi: Record<string, () => ReactNode> = {
         ]}
       />
       <Shot
-        src="/images/guide/daoxe/05-wallet.png"
+        src="/images/guide/daoxe/05-wallet.webp"
         alt="Ví"
         caption="Trang ví: nạp tiền / gói / mã đổi thưởng"
       />
@@ -289,7 +289,7 @@ export const contentVi: Record<string, () => ReactNode> = {
         ]}
       />
       <Shot
-        src="/images/guide/daoxe/07-create-key.png"
+        src="/images/guide/daoxe/07-create-key.webp"
         alt="Tạo key"
         caption="Form tạo API key (key đã được che)"
       />
@@ -304,7 +304,7 @@ export const contentVi: Record<string, () => ReactNode> = {
     <Page title="Tuyến & Base URL" lead="Host và giao thức theo API công khai; các tuyến bên dưới đến từ status.api_info theo thời gian thực.">
       <LiveRoutesBlock />
       <Shot
-        src="/images/guide/daoxe/10-api-routes.png"
+        src="/images/guide/daoxe/10-api-routes.webp"
         alt="Thẻ API info trong console với các tuyến đã cấu hình và kiểm tra độ trễ"
         caption="Thẻ «API info» trong console — các tuyến đã cấu hình kèm kiểm tra độ trễ, cùng nguồn với danh sách thời gian thực ở trên"
       />
@@ -1155,7 +1155,7 @@ for attempt in range(5):
   'billing-logs': () => (
     <Page title="Số dư & nhật ký" lead="Nơi đầu tiên để đối soát và tra khoản trừ bất thường.">
       <Shot
-        src="/images/guide/daoxe/08-logs.png"
+        src="/images/guide/daoxe/08-logs.webp"
         alt="Nhật ký sử dụng"
         caption="Danh sách nhật ký sử dụng"
       />
@@ -1171,7 +1171,7 @@ for attempt in range(5):
         nhật ký.
       </p>
       <Shot
-        src="/images/guide/daoxe/09-dashboard.png"
+        src="/images/guide/daoxe/09-dashboard.webp"
         alt="Bảng thống kê console"
         caption="Tổng quan console · biểu đồ chi tiêu và thống kê sử dụng"
       />
@@ -1190,7 +1190,7 @@ for attempt in range(5):
       lead="Giá cuối = giá gốc mô hình × hệ số nhóm. Cả hai đều là dữ liệu thời gian thực — ưu tiên API và sàn mô hình."
     >
       <Shot
-        src="/images/guide/daoxe/02-pricing.png"
+        src="/images/guide/daoxe/02-pricing.webp"
         alt="Sàn mô hình"
         caption="Sàn mô hình (trang công khai)"
       />
@@ -1242,7 +1242,7 @@ for attempt in range(5):
   wallet: () => (
     <Page title="Ví & đơn hàng" lead="Trang ví gom số dư, nạp tiền, gói và lịch sử đơn — trung tâm cho mọi thao tác tiền bạc.">
       <Shot
-        src="/images/guide/daoxe/05-wallet.png"
+        src="/images/guide/daoxe/05-wallet.webp"
         alt="Ví"
         caption="Trang ví (cùng ảnh với chương nạp tiền)"
       />
@@ -1303,7 +1303,7 @@ for attempt in range(5):
       lead="Sàn là nguồn có thẩm quyền cho giá và nhóm đầy đủ; bảng mô hình trong tài liệu là mẫu thời gian thực của nó."
     >
       <Shot
-        src="/images/guide/daoxe/02-pricing.png"
+        src="/images/guide/daoxe/02-pricing.webp"
         alt="Sàn mô hình"
         caption="Sàn mô hình (trang công khai)"
       />

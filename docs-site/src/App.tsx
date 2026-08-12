@@ -1,6 +1,6 @@
 import { useLocation } from 'react-router-dom'
 import { Loader2 } from 'lucide-react'
-import { findNavByPath } from '@/config'
+import { docsUrl, findNavByPath, groupEntryPath, siteConfig } from '@/config'
 import {
   BreadcrumbBar,
   DocsFooter,
@@ -12,9 +12,10 @@ import { ShellProvider, useShell } from '@/shell/ShellContext'
 import { ArticleToc } from '@/components/ArticleToc'
 import { DocsAssistant } from '@/components/DocsAssistant'
 import { TableScrollFix } from '@/components/TableScrollFix'
-import { I18nProvider, useI18n } from '@/i18n'
+import { htmlLang, I18nProvider, useI18n } from '@/i18n'
 import { navTitle } from '@/i18n-nav'
 import { recordRecentVisit } from '@/lib/recent'
+import { applyDocumentSeo } from '@/lib/seo'
 import { loadRegistries, resolveRender, type Registry } from '@/lib/registry'
 import { useEffect, useState } from 'react'
 
@@ -44,10 +45,27 @@ function Article() {
   const title = item ? navTitle(item.id, lang, item.title) : t('crumb.docs')
 
   useEffect(() => {
-    document.title = `${title} · ${brand} Docs`
+    const group = item ? navTitle(item.groupId, lang, item.groupTitle) : ''
+    applyDocumentSeo({
+      title,
+      // Unique per page and derived from data we already have, so no page
+      // ships the generic site-wide description.
+      description: group
+        ? `${title} — ${brand} ${group}。${siteConfig.descriptionShort}`
+        : siteConfig.description,
+      path: item?.path || '/',
+      breadcrumbs: item
+        ? [
+            { name: t('crumb.docs'), url: docsUrl('/') },
+            { name: group, url: docsUrl(groupEntryPath(item.groupId)) },
+            { name: title, url: docsUrl(item.path) },
+          ]
+        : [],
+      locale: htmlLang(lang),
+    })
     window.scrollTo({ top: 0, behavior: 'instant' as ScrollBehavior })
     if (item) recordRecentVisit(item.path)
-  }, [location.pathname, title, brand, item])
+  }, [location.pathname, title, brand, item, lang, t])
 
   return (
     <article className="article" key={location.pathname + lang}>

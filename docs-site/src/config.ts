@@ -4,6 +4,12 @@ export const siteConfig = {
   tagline: 'AI API 网关文档',
   apiBase: 'https://daoxe.com',
   siteUrl: 'https://daoxe.com',
+  /** Path the docs bundle is mounted at. Must match `base` in vite.config.ts. */
+  docsPath: '/docs',
+  description:
+    'DaoXE 文档 — OpenAI / Anthropic / Gemini 兼容的 AI API 网关。快速开始、客户端接入、API 参考、计费说明与常见问题。',
+  /** Suffix for per-page descriptions; the full one is too long once a page title is prepended. */
+  descriptionShort: 'OpenAI / Anthropic / Gemini 兼容的 AI API 网关文档。',
   logo: 'https://pub-c7d601dad0a34aa5a4c2120181c189f9.r2.dev/logo.png',
   support: {
     telegram: 'https://t.me/daoxe_ai',
@@ -179,6 +185,14 @@ export function flatNav() {
   )
 }
 
+/**
+ * Landing page of a sidebar section. Groups are not routes of their own, so
+ * the breadcrumb entry for a section resolves to its first page.
+ */
+export function groupEntryPath(groupId: string) {
+  return nav.find((g) => g.id === groupId)?.items[0]?.path ?? '/'
+}
+
 export function findNavByPath(pathname: string) {
   const clean = pathname.replace(/\/$/, '') || '/'
   return flatNav().find((it) => it.path === clean) ?? null
@@ -193,6 +207,20 @@ export function absSite(path: string) {
 
 export function apiUrl(path: string) {
   return siteConfig.apiBase.replace(/\/$/, '') + path
+}
+
+/**
+ * Absolute public URL of a docs route (`/guide/keys` →
+ * `https://daoxe.com/docs/guide/keys`). Used for canonical links, Open Graph
+ * URLs and the sitemap, all of which must agree on one spelling per page.
+ */
+export function docsUrl(path: string) {
+  const origin = siteConfig.siteUrl.replace(/\/$/, '')
+  const mount = siteConfig.docsPath.replace(/\/$/, '')
+  // The bare mount point 301s to the trailing-slash form (see deploy/*.conf),
+  // so the index must advertise the post-redirect spelling.
+  if (!path || path === '/') return `${origin}${mount}/`
+  return `${origin}${mount}${path.replace(/\/$/, '')}`
 }
 
 /**

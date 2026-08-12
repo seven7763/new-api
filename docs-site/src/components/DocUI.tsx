@@ -156,8 +156,12 @@ export function Shot({
                 src={resolvedSrc}
                 alt={alt}
                 loading="lazy"
+                decoding="async"
                 onError={() => setBroken(true)}
-                className="mx-auto max-h-[min(52vh,480px)] w-full object-contain object-top transition group-hover:brightness-[0.97]"
+                // min-h matches the broken-state block so the figure reserves
+                // its row before the (lazy) image decodes — otherwise every
+                // screenshot shifts the article below it on load.
+                className="mx-auto min-h-44 max-h-[min(52vh,480px)] w-full object-contain object-top transition group-hover:brightness-[0.97]"
               />
               <span className="bg-background/90 text-foreground pointer-events-none absolute right-2 bottom-2 inline-flex items-center gap-1 rounded-lg border border-border px-2 py-1 text-[11px] font-medium opacity-0 shadow-sm backdrop-blur transition group-hover:opacity-100">
                 <ZoomIn className="size-3.5" /> {t('shot.zoom')}

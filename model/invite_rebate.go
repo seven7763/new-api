@@ -5,9 +5,14 @@ import (
 	"fmt"
 	"math"
 	"strings"
+	"sync"
+	"time"
 
 	"github.com/QuantumNous/new-api/common"
 	"github.com/QuantumNous/new-api/logger"
+	"github.com/QuantumNous/new-api/pkg/cachex"
+	"github.com/samber/hot"
+	"golang.org/x/sync/singleflight"
 	"gorm.io/gorm"
 )
 
@@ -593,32 +598,89 @@ type InviteRebateLeaderboardEntry struct {
 	IsMe           bool   `json:"is_me"`
 }
 
-// ListInviteRebateLeaderboard returns top inviters by rebate sum or invitee count.
-// by: "rebate" (default) or "invitees". limit capped to 100.
-func ListInviteRebateLeaderboard(by string, limit int, viewerId int) (items []InviteRebateLeaderboardEntry, myRank int, err error) {
-	if limit <= 0 {
-		limit = 20
+const (
+	inviteRebateLeaderboardCacheNamespace = "new-api:invite_rebate_leaderboard:v1"
+	// inviteRebateLeaderboardMaxLimit 是接口允许展示的最大条数。
+	inviteRebateLeaderboardMaxLimit = 100
+	// inviteRebateLeaderboardRankDepth 是快照缓存的深度，必须 >= 展示上限。
+	// 缓存得比展示更深，是为了让榜外查看者也能直接在快照里查到自己的名次，
+	// 不必像原实现那样为了一个名次再跑一遍两个全表聚合。
+	inviteRebateLeaderboardRankDepth = 500
+)
+
+// inviteRebateLeaderboardRow 是快照中的一行。用户名/昵称在写入缓存前就已脱敏，
+// 缓存里不落明文身份信息；是否为查看者本人由读取时按 viewerId 现算。
+type inviteRebateLeaderboardRow struct {
+	UserId         int    `json:"user_id"`
+	Username       string `json:"username"`
+	DisplayName    string `json:"display_name"`
+	InviteeCount   int64  `json:"invitee_count"`
+	RebateQuotaSum int64  `json:"rebate_quota_sum"`
+	TopupQuotaSum  int64  `json:"topup_quota_sum"`
+}
+
+type inviteRebateLeaderboardSnapshot struct {
+	Rows []inviteRebateLeaderboardRow `json:"rows"`
+}
+
+var (
+	inviteRebateLeaderboardCacheOnce sync.Once
+	inviteRebateLeaderboardCache     *cachex.HybridCache[inviteRebateLeaderboardSnapshot]
+	inviteRebateLeaderboardGroup     singleflight.Group
+)
+
+func inviteRebateLeaderboardCacheTTL() time.Duration {
+	ttlSeconds := common.GetEnvOrDefault("INVITE_REBATE_LEADERBOARD_CACHE_TTL", 60)
+	if ttlSeconds <= 0 {
+		ttlSeconds = 60
 	}
-	if limit > 100 {
-		limit = 100
+	return time.Duration(ttlSeconds) * time.Second
+}
+
+func getInviteRebateLeaderboardCache() *cachex.HybridCache[inviteRebateLeaderboardSnapshot] {
+	inviteRebateLeaderboardCacheOnce.Do(func() {
+		ttl := inviteRebateLeaderboardCacheTTL()
+		inviteRebateLeaderboardCache = cachex.NewHybridCache[inviteRebateLeaderboardSnapshot](cachex.HybridCacheConfig[inviteRebateLeaderboardSnapshot]{
+			Namespace: cachex.Namespace(inviteRebateLeaderboardCacheNamespace),
+			Redis:     common.RDB,
+			RedisEnabled: func() bool {
+				return common.RedisEnabled && common.RDB != nil
+			},
+			RedisCodec: cachex.JSONCodec[inviteRebateLeaderboardSnapshot]{},
+			Memory: func() *hot.HotCache[string, inviteRebateLeaderboardSnapshot] {
+				// 排序维度只有两种取值，单实例降级缓存不需要更大的容量。
+				return hot.NewHotCache[string, inviteRebateLeaderboardSnapshot](hot.LRU, 4).
+					WithTTL(ttl).
+					WithJanitor().
+					Build()
+			},
+		})
+	})
+	return inviteRebateLeaderboardCache
+}
+
+// inviteRebateLeaderboardSnapshotFor 返回按 by 排序的榜单快照。Redis 启用时快照跨
+// 实例共享，未启用时退化为进程内 LRU；两种情况都由 singleflight 合并并发回源，
+// 避免 TTL 到期瞬间多个查看者同时把两个全表聚合打到数据库上。
+func inviteRebateLeaderboardSnapshotFor(by string) (inviteRebateLeaderboardSnapshot, error) {
+	cache := getInviteRebateLeaderboardCache()
+	// 键包含全部影响快照内容的维度：排序 metric 与聚合深度。
+	// 展示条数只是对同一快照做切片，不参与键。
+	key := fmt.Sprintf("%s:%d", by, inviteRebateLeaderboardRankDepth)
+
+	snapshot, found, err := cache.Get(key)
+	if err != nil {
+		common.SysLog("invite rebate leaderboard cache read failed: " + err.Error())
+	} else if found {
+		return snapshot, nil
 	}
+
 	order := "rebate_quota_sum DESC, invitee_count DESC, user_id ASC"
 	if by == "invitees" {
 		order = "invitee_count DESC, rebate_quota_sum DESC, user_id ASC"
 	}
-
 	// Aggregate from users (invitee_count) left join rebate sums.
 	// Only users who invited at least one person OR earned rebate appear.
-	type row struct {
-		UserId         int
-		Username       string
-		DisplayName    string
-		InviteeCount   int64
-		RebateQuotaSum int64
-		TopupQuotaSum  int64
-	}
-	var rows []row
-	// Use subquery for invitee counts + rebate aggregates.
 	sql := `
 SELECT u.id AS user_id,
        u.username AS username,
@@ -643,78 +705,83 @@ WHERE u.deleted_at IS NULL
   AND (COALESCE(ic.cnt,0) > 0 OR COALESCE(rs.rebate_quota_sum,0) > 0)
 ORDER BY ` + order + `
 LIMIT ?`
-	err = DB.Raw(sql, InviteRebateStatusGranted, common.UserStatusEnabled, limit).Scan(&rows).Error
+
+	loaded, err, _ := inviteRebateLeaderboardGroup.Do(key, func() (any, error) {
+		var rows []inviteRebateLeaderboardRow
+		queryErr := DB.Raw(sql, InviteRebateStatusGranted, common.UserStatusEnabled, inviteRebateLeaderboardRankDepth).Scan(&rows).Error
+		if queryErr != nil {
+			return inviteRebateLeaderboardSnapshot{}, queryErr
+		}
+		for i := range rows {
+			rows[i].Username = maskInviteeLabel(rows[i].Username)
+			rows[i].DisplayName = maskInviteeLabel(rows[i].DisplayName)
+		}
+		fresh := inviteRebateLeaderboardSnapshot{Rows: rows}
+		if setErr := cache.SetWithTTL(key, fresh, inviteRebateLeaderboardCacheTTL()); setErr != nil {
+			common.SysLog("invite rebate leaderboard cache write failed: " + setErr.Error())
+		}
+		return fresh, nil
+	})
 	if err != nil {
-		return
+		return inviteRebateLeaderboardSnapshot{}, err
 	}
-	items = make([]InviteRebateLeaderboardEntry, 0, len(rows))
-	for i, r := range rows {
-		isMe := viewerId > 0 && r.UserId == viewerId
+	return loaded.(inviteRebateLeaderboardSnapshot), nil
+}
+
+// ListInviteRebateLeaderboard returns top inviters by rebate sum or invitee count.
+// by: "rebate" (default) or "invitees". limit capped to inviteRebateLeaderboardMaxLimit.
+// 结果来自短 TTL 的共享快照，因此最多滞后一个 TTL；榜单不要求实时。
+func ListInviteRebateLeaderboard(by string, limit int, viewerId int) (items []InviteRebateLeaderboardEntry, myRank int, err error) {
+	if limit <= 0 {
+		limit = 20
+	}
+	if limit > inviteRebateLeaderboardMaxLimit {
+		limit = inviteRebateLeaderboardMaxLimit
+	}
+	// 先归一化再进缓存：否则任意 by 取值都会生成一个新的缓存键。
+	if by != "invitees" {
+		by = "rebate"
+	}
+
+	snapshot, err := inviteRebateLeaderboardSnapshotFor(by)
+	if err != nil {
+		return nil, 0, err
+	}
+
+	// 名次直接在快照里查：深度内的查看者拿到精确名次，深度之外视为未上榜
+	// （myRank = 0，与"既没邀请也没返佣"同样处理）。这样榜外查看者也不会再
+	// 触发第二轮全表聚合。
+	if viewerId > 0 {
+		for i, row := range snapshot.Rows {
+			if row.UserId == viewerId {
+				myRank = i + 1
+				break
+			}
+		}
+	}
+
+	visible := snapshot.Rows
+	if len(visible) > limit {
+		visible = visible[:limit]
+	}
+	items = make([]InviteRebateLeaderboardEntry, 0, len(visible))
+	for i, row := range visible {
+		isMe := viewerId > 0 && row.UserId == viewerId
 		entry := InviteRebateLeaderboardEntry{
 			Rank: i + 1,
 			// Privacy: only reveal raw user_id for the viewer themselves.
 			UserId:         0,
-			Username:       maskInviteeLabel(r.Username),
-			DisplayName:    maskInviteeLabel(r.DisplayName),
-			InviteeCount:   r.InviteeCount,
-			RebateQuotaSum: r.RebateQuotaSum,
-			TopupQuotaSum:  r.TopupQuotaSum,
+			Username:       row.Username,
+			DisplayName:    row.DisplayName,
+			InviteeCount:   row.InviteeCount,
+			RebateQuotaSum: row.RebateQuotaSum,
+			TopupQuotaSum:  row.TopupQuotaSum,
 			IsMe:           isMe,
 		}
 		if isMe {
-			entry.UserId = r.UserId
-		}
-		if entry.IsMe {
-			myRank = entry.Rank
+			entry.UserId = row.UserId
 		}
 		items = append(items, entry)
 	}
-
-	// If viewer not in top list, compute their rank separately (optional nicety).
-	if viewerId > 0 && myRank == 0 {
-		type meRow struct {
-			InviteeCount   int64
-			RebateQuotaSum int64
-		}
-		var me meRow
-		_ = DB.Raw(`
-SELECT COALESCE((SELECT COUNT(*) FROM users WHERE inviter_id = ? AND deleted_at IS NULL),0) AS invitee_count,
-       COALESCE((SELECT SUM(rebate_quota) FROM invite_rebates WHERE inviter_id = ? AND status = 'granted'),0) AS rebate_quota_sum
-`, viewerId, viewerId).Scan(&me).Error
-		if me.InviteeCount > 0 || me.RebateQuotaSum > 0 {
-			// Count how many rank strictly above me
-			var better int64
-			if by == "invitees" {
-				_ = DB.Raw(`
-SELECT COUNT(*) FROM (
-  SELECT u.id,
-         COALESCE(ic.cnt,0) AS invitee_count,
-         COALESCE(rs.rebate_quota_sum,0) AS rebate_quota_sum
-  FROM users u
-  LEFT JOIN (SELECT inviter_id, COUNT(*) AS cnt FROM users WHERE inviter_id > 0 AND deleted_at IS NULL GROUP BY inviter_id) ic ON ic.inviter_id = u.id
-  LEFT JOIN (SELECT inviter_id, COALESCE(SUM(rebate_quota),0) AS rebate_quota_sum FROM invite_rebates WHERE status = 'granted' GROUP BY inviter_id) rs ON rs.inviter_id = u.id
-  WHERE u.deleted_at IS NULL AND u.status = ?
-    AND (COALESCE(ic.cnt,0) > 0 OR COALESCE(rs.rebate_quota_sum,0) > 0)
-) t
-WHERE t.invitee_count > ? OR (t.invitee_count = ? AND t.rebate_quota_sum > ?) OR (t.invitee_count = ? AND t.rebate_quota_sum = ? AND t.id < ?)
-`, common.UserStatusEnabled, me.InviteeCount, me.InviteeCount, me.RebateQuotaSum, me.InviteeCount, me.RebateQuotaSum, viewerId).Scan(&better).Error
-			} else {
-				_ = DB.Raw(`
-SELECT COUNT(*) FROM (
-  SELECT u.id,
-         COALESCE(ic.cnt,0) AS invitee_count,
-         COALESCE(rs.rebate_quota_sum,0) AS rebate_quota_sum
-  FROM users u
-  LEFT JOIN (SELECT inviter_id, COUNT(*) AS cnt FROM users WHERE inviter_id > 0 AND deleted_at IS NULL GROUP BY inviter_id) ic ON ic.inviter_id = u.id
-  LEFT JOIN (SELECT inviter_id, COALESCE(SUM(rebate_quota),0) AS rebate_quota_sum FROM invite_rebates WHERE status = 'granted' GROUP BY inviter_id) rs ON rs.inviter_id = u.id
-  WHERE u.deleted_at IS NULL AND u.status = ?
-    AND (COALESCE(ic.cnt,0) > 0 OR COALESCE(rs.rebate_quota_sum,0) > 0)
-) t
-WHERE t.rebate_quota_sum > ? OR (t.rebate_quota_sum = ? AND t.invitee_count > ?) OR (t.rebate_quota_sum = ? AND t.invitee_count = ? AND t.id < ?)
-`, common.UserStatusEnabled, me.RebateQuotaSum, me.RebateQuotaSum, me.InviteeCount, me.RebateQuotaSum, me.InviteeCount, viewerId).Scan(&better).Error
-			}
-			myRank = int(better) + 1
-		}
-	}
-	return
+	return items, myRank, nil
 }

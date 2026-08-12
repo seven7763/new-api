@@ -586,7 +586,16 @@ func (user *User) TransferAffQuotaToQuota(quota int) error {
 	}
 
 	// 提交事务
-	return tx.Commit().Error
+	if err := tx.Commit().Error; err != nil {
+		return err
+	}
+
+	// 授信入账后同步缓存余额：预扣以 user:<id> 哈希的 Quota 为准（存在期间），
+	// 不补进去的话转出来的额度要等缓存过期才可用。必须在提交之后执行，
+	// 事务内同步会把回滚掉的额度写进缓存。AffQuota 不在该哈希里（见
+	// UserBase / writeUserCache），因此只需同步 Quota 一侧。
+	syncCreditUserQuotaCache(user.Id, quota, "aff quota transfer")
+	return nil
 }
 
 func (user *User) prepareForInsert(tx *gorm.DB) error {
@@ -1334,6 +1343,21 @@ func DeltaUpdateUserQuota(id int, delta int) (err error) {
 	} else {
 		return DecreaseUserQuota(id, -delta, false)
 	}
+}
+
+// OverrideUserQuota 把余额直接改写为绝对值（管理员改额）。缓存里的 Quota 是
+// 增量维护的，绝对值改写没有对应的增量可补，因此整体失效 user:<id> 哈希，
+// 由下一次读取从数据库水合。不失效的话，被管理员清零的余额在缓存过期前仍可消费。
+func OverrideUserQuota(id int, quota int) error {
+	// 绝对值改写可能与当前值相同，MySQL 此时 RowsAffected 为 0，
+	// 因此这里不能用 RowsAffected 判断行是否存在。
+	if err := DB.Model(&User{}).Where("id = ?", id).Update("quota", quota).Error; err != nil {
+		return err
+	}
+	if err := invalidateUserCache(id); err != nil {
+		common.SysLog("failed to invalidate user quota cache after override: " + err.Error())
+	}
+	return nil
 }
 
 //func GetRootUserEmail() (email string) {

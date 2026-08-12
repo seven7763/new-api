@@ -276,7 +276,12 @@ function filterNavItems(
  */
 export function useSidebarConfig(navGroups: NavGroup[]): NavGroup[] {
   const { status } = useStatus()
-  const { auth } = useAuthStore()
+  const userSidebarModules = useAuthStore(
+    (state) => state.auth.user?.sidebar_modules
+  )
+  const canConfigureSidebar = useAuthStore(
+    (state) => state.auth.user?.permissions?.sidebar_settings
+  )
 
   const adminConfig = useMemo(
     () =>
@@ -292,11 +297,11 @@ export function useSidebarConfig(navGroups: NavGroup[]): NavGroup[] {
     // historical sidebar_modules value from a previous role would otherwise
     // hide admin entries for someone who has no in-product UI to restore
     // them.
-    if (auth?.user?.permissions?.sidebar_settings === false) {
+    if (canConfigureSidebar === false) {
       return null
     }
-    return parseUserSidebarConfig(auth?.user?.sidebar_modules)
-  }, [auth?.user?.permissions?.sidebar_settings, auth?.user?.sidebar_modules])
+    return parseUserSidebarConfig(userSidebarModules)
+  }, [canConfigureSidebar, userSidebarModules])
 
   const filteredNavGroups = useMemo(
     () =>
@@ -319,15 +324,20 @@ export function useSidebarConfig(navGroups: NavGroup[]): NavGroup[] {
  */
 export function useIsSidebarModuleVisible(url: string): boolean {
   const { status } = useStatus()
-  const { auth } = useAuthStore()
-
-  const adminConfig = parseSidebarConfig(
-    status?.SidebarModulesAdmin as string | null | undefined
+  const userSidebarModules = useAuthStore(
+    (state) => state.auth.user?.sidebar_modules
   )
-  const userConfig =
-    auth?.user?.permissions?.sidebar_settings === false
-      ? null
-      : parseUserSidebarConfig(auth?.user?.sidebar_modules)
+  const canConfigureSidebar = useAuthStore(
+    (state) => state.auth.user?.permissions?.sidebar_settings
+  )
+  const adminModules = status?.SidebarModulesAdmin as string | null | undefined
 
-  return isModuleEnabled(url, adminConfig, userConfig)
+  return useMemo(() => {
+    const adminConfig = parseSidebarConfig(adminModules)
+    const userConfig =
+      canConfigureSidebar === false
+        ? null
+        : parseUserSidebarConfig(userSidebarModules)
+    return isModuleEnabled(url, adminConfig, userConfig)
+  }, [adminModules, canConfigureSidebar, url, userSidebarModules])
 }

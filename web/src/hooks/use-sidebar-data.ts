@@ -35,9 +35,10 @@ import {
   Users,
   Wallet,
 } from 'lucide-react'
+import { useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { type SidebarData } from '@/components/layout/types'
+import type { SidebarData } from '@/components/layout/types'
 import { ROLE } from '@/lib/roles'
 
 /**
@@ -45,130 +46,136 @@ import { ROLE } from '@/lib/roles'
  *
  * These are shown when the URL does not match any nested sidebar view
  * registered in `layout/lib/sidebar-view-registry.ts`.
+ *
+ * The result is memoized on the translator so `useSidebarConfig` receives a
+ * stable `navGroups` reference and can skip re-filtering on every render.
  */
 export function useSidebarData(): SidebarData {
   const { t } = useTranslation()
 
-  return {
-    navGroups: [
-      {
-        id: 'chat',
-        title: t('Chat'),
-        items: [
-          {
-            title: t('Playground'),
-            url: '/playground',
-            icon: FlaskConical,
-          },
-          {
-            title: t('Chat'),
-            icon: MessageSquare,
-            type: 'chat-presets',
-          },
-        ],
-      },
-      {
-        id: 'general',
-        title: t('General'),
-        items: [
-          {
-            title: t('Overview'),
-            url: '/dashboard/overview',
-            icon: Activity,
-          },
-          {
-            title: t('Dashboard'),
-            url: '/dashboard/models',
-            icon: LayoutDashboard,
-          },
-          {
-            title: t('API Keys'),
-            url: '/keys',
-            icon: Key,
-          },
-          {
-            title: t('Usage Logs'),
-            url: '/usage-logs/common',
-            icon: FileText,
-          },
-          {
-            title: t('Task Logs'),
-            url: '/usage-logs/task',
-            activeUrls: ['/usage-logs/drawing'],
-            configUrls: ['/usage-logs/drawing', '/usage-logs/task'],
-            icon: ListTodo,
-          },
-        ],
-      },
-      {
-        id: 'personal',
-        title: t('Personal'),
-        items: [
-          {
-            title: t('Wallet'),
-            url: '/wallet',
-            icon: Wallet,
-          },
-          {
-            title: t('Invite Rebate'),
-            url: '/invite-rebate',
-            icon: Share2,
-          },
-          {
-            title: t('Profile'),
-            url: '/profile',
-            icon: User,
-          },
-        ],
-      },
-      {
-        id: 'admin',
-        title: t('Admin'),
-        items: [
-          {
-            title: t('Channels'),
-            url: '/channels',
-            icon: Radio,
-          },
-          {
-            title: t('Models'),
-            url: '/models/metadata',
-            icon: Box,
-          },
-          {
-            title: t('Users'),
-            url: '/users',
-            icon: Users,
-          },
-          {
-            title: t('Invite Rebates'),
-            url: '/invite-rebate/admin',
-            icon: Share2,
-          },
-          {
-            title: t('Redemption Codes'),
-            url: '/redemption-codes',
-            icon: Ticket,
-          },
-          {
-            title: t('Subscriptions'),
-            url: '/subscriptions',
-            icon: CreditCard,
-          },
-          {
-            title: t('System Info'),
-            url: '/system-info',
-            icon: ServerCog,
-            requiredRole: ROLE.SUPER_ADMIN,
-          },
-          {
-            title: t('System Settings'),
-            url: '/system-settings/site',
-            activeUrls: ['/system-settings'],
-            icon: Settings,
-          },
-        ],
-      },
-    ],
-  }
+  return useMemo<SidebarData>(
+    () => ({
+      navGroups: [
+        {
+          id: 'chat',
+          title: t('Chat'),
+          items: [
+            {
+              title: t('Playground'),
+              url: '/playground',
+              icon: FlaskConical,
+            },
+            {
+              title: t('Chat'),
+              icon: MessageSquare,
+              type: 'chat-presets',
+            },
+          ],
+        },
+        {
+          id: 'general',
+          title: t('General'),
+          items: [
+            {
+              title: t('Overview'),
+              url: '/dashboard/overview',
+              icon: Activity,
+            },
+            {
+              title: t('Dashboard'),
+              url: '/dashboard/models',
+              icon: LayoutDashboard,
+            },
+            {
+              title: t('API Keys'),
+              url: '/keys',
+              icon: Key,
+            },
+            {
+              title: t('Usage Logs'),
+              url: '/usage-logs/common',
+              icon: FileText,
+            },
+            {
+              title: t('Task Logs'),
+              url: '/usage-logs/task',
+              activeUrls: ['/usage-logs/drawing'],
+              configUrls: ['/usage-logs/drawing', '/usage-logs/task'],
+              icon: ListTodo,
+            },
+          ],
+        },
+        {
+          id: 'personal',
+          title: t('Personal'),
+          items: [
+            {
+              title: t('Wallet'),
+              url: '/wallet',
+              icon: Wallet,
+            },
+            {
+              title: t('Invite Rebate'),
+              url: '/invite-rebate',
+              icon: Share2,
+            },
+            {
+              title: t('Profile'),
+              url: '/profile',
+              icon: User,
+            },
+          ],
+        },
+        {
+          id: 'admin',
+          title: t('Admin'),
+          items: [
+            {
+              title: t('Channels'),
+              url: '/channels',
+              icon: Radio,
+            },
+            {
+              title: t('Models'),
+              url: '/models/metadata',
+              icon: Box,
+            },
+            {
+              title: t('Users'),
+              url: '/users',
+              icon: Users,
+            },
+            {
+              title: t('Invite Rebates'),
+              url: '/invite-rebate/admin',
+              icon: Share2,
+            },
+            {
+              title: t('Redemption Codes'),
+              url: '/redemption-codes',
+              icon: Ticket,
+            },
+            {
+              title: t('Subscriptions'),
+              url: '/subscriptions',
+              icon: CreditCard,
+            },
+            {
+              title: t('System Info'),
+              url: '/system-info',
+              icon: ServerCog,
+              requiredRole: ROLE.SUPER_ADMIN,
+            },
+            {
+              title: t('System Settings'),
+              url: '/system-settings/site',
+              activeUrls: ['/system-settings'],
+              icon: Settings,
+            },
+          ],
+        },
+      ],
+    }),
+    [t]
+  )
 }

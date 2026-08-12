@@ -68,7 +68,7 @@ export function AffiliateRewardsCard({
       <CardContent className='grid gap-3 p-3 sm:gap-4 sm:p-4 lg:grid-cols-[minmax(200px,1fr)_minmax(180px,0.65fr)_minmax(280px,1fr)] lg:items-center'>
         <div className='flex min-w-0 items-center gap-2.5'>
           <IconBadge tone='chart-3'>
-            <Share2 />
+            <Share2 aria-hidden='true' />
           </IconBadge>
           <div className='min-w-0'>
             <h3 className='truncate text-sm font-semibold'>
@@ -77,26 +77,41 @@ export function AffiliateRewardsCard({
             <p className='text-muted-foreground line-clamp-1 text-xs'>
               {t(
                 'Earn rewards when users join through your referral link. Transfer accumulated rewards to your balance anytime.'
-              )}{' '}
-              <Link to='/invite-rebate' className='text-primary underline-offset-2 hover:underline'>
-                {t('View top-up rebate details')}
-              </Link>
+              )}
             </p>
+            <Link
+              to='/invite-rebate'
+              className='text-primary text-xs underline-offset-2 hover:underline'
+            >
+              {t('View top-up rebate details')}
+            </Link>
           </div>
         </div>
 
         <div className='grid grid-cols-3 gap-1.5 text-center'>
           {[
-            [t('Pending'), formatQuota(user?.aff_quota ?? 0)],
-            [t('Total Earned'), formatQuota(user?.aff_history_quota ?? 0)],
-            [t('Invites'), String(user?.aff_count ?? 0)],
-          ].map(([label, value]) => (
-            <div key={label}>
+            {
+              id: 'pending',
+              label: t('Pending'),
+              value: formatQuota(user?.aff_quota ?? 0),
+            },
+            {
+              id: 'total-earned',
+              label: t('Total Earned'),
+              value: formatQuota(user?.aff_history_quota ?? 0),
+            },
+            {
+              id: 'invites',
+              label: t('Invites'),
+              value: String(user?.aff_count ?? 0),
+            },
+          ].map((stat) => (
+            <div key={stat.id}>
               <div className='text-muted-foreground truncate text-[10px] font-medium tracking-wider uppercase'>
-                {label}
+                {stat.label}
               </div>
               <div className='mt-0.5 truncate text-sm font-semibold tabular-nums'>
-                {value}
+                {stat.value}
               </div>
             </div>
           ))}
@@ -106,6 +121,7 @@ export function AffiliateRewardsCard({
           <Input
             value={affiliateLink}
             readOnly
+            aria-label={t('Your referral link')}
             className='border-muted bg-background/70 h-9 min-w-0 flex-1 font-mono text-xs'
           />
           <CopyButton

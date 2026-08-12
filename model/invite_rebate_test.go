@@ -320,6 +320,52 @@ func TestGrantInviteTopupRebate_BeforeEnabledCutoff(t *testing.T) {
 	assert.Equal(t, 0, inv.AffQuota)
 }
 
+// Enabling the feature writes the flag and the cutoff as two separate rows, and the
+// boot-time option replay applies them one at a time, so a top-up can settle while the
+// flag already reads true and the cutoff still reads zero. That window must not produce
+// a ledger row: backfill only looks at top-ups with no row at all, so a "skipped" marker
+// written here would withhold the rebate permanently.
+func TestGrantInviteTopupRebate_UnstampedCutoffStaysRecoverable(t *testing.T) {
+	setupInviteRebateTest(t)
+	common.InviteTopupRebateEnabledAt = 0
+	oldQuotaPerUnit := common.QuotaPerUnit
+	common.QuotaPerUnit = 500000
+	t.Cleanup(func() { common.QuotaPerUnit = oldQuotaPerUnit })
+
+	inviter := createIRUser(t, "ir_inviter_nostamp", 0, 0)
+	invitee := createIRUser(t, "ir_invitee_nostamp", inviter.Id, 0)
+	topUp := stampTopUpNow(&TopUp{
+		UserId:          invitee.Id,
+		Amount:          1,
+		Money:           7,
+		TradeNo:         "IR-NOSTAMP-1",
+		PaymentProvider: PaymentProviderEpay,
+		Status:          common.TopUpStatusSuccess,
+	})
+	require.NoError(t, DB.Create(topUp).Error)
+
+	require.NoError(t, GrantInviteTopupRebate(nil, invitee.Id, 500000, topUp))
+
+	var rows int64
+	require.NoError(t, DB.Model(&InviteRebate{}).Where("topup_id = ?", topUp.Id).Count(&rows).Error)
+	assert.Equal(t, int64(0), rows, "an unknown cutoff must not record a permanent verdict")
+	var deferred User
+	require.NoError(t, DB.First(&deferred, inviter.Id).Error)
+	assert.Equal(t, 0, deferred.AffQuota)
+
+	// Once the cutoff lands the same order is still reachable, which is the whole point
+	// of leaving no ledger row behind.
+	common.InviteTopupRebateEnabledAt = topUp.CompleteTime - 1
+	scanned, granted, err := BackfillMissingInviteTopupRebates(50)
+	require.NoError(t, err)
+	assert.Equal(t, 1, scanned)
+	assert.Equal(t, 1, granted)
+
+	var stored User
+	require.NoError(t, DB.First(&stored, inviter.Id).Error)
+	assert.Equal(t, 5000, stored.AffQuota, "1% of a 500000 quota top-up")
+}
+
 func TestBackfillMissingInviteTopupRebates_IgnoresHistorical(t *testing.T) {
 	setupInviteRebateTest(t)
 	inviter := createIRUser(t, "ir_inviter_hist", 0, 0)

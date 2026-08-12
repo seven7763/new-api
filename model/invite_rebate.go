@@ -135,13 +135,10 @@ func inviteRebateEffectiveTime(topUp *TopUp) int64 {
 }
 
 // inviteRebateBeforeEnabledCutoff is true when the top-up finished before the feature
-// was turned on (or before any enable stamp exists).
-func inviteRebateBeforeEnabledCutoff(topUp *TopUp) bool {
-	cutoff := common.InviteTopupRebateEnabledAt
-	if cutoff <= 0 {
-		// Never stamped: refuse grants (opening the feature must stamp EnabledAt).
-		return true
-	}
+// was turned on. cutoff must be a real stamp (> 0); callers decide separately what an
+// unstamped cutoff means, because "before the cutoff" is a permanent verdict and an
+// unknown cutoff must never produce one.
+func inviteRebateBeforeEnabledCutoff(topUp *TopUp, cutoff int64) bool {
 	ts := inviteRebateEffectiveTime(topUp)
 	if ts <= 0 {
 		// Live success paths should set CompleteTime; if missing, treat as "now"
@@ -172,8 +169,8 @@ func isDuplicateKeyError(err error) bool {
 //
 // Permanent non-grant outcomes (no inviter, zero base/rebate, missing users,
 // user_id mismatch) write status=skipped so backfill can advance.
-// Temporary conditions (disabled invitee/inviter) return without a ledger row
-// so a later backfill can grant after accounts are re-enabled.
+// Temporary conditions (disabled invitee/inviter, missing enable stamp) return
+// without a ledger row so a later backfill can grant once the condition clears.
 // Callers must not fail payment settlement when this returns an error.
 func GrantInviteTopupRebate(tx *gorm.DB, inviteeId int, topupQuota int, topUp *TopUp) error {
 	if !common.InviteTopupRebateEnabled {
@@ -191,9 +188,25 @@ func GrantInviteTopupRebate(tx *gorm.DB, inviteeId int, topupQuota int, topUp *T
 	if db == nil {
 		db = DB
 	}
+	// Temporary: the feature flag is on but the enable stamp is not readable yet
+	// (the administrator's toggle is mid-flight, or its option write failed). The
+	// cutoff is what separates "historical order" from "eligible order", so with no
+	// cutoff there is no verdict to record. A skip row here would be permanent and
+	// would hide this order from BackfillMissingInviteTopupRebates forever, because
+	// backfill selects on invite_rebates.id IS NULL. Nothing spins either: backfill
+	// also refuses to run while the cutoff is missing.
+	cutoff := common.InviteTopupRebateEnabledAt
+	if cutoff <= 0 {
+		common.SysError(fmt.Sprintf(
+			"invite topup rebate deferred: enable cutoff not stamped yet topup_id=%d invitee_id=%d",
+			topUp.Id, inviteeId,
+		))
+		return nil
+	}
+
 	// Historical top-ups before the feature was enabled never earn rebate.
 	// Write a permanent skip so backfill does not keep rescanning them.
-	if inviteRebateBeforeEnabledCutoff(topUp) {
+	if inviteRebateBeforeEnabledCutoff(topUp, cutoff) {
 		ratioBp := common.InviteTopupRebateRatioBp
 		if ratioBp < 0 {
 			ratioBp = 0

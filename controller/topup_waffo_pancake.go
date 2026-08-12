@@ -351,6 +351,10 @@ func RequestWaffoPancakePay(c *gin.Context) {
 		c.JSON(http.StatusOK, gin.H{"message": "error", "data": fmt.Sprintf("充值数量不能小于 %d", setting.WaffoPancakeMinTopUp)})
 		return
 	}
+	if maxTopup := getMaxTopup(); req.Amount > maxTopup {
+		c.JSON(http.StatusBadRequest, gin.H{"message": fmt.Sprintf("充值数量不能大于 %d", maxTopup), "data": ""})
+		return
+	}
 
 	id := c.GetInt("id")
 	user, err := model.GetUserById(id, false)

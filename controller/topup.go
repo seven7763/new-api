@@ -187,6 +187,20 @@ func getMinTopup() int64 {
 	return int64(minTopup)
 }
 
+// getMaxTopup returns the largest amount an order may request, expressed in the unit
+// the client sends: token counts under the tokens display type, currency units
+// otherwise (getMinTopup converts the configured minimum the same way). Above this the
+// order can never be credited — settlement converts the amount with
+// QuotaFromDecimalStrict, which refuses anything that would saturate the int32 quota
+// columns — so the order must be rejected before the customer is sent off to pay.
+func getMaxTopup() int64 {
+	maxTopup := common.MaxTopUpAmount()
+	if maxTopup <= 0 || operation_setting.GetQuotaDisplayType() != operation_setting.QuotaDisplayTypeTokens {
+		return maxTopup
+	}
+	return decimal.NewFromInt(maxTopup).Mul(decimal.NewFromFloat(common.QuotaPerUnit)).Floor().IntPart()
+}
+
 func RequestEpay(c *gin.Context) {
 	var req EpayRequest
 	err := c.ShouldBindJSON(&req)
@@ -196,6 +210,10 @@ func RequestEpay(c *gin.Context) {
 	}
 	if req.Amount < getMinTopup() {
 		c.JSON(http.StatusOK, gin.H{"message": "error", "data": fmt.Sprintf("充值数量不能小于 %d", getMinTopup())})
+		return
+	}
+	if maxTopup := getMaxTopup(); req.Amount > maxTopup {
+		c.JSON(http.StatusBadRequest, gin.H{"message": fmt.Sprintf("充值数量不能大于 %d", maxTopup), "data": ""})
 		return
 	}
 

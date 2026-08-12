@@ -111,6 +111,55 @@ func TestQuotaRoundChecked(t *testing.T) {
 	}
 }
 
+// MaxTopUpAmount is the ceiling payment order creation enforces so a customer is never
+// charged for an order settlement cannot credit. It therefore has to sit exactly on the
+// boundary of the strict conversion every settlement path runs: the advertised maximum
+// must convert, one unit more must not.
+func TestMaxTopUpAmountSitsOnTheStrictConversionBoundary(t *testing.T) {
+	original := QuotaPerUnit
+	t.Cleanup(func() { QuotaPerUnit = original })
+
+	testCases := []struct {
+		name         string
+		quotaPerUnit float64
+		expected     int64
+	}{
+		{name: "default configuration", quotaPerUnit: 500000, expected: 4294},
+		{name: "one thousand quota per unit", quotaPerUnit: 1000, expected: 2147483},
+		{name: "one quota per unit", quotaPerUnit: 1, expected: MaxQuota - 1},
+		{name: "fractional quota per unit", quotaPerUnit: 0.5, expected: 4294967292},
+		{name: "one unit already exhausts the ceiling", quotaPerUnit: float64(MaxQuota), expected: 0},
+	}
+	for _, tc := range testCases {
+		t.Run(tc.name, func(t *testing.T) {
+			QuotaPerUnit = tc.quotaPerUnit
+			maxAmount := MaxTopUpAmount()
+			require.Equal(t, tc.expected, maxAmount)
+			if maxAmount == 0 {
+				return
+			}
+
+			perUnit := decimal.NewFromFloat(tc.quotaPerUnit)
+			_, err := QuotaFromDecimalStrict(decimal.NewFromInt(maxAmount).Mul(perUnit))
+			assert.NoError(t, err, "the advertised maximum must still be creditable")
+			_, err = QuotaFromDecimalStrict(decimal.NewFromInt(maxAmount + 1).Mul(perUnit))
+			assert.Error(t, err, "one unit above the maximum must be refused")
+		})
+	}
+}
+
+// A QuotaPerUnit that cannot produce a positive quota makes every order uncreditable,
+// so the ceiling must refuse all of them rather than let orders collect payment.
+func TestMaxTopUpAmountRefusesEveryAmountWhenQuotaPerUnitIsUnusable(t *testing.T) {
+	original := QuotaPerUnit
+	t.Cleanup(func() { QuotaPerUnit = original })
+
+	for _, quotaPerUnit := range []float64{0, -500000, math.NaN(), math.Inf(1), math.Inf(-1)} {
+		QuotaPerUnit = quotaPerUnit
+		assert.Zero(t, MaxTopUpAmount(), "QuotaPerUnit=%v", quotaPerUnit)
+	}
+}
+
 // TestQuotaFromDecimalChecked verifies the decimal entry point reports clamps.
 func TestQuotaFromDecimalChecked(t *testing.T) {
 	quota, clamp := QuotaFromDecimalChecked(decimal.NewFromFloat(41.7))

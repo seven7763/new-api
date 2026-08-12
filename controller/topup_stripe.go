@@ -88,6 +88,14 @@ func (*StripeAdaptor) RequestPay(c *gin.Context, req *StripePayRequest) {
 	id := c.GetInt("id")
 	user, _ := model.GetUserById(id, false)
 	chargedMoney := GetChargedAmount(float64(req.Amount), *user)
+	// Stripe settles on Money (the amount scaled by the user's top-up group ratio)
+	// times QuotaPerUnit, so the int32 quota ceiling has to be checked against the
+	// charged amount rather than the raw request. Above it the paid order can never
+	// be credited and gets stuck pending.
+	if chargedMoney > float64(common.MaxTopUpAmount()) {
+		c.JSON(http.StatusBadRequest, gin.H{"message": "充值数量超出上限", "data": ""})
+		return
+	}
 
 	reference := fmt.Sprintf("new-api-ref-%d-%d-%s", user.Id, time.Now().UnixMilli(), randstr.String(4))
 	referenceId := "ref_" + common.Sha1([]byte(reference))

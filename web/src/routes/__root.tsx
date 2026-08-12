@@ -27,6 +27,7 @@ import {
 } from '@tanstack/react-router'
 import { TanStackRouterDevtools } from '@tanstack/react-router-devtools'
 import { useEffect } from 'react'
+import { useTranslation } from 'react-i18next'
 
 import { NavigationProgress } from '@/components/navigation-progress'
 import { Toaster } from '@/components/ui/sonner'
@@ -49,6 +50,7 @@ import { useAuthStore } from '@/stores/auth-store'
 function RootComponent() {
   const navigate = useNavigate()
   const queryClient = useQueryClient()
+  const { i18n } = useTranslation()
 
   // Load system configuration (logo, system name, etc.) from backend
   const { systemName } = useSystemConfig({ autoLoad: true })
@@ -95,20 +97,21 @@ function RootComponent() {
     [navigate, queryClient]
   )
 
-  // Keep document title/robots in sync with route: long-tail only on homepage.
+  // Keep document title/robots/canonical in sync with the route: long-tail
+  // titles and indexing are reserved for public marketing paths.
   useEffect(() => {
     try {
       const status = readCachedStatus()
-      const name =
-        systemName || String(status?.system_name || '') || 'New API'
+      const name = systemName || String(status?.system_name || '') || 'New API'
       applySeoFromStatus(status || { system_name: name }, {
         title: name,
         path: pathname || '/',
+        lang: i18n.language,
       })
     } catch {
       /* empty */
     }
-  }, [pathname, systemName])
+  }, [pathname, systemName, i18n.language])
 
   return (
     <ThemeCustomizationProvider>

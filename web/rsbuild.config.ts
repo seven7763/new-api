@@ -77,6 +77,12 @@ export default defineConfig(({ envMode }) => {
       distPath: {
         root: 'dist',
       },
+      // Matches the Rsbuild default, pinned explicitly so a future default
+      // change can never start shipping readable sources to production.
+      sourceMap: {
+        js: isProd ? false : 'cheap-module-source-map',
+        css: false,
+      },
       // Rely on Rsbuild default legalComments ("linked" → per-chunk *.LICENSE.txt) in all modes.
       // Do not set "none" in production: that strips minifier-preserved third-party notices and
       // extracted license files, which some distributions require for open-source compliance.

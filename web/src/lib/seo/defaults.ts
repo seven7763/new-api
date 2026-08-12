@@ -1,3 +1,27 @@
+/*
+Copyright (C) 2023-2026 QuantumNous
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU Affero General Public License as
+published by the Free Software Foundation, either version 3 of the
+License, or (at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+GNU Affero General Public License for more details.
+
+You should have received a copy of the GNU Affero General Public License
+along with this program. If not, see <https://www.gnu.org/licenses/>.
+
+For commercial licensing, please contact support@quantumnous.com
+*/
+/**
+ * Last-resort site name when neither the admin config nor the cached
+ * `/api/status` payload provides one.
+ */
+export const DEFAULT_SEO_SITE_NAME = 'DaoXE'
+
 export function defaultSeoDescription(lang?: string): string {
   const l = (lang || '').toLowerCase()
   if (l.startsWith('zh')) {
@@ -37,7 +61,7 @@ export function buildDocumentTitle(input: {
 }): string {
   const full = (input.fullTitle || '').trim()
   if (full) return full
-  const name = (input.title || '').trim() || 'DaoXE'
+  const name = (input.title || '').trim() || DEFAULT_SEO_SITE_NAME
   let suffix = (input.titleSuffix || '').trim()
   if (!suffix && input.allowDefaultSuffix) {
     suffix = defaultSeoTitleSuffix(input.lang)

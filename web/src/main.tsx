@@ -34,7 +34,11 @@ import { applyFaviconToDom } from '@/lib/dom-utils'
 import '@/lib/dayjs'
 import { initializeFrontendCache } from '@/lib/frontend-cache'
 import { handleServerError } from '@/lib/handle-server-error'
-import { applySeoFromStatus } from '@/lib/seo'
+import {
+  applySeoFromStatus,
+  readCachedStatus,
+  writeCachedStatus,
+} from '@/lib/seo'
 
 import { DirectionProvider } from './context/direction-provider'
 import { FontProvider } from './context/font-provider'
@@ -114,49 +118,36 @@ const rootElement = document.querySelector<HTMLElement>('#root')
 if (!rootElement) {
   throw new Error('Root element not found')
 }
-// Set document.title and favicon from cached status, then refresh from network
+// Paint title/meta/favicon from the cached status before React mounts, then
+// reconcile with the network. `applySeoFromStatus` owns document.title and the
+// meta tags, so this only has to feed it the freshest payload it can get.
 ;(function initSystemBranding() {
-  try {
-    if (typeof window === 'undefined' || typeof document === 'undefined') return
-    const apply = (name: string) => {
-      document.title = name
-      const metaTitle = document.querySelector(
-        'meta[name="title"]'
-      ) as HTMLMetaElement | null
-      if (metaTitle) metaTitle.setAttribute('content', name)
-    }
-    // Cache-first
-    try {
-      const saved = localStorage.getItem('status')
-      if (saved) {
-        const s = JSON.parse(saved)
-        if (s?.system_name) apply(s.system_name)
-        if (s?.logo) applyFaviconToDom(s.logo)
-        applySeoFromStatus(s)
-      }
-    } catch {
-      /* empty */
-    }
-    // Background refresh
-    getStatus()
-      .then((s) => {
-        if (s?.system_name) {
-          apply(s.system_name as string)
-          try {
-            localStorage.setItem('status', JSON.stringify(s))
-          } catch {
-            /* empty */
-          }
-        }
-        if (s?.logo) applyFaviconToDom(s.logo as string)
-        applySeoFromStatus(s as Record<string, unknown>)
-      })
-      .catch(() => {
-        /* empty */
-      })
-  } catch {
-    /* empty */
+  if (typeof window === 'undefined' || typeof document === 'undefined') return
+
+  // `./i18n/config` is imported above, so the detector has already resolved the
+  // language. Passing it here avoids painting the zh-CN defaults baked into
+  // index.html before the first React effect corrects them.
+  const lang = i18next.language
+
+  const cached = readCachedStatus()
+  if (cached) {
+    if (cached.logo) applyFaviconToDom(String(cached.logo))
+    applySeoFromStatus(cached, { lang })
   }
+
+  getStatus()
+    .then((status) => {
+      if (!status) return
+      // Cache unconditionally: keying the write on `system_name` used to pin
+      // every other field (SEO title, description, OG image) to a stale copy
+      // whenever the admin left the system name empty.
+      writeCachedStatus(status)
+      if (status.logo) applyFaviconToDom(String(status.logo))
+      applySeoFromStatus(status, { lang: i18next.language })
+    })
+    .catch(() => {
+      /* empty */
+    })
 })()
 if (!rootElement.innerHTML) {
   const root = ReactDOM.createRoot(rootElement)

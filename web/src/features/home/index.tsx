@@ -35,8 +35,10 @@ export function Home() {
   useHomeSeo()
   const iframeRef = useRef<HTMLIFrameElement>(null)
   const { resolvedTheme } = useTheme()
-  const { auth } = useAuthStore()
-  const isAuthenticated = !!auth.user
+  // Subscribe to the derived boolean, not the whole store: the landing page
+  // only branches on "signed in or not" and should not re-render for every
+  // token rotation or session update.
+  const isAuthenticated = useAuthStore((s) => !!s.auth.user)
   const { content, isLoaded, isUrl } = useHomePageContent()
 
   const syncIframePreferences = useCallback(() => {
@@ -82,14 +84,16 @@ export function Home() {
             causing inconsistent behavior. This token only permits user-activated
             top-level navigation and does NOT grant same-origin access.
           */}
-          <iframe
-            ref={iframeRef}
-            src={content}
-            className='h-screen w-full border-none'
-            title={t('Custom Home Page')}
-            sandbox='allow-forms allow-popups allow-popups-to-escape-sandbox allow-scripts allow-top-navigation-by-user-activation'
-            onLoad={syncIframePreferences}
-          />
+          <main>
+            <iframe
+              ref={iframeRef}
+              src={content}
+              className='h-screen w-full border-none'
+              title={t('Custom Home Page')}
+              sandbox='allow-forms allow-popups allow-popups-to-escape-sandbox allow-scripts allow-top-navigation-by-user-activation'
+              onLoad={syncIframePreferences}
+            />
+          </main>
         </PublicLayout>
       )
     }
@@ -99,12 +103,14 @@ export function Home() {
     if (contentIsHtml) {
       return (
         <PublicLayout showMainContainer={false}>
-          <RichContent
-            mode='html'
-            htmlVariant='isolated'
-            content={content}
-            className='custom-home-content'
-          />
+          <main>
+            <RichContent
+              mode='html'
+              htmlVariant='isolated'
+              content={content}
+              className='custom-home-content'
+            />
+          </main>
         </PublicLayout>
       )
     }
@@ -124,11 +130,15 @@ export function Home() {
 
   return (
     <PublicLayout showMainContainer={false}>
-      <Hero isAuthenticated={isAuthenticated} />
-      <Stats />
-      <Features />
-      <HowItWorks />
-      <CTA isAuthenticated={isAuthenticated} />
+      {/* PublicLayout skips its own <main> here, so the landing sections own
+          the document's main landmark. */}
+      <main>
+        <Hero isAuthenticated={isAuthenticated} />
+        <Stats />
+        <Features />
+        <HowItWorks />
+        <CTA isAuthenticated={isAuthenticated} />
+      </main>
       <Footer />
     </PublicLayout>
   )

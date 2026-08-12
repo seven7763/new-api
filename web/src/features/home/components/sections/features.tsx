@@ -82,6 +82,7 @@ export function Features(_props: FeaturesProps) {
             </div>
             <div className='absolute -top-1 -right-1 flex size-4 items-center justify-center rounded-full bg-emerald-500'>
               <svg
+                aria-hidden='true'
                 className='size-2.5 text-white'
                 fill='none'
                 viewBox='0 0 24 24'

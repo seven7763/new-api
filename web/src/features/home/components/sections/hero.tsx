@@ -34,6 +34,7 @@ interface HeroProps {
 // Stylized three-dots indicator representing "More"
 const MoreIcon = () => (
   <svg
+    aria-hidden='true'
     className='text-muted-foreground/60 group-hover:text-foreground size-6 shrink-0 transition-colors'
     viewBox='0 0 24 24'
     fill='none'

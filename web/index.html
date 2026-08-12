@@ -3,9 +3,13 @@
   <head>
     <meta charset="UTF-8" />
     <link rel="icon" type="image/png" href="/logo.png" />
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" sizes="any" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="google" content="notranslate" />
-    <meta name="theme-color" content="#ffffff" />
+    <meta name="color-scheme" content="light dark" />
+    <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)" />
+    <!-- Matches the dark canvas in src/styles/theme.css: oklch(0.235 0 0). -->
+    <meta name="theme-color" content="#1e1e1e" media="(prefers-color-scheme: dark)" />
 
     <!-- Primary Meta Tags (overridden at runtime from /api/status) -->
     <title>DaoXE - AI大模型API网关|OpenAI/Claude/Gemini兼容|统一接口管理与分发平台</title>
@@ -18,25 +22,37 @@
       name="keywords"
       content="AI API,大模型API,LLM网关,OpenAI兼容接口,Claude API,Gemini API,API聚合分发,模型管理,DaoXE"
     />
-    <meta name="robots" content="index,follow" />
+    <meta
+      name="robots"
+      content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1"
+    />
 
-    <!-- Open Graph -->
+    <!--
+      Open Graph. `og:url` is intentionally omitted: the deployment origin is not
+      known at build time, and a relative value is invalid per the OG spec, so
+      scrapers should fall back to the requested URL until the runtime layer
+      (src/lib/seo) writes the absolute one.
+    -->
     <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="DaoXE" />
+    <meta property="og:locale" content="zh_CN" />
     <meta property="og:title" content="DaoXE - AI大模型API网关|OpenAI/Claude/Gemini兼容|统一接口管理与分发平台" />
     <meta
       property="og:description"
       content="统一的 AI 模型网关与管理平台，支持 OpenAI / Claude / Gemini 兼容接口，集中管理多模型 API 密钥、渠道分发与用量计费。"
     />
-    <meta property="og:url" content="/" />
     <meta property="og:image" content="/logo.png" />
+    <meta property="og:image:alt" content="DaoXE" />
 
     <!-- Twitter -->
-    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="DaoXE - AI大模型API网关|OpenAI/Claude/Gemini兼容|统一接口管理与分发平台" />
     <meta
       name="twitter:description"
       content="统一的 AI 模型网关与管理平台，支持 OpenAI / Claude / Gemini 兼容接口，集中管理多模型 API 密钥、渠道分发与用量计费。"
     />
+    <meta name="twitter:image" content="/logo.png" />
+    <meta name="twitter:image:alt" content="DaoXE" />
 
     <!--umami-->
     <!--Google Analytics-->
@@ -44,5 +60,33 @@
 
   <body>
     <div id="root" translate="no" class="notranslate"></div>
+    <!--
+      Static fallback for crawlers and clients that do not execute JavaScript.
+      This app is client-rendered, so without it the served HTML has no body
+      copy at all. Keep it in sync with the default meta description above.
+    -->
+    <noscript>
+      <main>
+        <h1>DaoXE - AI 大模型 API 网关</h1>
+        <p>
+          统一的 AI 模型网关与管理平台，支持 OpenAI / Claude / Gemini
+          兼容接口，集中管理多模型 API 密钥、渠道分发与用量计费。
+        </p>
+        <p>
+          Unified AI API gateway and admin dashboard with OpenAI / Claude /
+          Gemini compatible APIs, multi-channel routing, key management and
+          usage billing.
+        </p>
+        <p>
+          本站需要启用 JavaScript 才能正常使用。 / This site requires JavaScript
+          to be enabled.
+        </p>
+        <ul>
+          <li><a href="/pricing">价格 / Pricing</a></li>
+          <li><a href="/rankings">排行 / Rankings</a></li>
+          <li><a href="/about">关于 / About</a></li>
+        </ul>
+      </main>
+    </noscript>
   </body>
 </html>

@@ -48,7 +48,10 @@ const SITE_SECTIONS = [
           'SEO.Keywords': settings['SEO.Keywords'],
           'SEO.SiteURL': settings['SEO.SiteURL'],
           'SEO.OGImage': settings['SEO.OGImage'],
-          'SEO.RobotsIndex': settings['SEO.RobotsIndex'],
+          // The options API returns booleans as "true"/"false" strings.
+          'SEO.RobotsIndex':
+            settings['SEO.RobotsIndex'] !== false &&
+            settings['SEO.RobotsIndex'] !== 'false',
           legal: {
             user_agreement: settings['legal.user_agreement'],
             privacy_policy: settings['legal.privacy_policy'],

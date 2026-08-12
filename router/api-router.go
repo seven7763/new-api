@@ -90,7 +90,7 @@ func SetApiRouter(router *gin.Engine) {
 				selfRoute.GET("/models", controller.GetUserModels)
 				selfRoute.PUT("/self", middleware.CriticalRateLimit(), middleware.DisableCache(), controller.UpdateSelf)
 				selfRoute.DELETE("/self", controller.DeleteSelf)
-				selfRoute.GET("/token", middleware.CriticalRateLimit(), middleware.DisableCache(), controller.GenerateAccessToken)
+				selfRoute.GET("/token", middleware.CriticalRateLimit(), middleware.UserCriticalRateLimit("access-token"), middleware.DisableCache(), controller.GenerateAccessToken)
 				selfRoute.GET("/passkey", controller.PasskeyStatus)
 				selfRoute.POST("/passkey/register/begin", middleware.DisableCache(), controller.PasskeyRegisterBegin)
 				selfRoute.POST("/passkey/register/finish", middleware.DisableCache(), controller.PasskeyRegisterFinish)
@@ -110,11 +110,12 @@ func SetApiRouter(router *gin.Engine) {
 				selfRoute.POST("/waffo/pay", middleware.CriticalRateLimit(), controller.RequestWaffoPay)
 				selfRoute.POST("/waffo-pancake/amount", controller.RequestWaffoPancakeAmount)
 				selfRoute.POST("/waffo-pancake/pay", middleware.CriticalRateLimit(), controller.RequestWaffoPancakePay)
-				selfRoute.POST("/aff_transfer", controller.TransferAffQuota)
+				selfRoute.POST("/aff_transfer", middleware.UserCriticalRateLimit("aff-transfer"), controller.TransferAffQuota)
 				selfRoute.GET("/invite_rebate/summary", controller.GetSelfInviteRebateSummary)
 				selfRoute.GET("/invite_rebate/logs", controller.GetSelfInviteRebateLogs)
 				selfRoute.GET("/invite_rebate/invitees", controller.GetSelfInviteRebateInvitees)
-				selfRoute.GET("/invite_rebate/leaderboard", controller.GetInviteRebateLeaderboard)
+				// Each call runs two full-table aggregations over users/invite_rebates.
+				selfRoute.GET("/invite_rebate/leaderboard", middleware.UserCriticalRateLimit("invite-rebate-leaderboard"), controller.GetInviteRebateLeaderboard)
 				selfRoute.PUT("/setting", controller.UpdateUserSetting)
 
 				// 2FA routes

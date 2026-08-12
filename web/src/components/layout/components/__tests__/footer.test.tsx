@@ -16,8 +16,8 @@ along with this program. If not, see <https://www.gnu.org/licenses/>.
 
 For commercial licensing, please contact support@quantumnous.com
 */
+import { afterAll, describe, test } from 'bun:test'
 import assert from 'node:assert/strict'
-import { after, describe, test } from 'node:test'
 
 import { installBrowserEnvironment } from '@/components/__tests__/browser-environment'
 
@@ -72,7 +72,7 @@ async function unmountFooter(rendered: RenderedFooter) {
 }
 
 describe('Footer custom HTML', () => {
-  after(() => {
+  afterAll(() => {
     domWindow.close()
   })
 

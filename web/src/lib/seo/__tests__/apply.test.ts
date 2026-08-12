@@ -16,8 +16,8 @@ along with this program. If not, see <https://www.gnu.org/licenses/>.
 
 For commercial licensing, please contact support@quantumnous.com
 */
+import { afterAll, beforeEach, describe, test } from 'bun:test'
 import assert from 'node:assert/strict'
-import { after, beforeEach, describe, test } from 'node:test'
 
 import { Window } from 'happy-dom'
 
@@ -57,7 +57,7 @@ beforeEach(() => {
   document.documentElement.lang = ''
 })
 
-after(() => {
+afterAll(() => {
   domWindow.close()
 })
 

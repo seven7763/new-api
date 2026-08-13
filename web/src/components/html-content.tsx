@@ -219,13 +219,95 @@ function IsolatedHtmlContent(props: {
       wrapper
     )
 
+    // Fragment navigation cannot reach into a shadow tree: the browser resolves
+    // `#section` with `document.getElementById`, which by design never sees
+    // shadow content, so the table of contents a long terms-of-service page
+    // needs most only moves the address bar. Resolving the jump against the
+    // shadow root restores what a reader expects from an anchor.
+    //
+    // The address bar is deliberately left alone. Writing the fragment would
+    // look like a copyable deep link, but the rule that breaks the jump also
+    // breaks the arrival: whoever opens that URL lands at the top, because the
+    // fragment is resolved long before this content has been fetched. The
+    // history entry would buy a promise the page cannot keep, and the link is
+    // still one context menu away.
+    const scrollToFragment = (event: Event) => {
+      const click = event as MouseEvent
+
+      // Only the plain primary click is the one the platform drops. A modified
+      // or secondary click is a request for a new tab, window, or menu, and
+      // stays with the browser.
+      if (
+        click.defaultPrevented ||
+        click.button !== 0 ||
+        click.altKey ||
+        click.ctrlKey ||
+        click.metaKey ||
+        click.shiftKey
+      ) {
+        return
+      }
+
+      const clicked = click.target
+
+      if (!(clicked instanceof Element)) {
+        return
+      }
+
+      const fragment = clicked
+        .closest('a[href^="#"], area[href^="#"]')
+        ?.getAttribute('href')
+        ?.slice(1)
+
+      if (!fragment) {
+        return
+      }
+
+      // Looked up as a literal id: a selector assembled from operator text
+      // would be an injection, and plenty of valid ids are invalid selectors.
+      // A typo, or the `#` and `#top` that mean the top of the document,
+      // resolves to nothing and the browser keeps handling the click.
+      // eslint-disable-next-line unicorn/prefer-query-selector -- an id from operator text must not become a selector
+      let destination = shadowRoot.getElementById(fragment)
+
+      // The browser tries the fragment verbatim and then percent-decoded, so a
+      // heading id an editor escaped on the way in is still reachable. A
+      // malformed escape throws and is no fragment the browser could resolve
+      // either.
+      if (!destination && fragment.includes('%')) {
+        try {
+          // eslint-disable-next-line unicorn/prefer-query-selector -- as above
+          destination = shadowRoot.getElementById(decodeURIComponent(fragment))
+        } catch {
+          return
+        }
+      }
+
+      if (!destination) {
+        return
+      }
+
+      click.preventDefault()
+      destination.scrollIntoView({
+        behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches
+          ? 'auto'
+          : 'smooth',
+        block: 'start',
+      })
+    }
+
+    shadowRoot.addEventListener('click', scrollToFragment)
+
     const observer = new MutationObserver(() => syncDarkClass(wrapper))
     observer.observe(document.documentElement, {
       attributes: true,
       attributeFilter: ['class'],
     })
 
-    return () => observer.disconnect()
+    return () => {
+      shadowRoot.removeEventListener('click', scrollToFragment)
+      observer.disconnect()
+    }
   }, [props.html])
 
   return (

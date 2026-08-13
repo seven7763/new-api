@@ -19,7 +19,10 @@ For commercial licensing, please contact support@quantumnous.com
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
-  --font-sans: 'Public Sans', sans-serif;
+  /* '@fontsource-variable/public-sans' registers the face as
+   * 'Public Sans Variable'; keep plain 'Public Sans' as an alias for a
+   * locally installed copy before falling back to the system sans. */
+  --font-sans: 'Public Sans Variable', 'Public Sans', sans-serif;
   /* Editorial serif token — the body face used by the `serif` font axis
    * and by presets that opt in (currently Anthropic). Lora carries only
    * Latin glyphs, so the stack walks through CJK serifs (Noto / Source Han

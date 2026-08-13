@@ -224,6 +224,66 @@ for (const group of nav) {
   if (!confRules.includes(rule)) fail(`nginx: deploy/daoxe-docs.conf is missing \`${rule}\``)
 }
 
+// Both file paths in that location are written against `alias`, and nginx
+// applies opposite rules to them. try_files strips the location prefix only
+// from parameters built out of variables, so the literal /docs/app.html that
+// used to sit in the list was appended to the alias whole — it looked for
+// /var/www/daoxe-docs/docs/app.html, the mount twice, and every unknown URL
+// fell through to `=404` and nginx's own error page. Dropping the prefix does
+// resolve, but a matched file test is a 200, i.e. a soft 404 on every typo. So
+// the shell comes from `error_page 404`, whose internal redirect re-enters this
+// location and IS resolved through $uri — that one needs the prefix back, and
+// an `=code` on it would replace the 404 with the file's own 200. `nginx -t`
+// accepts all four spellings, which is why they are pinned here.
+const docsLocation = `location ^~ ${mount}/ {`
+const blockStart = conf.indexOf(docsLocation)
+let blockEnd = -1
+for (
+  let i = blockStart + docsLocation.length - 1, depth = 0;
+  blockStart >= 0 && i < conf.length;
+  i++
+) {
+  if (conf[i] === '{') depth++
+  else if (conf[i] === '}' && --depth === 0) {
+    blockEnd = i
+    break
+  }
+}
+if (blockEnd < 0) {
+  fail(`nginx: deploy/daoxe-docs.conf has no closed \`${docsLocation}\` block`)
+} else {
+  // Comment-stripped: the block documents these very spellings in prose.
+  const block = conf.slice(blockStart, blockEnd).replace(/^[ \t]*#.*$/gm, '')
+  const tryFiles = block.match(/\btry_files\s+([^;]+);/)?.[1].trim().split(/\s+/) ?? []
+  if (tryFiles.length < 2) {
+    fail(`nginx: no try_files in \`${docsLocation}\``)
+  } else {
+    for (const param of tryFiles.slice(0, -1)) {
+      if (!param.startsWith('$')) {
+        fail(
+          `nginx: try_files file test \`${param}\` is a literal — under alias it tests ` +
+            `/var/www/daoxe-docs${param}, and a match would be a 200 soft 404`
+        )
+      }
+    }
+    if (tryFiles.at(-1) !== '=404') {
+      fail(`nginx: try_files must end in \`=404\` for error_page to fire, got \`${tryFiles.at(-1)}\``)
+    }
+  }
+
+  const errorPage = block.match(/\berror_page\s+404\s+([^;]+);/)?.[1].trim()
+  const shellUri = `${mount}/${relative(distDir, fallback)}`
+  if (!errorPage) {
+    fail(`nginx: no \`error_page 404 ${shellUri};\` — unknown URLs get nginx's own 404 page`)
+  } else if (errorPage !== shellUri) {
+    fail(
+      `nginx: \`error_page 404 ${errorPage};\` must be \`error_page 404 ${shellUri};\` — ` +
+        `an =code replaces the 404 with the shell's own 200, and without the ${mount} ` +
+        `prefix the internal redirect leaves this location`
+    )
+  }
+}
+
 // Sitemap coverage: same URL set, and each entry is a real file.
 const sitemap = await readFile(join(distDir, 'sitemap.xml'), 'utf8')
 const locs = [...sitemap.matchAll(/<loc>([^<]+)<\/loc>/g)].map((m) => m[1])

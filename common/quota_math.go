@@ -152,26 +152,3 @@ func QuotaFromDecimalChecked(d decimal.Decimal) (int, *QuotaClamp) {
 func QuotaFromDecimalStrict(d decimal.Decimal) (int, error) {
 	return strictQuota(QuotaFromDecimalChecked(d))
 }
-
-// MaxTopUpAmount returns the largest TopUp.Amount (a quantity of QuotaPerUnit
-// units) that still converts to a creditable quota. Payment order creation must
-// reject anything larger, because every settlement path converts
-// Amount * QuotaPerUnit with QuotaFromDecimalStrict: an oversized order is
-// refused after the customer has already paid, stays pending forever, and even
-// admin completion cannot repair it.
-//
-// Returns 0 when QuotaPerUnit is not a usable positive number. No amount can be
-// credited under such a configuration, so refusing every order is the only
-// answer that does not take money for quota that will never arrive.
-func MaxTopUpAmount() int64 {
-	if math.IsNaN(QuotaPerUnit) || math.IsInf(QuotaPerUnit, 0) || QuotaPerUnit <= 0 {
-		return 0
-	}
-	// The strict conversion treats MaxQuota itself as an overflow and rounds half
-	// away from zero before checking, so aim a whole quota unit below the ceiling.
-	amount := decimal.NewFromInt(MaxQuota - 1).Div(decimal.NewFromFloat(QuotaPerUnit)).Floor()
-	if amount.Sign() <= 0 {
-		return 0
-	}
-	return amount.IntPart()
-}

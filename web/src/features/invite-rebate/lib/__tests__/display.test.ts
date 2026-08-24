@@ -16,7 +16,7 @@ along with this program. If not, see <https://www.gnu.org/licenses/>.
 
 For commercial licensing, please contact support@quantumnous.com
 */
-import { describe, test } from 'bun:test'
+import { describe, test } from 'vitest'
 import assert from 'node:assert/strict'
 
 import { formatBasisPointsPercent, resolveInviteUserLabel } from '../display'

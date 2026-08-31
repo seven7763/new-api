@@ -1,0 +1,23 @@
+2026-08-25 01:39:43 | seq=1 | fp=git | prog=982a2e06b7f5 | bash | git diff --name-only ccd535ef8..origin/main ¦ grep -vE '^web/src/(i18n¦features¦lib¦styles¦test-setup¦vitest¦tsconfig)'  | 
+2026-08-25 01:41:08 | seq=2 | fp=echo | prog=982a2e06b7f5 | bash | cd /Users/hei/项目/newapi; echo "=== vitest.config.ts (theirs) ==="; git show origin/main:web/vitest.config.ts; echo "===  | 
+2026-08-25 01:52:27 | seq=3 | fp=echo | prog=982a2e06b7f5 | bash | echo "=== ssh config 相关条目 ==="; grep -A5 '152.53.242.23\¦53.242.23' ~/.ssh/config 2>/dev/null ¦¦ echo "无 config 条目"; ech | 
+2026-08-26 17:51:13 | seq=4 | fp=artifact-read | prog=982a2e06b7f5 | bash | grep -A5 "152.53.242.23" ~/.ssh/config 2>/dev/null; echo "---connect test---"; ssh -o ConnectTimeout=10 -o BatchMode=yes | 
+2026-08-26 19:14:32 | seq=5 | fp=echo | prog=982a2e06b7f5 | bash | ssh root@152.53.242.23 'echo "=== cwd ==="; ls -l /proc/961/cwd; echo; echo "=== 完整 cmdline ==="; tr "\0" " " < /proc/96 | 
+2026-08-26 19:16:08 | seq=6 | fp=artifact-read | prog=982a2e06b7f5 | bash | ssh root@152.53.242.23 'TOKEN=$(tr "\0" "\n" < /proc/961/environ ¦ grep "^DOCS_TG_BOT_TOKEN=" ¦ cut -d= -f2); echo "toke | 
+2026-08-26 19:18:41 | seq=7 | fp=artifact-read | prog=982a2e06b7f5 | bash | ssh root@152.53.242.23 'TOKEN=$(tr "\0" "\n" < /proc/961/environ ¦ grep "^DOCS_TG_BOT_TOKEN=" ¦ cut -d= -f2); echo "===  | 
+2026-08-28 14:21:51 | seq=8 | fp=for | prog=982a2e06b7f5 | bash | ssh root@152.53.242.23 'for s in daoxe-docs-assistant daoxe-docs-tgbot; do echo "=========== $s ==========="; systemctl  | 
+2026-08-28 14:31:25 | seq=9 | fp=echo | prog=982a2e06b7f5 | bash | ssh root@152.53.242.23 'cd /opt/daoxe-docs && echo "=== isQuestionLike 调用点 ==="; grep -n "isQuestionLike" server/telegra | 
+2026-08-28 14:35:11 | seq=10 | fp=for | prog=982a2e06b7f5 | bash | ssh root@152.53.242.23 'cd /opt/daoxe-docs && for F in .env .env.local; do grep -q "^DOCS_TG_ANSWER_ALL=" $F && sed -i " | 
+2026-08-28 14:40:17 | seq=11 | fp=for | prog=982a2e06b7f5 | bash | ssh root@152.53.242.23 'cd /opt/daoxe-docs && for F in .env .env.local; do sed -i "s/^DOCS_TG_ANSWER_ALL=.*/DOCS_TG_ANSW | 
+2026-08-28 14:47:23 | seq=12 | fp=echo | prog=982a2e06b7f5 | bash | ssh root@152.53.242.23 'cd /opt/daoxe-docs && echo "=== 最终 env ==="; grep -E "^DOCS_(ASSISTANT_MODEL¦TG_REQUIRE_MENTION¦ | 
+2026-08-28 15:13:31 | seq=13 | fp=for | prog=982a2e06b7f5 | bash | ssh root@152.53.242.23 'cd /opt/daoxe-docs && for F in .env .env.local; do grep -q "^DOCS_TG_GATE=" $F && sed -i "s/^DOC | 
+2026-08-28 15:21:30 | seq=14 | fp=echo | prog=982a2e06b7f5 | bash | ssh root@152.53.242.23 'cd /opt/daoxe-docs && echo "=== 生效配置（不含密钥）==="; grep -E "^DOCS_(TG_GATE¦TG_ALLOW_PRIVATE¦TG_COOL | 
+2026-08-28 20:12:42 | seq=15 | fp=artifact-read | prog=982a2e06b7f5 | bash | ssh root@152.53.242.23 'cd /opt/daoxe-docs && cat > /tmp/pat.ts <<"EOF" const patterns: RegExp[] = [ /\b(run¦execute¦exe | 
+2026-08-28 20:13:15 | seq=16 | fp=rm | prog=982a2e06b7f5 | bash | ssh root@152.53.242.23 'cd /opt/daoxe-docs && rm -f inject_test.ts && TS=$(date +%Y%m%d-%H%M%S) && cp server/chat-handle | 
+2026-08-28 20:20:21 | seq=17 | fp=echo | prog=982a2e06b7f5 | bash | ssh root@152.53.242.23 'cd /opt/daoxe-docs && echo "=== bot 路径请求体是否也禁 tools ==="; sed -n "700,720p" server/chat-handler. | 
+2026-08-29 03:13:00 | seq=18 | fp=echo | prog=982a2e06b7f5 | bash | ssh root@152.53.242.23 'echo "=== 暴露度评分 ===" systemd-analyze security daoxe-docs-tgbot 2>/dev/null ¦ tail -2 systemd-ana | 
+2026-08-29 03:16:04 | seq=19 | fp=echo | prog=982a2e06b7f5 | bash | ssh root@152.53.242.23 'echo "=== 6. 定价键数与占位价 ===" cat > /tmp/k.sql <<"SQL" SELECT key, count(*) FROM (SELECT key, jsonb | 
+2026-08-31 18:56:18 | seq=20 | fp=docker | prog=982a2e06b7f5 | bash | ssh 152.53.242.23 'docker logs new2api-green --since 72h 2>&1 ¦ grep -viE "GIN\]¦wp-¦gravitysmtp¦PHPMailer¦makeasmtp¦\.e | 
+2026-08-31 18:56:38 | seq=21 | fp=docker | prog=982a2e06b7f5 | bash | ssh 152.53.242.23 'docker logs new2api-green --since 168h 7d 2>/dev/null ¦ grep -iE "smtp¦gomail¦dial.*465¦send email¦邮件 | 
+2026-08-31 19:05:31 | seq=22 | fp=artifact-read | prog=982a2e06b7f5 | bash | ssh 152.53.242.23 'grep -rn "mangle\¦MARK" /etc/rc.local /etc/systemd/system/*.service 2>/dev/null ¦ grep 465; crontab - | 
+2026-08-31 19:05:59 | seq=23 | fp=artifact-read | prog=982a2e06b7f5 | bash | ssh 152.53.242.23 'echo ===rt_tables===; cat /etc/iproute2/rt_tables ¦ tail -5; echo ===table100===; ip route show table | 

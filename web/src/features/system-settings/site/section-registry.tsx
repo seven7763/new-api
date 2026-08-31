@@ -52,6 +52,7 @@ const SITE_SECTIONS = [
           'SEO.RobotsIndex':
             settings['SEO.RobotsIndex'] !== false &&
             settings['SEO.RobotsIndex'] !== 'false',
+          TaskPublicAddress: settings.TaskPublicAddress,
           legal: {
             user_agreement: settings['legal.user_agreement'],
             privacy_policy: settings['legal.privacy_policy'],

@@ -1,3 +1,4 @@
 ## @manual
-- next: Read the project files using filesystem tools (ls, find, Read) to understand the structure, key components, and any immediate issues or features to implement.
-- hypotheses: The codebase is a Go-based AI proxy/gateway with React frontend, supporting multiple LLM providers via relay adapters. Protected branding for QuantumNous/new-api. Pentest context on external target but primary focus on codebase maintenance.
+## @manual
+- next: None pending. Deployed 8564e08b2 (rc25+1) to production. All verified.
+- hypotheses: User maintains and deploys the new-api fork on their own infra; deployment procedure now documented in memory.

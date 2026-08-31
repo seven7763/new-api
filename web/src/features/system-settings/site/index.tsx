@@ -39,6 +39,7 @@ const defaultSiteSettings: SiteSettings = {
   'SEO.SiteURL': '',
   'SEO.OGImage': '',
   'SEO.RobotsIndex': true,
+  TaskPublicAddress: '',
   'legal.user_agreement': '',
   'legal.privacy_policy': '',
   HeaderNavModules: '',
